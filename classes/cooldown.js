@@ -1,4 +1,5 @@
 const cooldowns = new Set();
+const ms = require('ms')
 class cooldown {
   constructor(options) {
     this.options = options
