@@ -30,7 +30,6 @@ exports.run = (client, msg) => {
 
     // Defining the content from the message arguments
     let command = args.shift().toLowerCase();
-    logger.debug(require(`../commands/${command}`).help.botPerm)
     if (PermissionChecker(
       require(`../commands/${command}`).help.botPerm[0],
       require(`../commands/${command}`).help.authorPerm[0],
