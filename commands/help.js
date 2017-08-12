@@ -67,6 +67,7 @@ exports.run = async (bot,msg,args) => {
 };
 
 exports.help = {
+    category: 'util',
     usage: '[command Name]',
     description: 'shows the commands',
     detail: 'shows the commands',
