@@ -24,8 +24,8 @@ exports.run = async(client, msg, args) => {
 
 exports.help = {
     category   : 'util',
-    usage      : 'The command takes no arguments',
-    description: 'I will reply with pong fast as possible',
+    usage      : '[amount:integer]',
+    description: 'I will delete the amount of messages you want',
     detail     : 'When using purge the bot delete the amount of requested messages',
     botPerm    : ['MANAGE_MESSAGES', "SEND_MESSAGES"],
     authorPerm : ['MANAGE_MESSAGES', "SEND_MESSAGES"],
