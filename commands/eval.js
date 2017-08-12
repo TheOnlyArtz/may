@@ -109,6 +109,7 @@ exports.run = (client, msg, args) => {
 };
 
 exports.help = {
+    category   : 'DeveloperOnly',
     usage      : '<code>',
     description: 'Eval',
     detail     : 'Eval',
