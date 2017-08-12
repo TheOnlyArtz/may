@@ -43,7 +43,11 @@ exports.run = async (bot,msg,args) => {
                 help += `**${config.PREFIX}${helpName}** ${usage}\n\t${description}\n`;
                 let newBatch = batch + '\n' + help;
                 if (newBatch.length > (1024 - 8)) {
-                    msg.channel.send(newBatch);
+                    msg.channel.send({
+                      embed : {
+                        description : newBatch
+                      }
+                    });
                     batch = help;
                 }
                 else {
@@ -51,7 +55,11 @@ exports.run = async (bot,msg,args) => {
                 }
             });
             batch += `\nTotal Command Count: ${count}`;
-            msg.channel.send(batch)
+            msg.channel.send({
+              embed : {
+                description : batch
+              }
+            });
         });
 
     }
