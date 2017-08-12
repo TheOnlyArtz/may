@@ -11,6 +11,7 @@ let alias = {};
 
 fs.readdir('./commands/', (err, files) => {
     if (err) return console.error(err);
+    let commandIndex = 0
     files.forEach(file => {
         let
             info = require('./commands/' + file),
@@ -20,6 +21,7 @@ fs.readdir('./commands/', (err, files) => {
         for (alia of alias2) {
             alias[alia] = helpName;
         }
+        logger.info(`${commandIndex + 1}). ` + 'Loaded ' + helpName + ` successfuly`)
     });
 });
 
