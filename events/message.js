@@ -1,4 +1,25 @@
 const config = require('../config/config.json');
+const fs     = require('fs');
+
+let alias = {};
+
+
+fs.readdir('../commands/', (err, files) => {
+    if (err) return console.error(err);
+    let commandIndex = 0;
+    files.forEach(file => {
+        let
+            info = require('../commands/' + file),
+            helpName = file.split('.')[0],
+            alias2 = info.help.alias;
+
+        for (alia of alias2) {
+            alias[alia] = helpName;
+        }
+        logger.info(`${commandIndex + 1}). ` + 'Loaded ' + helpName + ` successfuly`)
+    });
+});
+
 
 exports.run = (client, msg) => {
     // Return if author is a client or the content of the message does not include a command
