@@ -40,8 +40,8 @@ exports.run = async (bot,msg,args) => {
                     info = helpInfo.help,
                     usage = info.usage,
                     description = info.description;
-                help += `**${config.PREFIX}${helpName}** ${usage}\n\t${description}\n`;
-                let newBatch = batch + '\n' + help;
+                help += `**${config.PREFIX}${helpName}** ${description}\n`;
+                let newBatch = batch + help;
                 if (newBatch.length > (1024 - 8)) {
                     msg.channel.send({
                       embed : {
