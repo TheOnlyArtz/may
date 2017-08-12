@@ -8,6 +8,7 @@ exports.run = async (client,msg,args) => {
 };
 
 exports.help = {
+    category: "fun",
     usage: 'takes no arguments',
     description: 'Get an useful advice',
     detail: 'Get an useful advice',
