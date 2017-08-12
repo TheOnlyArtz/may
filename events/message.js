@@ -44,7 +44,6 @@ exports.run = (client, msg) => {
     catch (err) {
         if (alias[command]) {
             let commandFile = require('../commands/' + alias[command] + '.js');
-            logger.debug(require(`../commands/${alias[command]}.js`).help.botPerm);
             if (PermissionChecker(
                     require(`../commands/${alias[command]}`).help.botPerm[0],
                     require(`../commands/${alias[command]}`).help.authorPerm[0],
