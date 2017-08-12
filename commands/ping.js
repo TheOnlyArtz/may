@@ -4,6 +4,7 @@ exports.run = async(client, msg, args) => {
 };
 
 exports.help = {
+    category   : 'util',
     usage      : 'The command takes no arguments',
     description: 'I will reply with pong fast as possible',
     detail     : 'When using ping the bot will display you the response time in ms',
