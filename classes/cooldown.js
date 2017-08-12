@@ -8,11 +8,13 @@ class cooldown {
     console.log(cooldowns);
     if (cooldowns.has(message.author.id && message.guild.id)) {
          message.reply('**[COOLDOWN]** Info command has **5 Minutes** Cooldown!');
+         return false;
     }
     cooldowns.add(message.author.id && message.guild.id);
     setTimeout(() => {
         cooldowns.delete(message.author.id && message.guild.id);
     }, this.options.time);
+    return true
   }
 }
 
