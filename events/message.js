@@ -16,7 +16,7 @@ fs.readdir('./commands/', (err, files) => {
         for (alia of alias2) {
             alias[alia] = helpName;
         }
-        logger.info(`${commandIndex++}). ` + 'Loaded ' + helpName + ` successfuly`)
+        logger.info(`${commandIndex++}). ` + 'Loaded ' + helpName + ` successfully`)
     });
 });
 
