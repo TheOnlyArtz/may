@@ -14,7 +14,6 @@ exports.help = {
     detail: 'Get an useful advice',
     botPerm    : ['SEND_MESSAGES'],
     authorPerm : ['SEND_MESSAGES'],
-    category : "fun",
     alias      : [
         null
     ]

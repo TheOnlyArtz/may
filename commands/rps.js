@@ -68,6 +68,7 @@ exports.run = async (client,msg,args) => {
 };
 
 exports.help = {
+
     usage: '[choice]',
     description: 'Rock, Paper or Scissors',
     detail: 'Rock, Paper or Scissors',

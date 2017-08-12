@@ -15,7 +15,6 @@ exports.help = {
     detail: 'Ask the magic 8 ball something',
     botPerm    : ['SEND_MESSAGES'],
     authorPerm : ['SEND_MESSAGES'],
-    category : "fun",
     alias      : [
         '8b'
     ]
