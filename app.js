@@ -16,3 +16,5 @@ fs.readdir('./events/', (err, files) => {
         client.on(eventName, (...args) => eventFunction.run(client, ...args));
     });
 });
+
+process.on('unhandledRejection', err => logger.error(err));
