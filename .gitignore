@@ -1,5 +1,11 @@
+configExample/
+
 node_modules/
+
 config/
+
 .idea/
+
 config
+
 !/may/configExample/exampleConfig.json
