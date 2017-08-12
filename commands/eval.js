@@ -109,10 +109,12 @@ exports.run = (client, msg, args) => {
 };
 
 exports.help = {
-    usage: '[code]',
-    description: 'Evaluate code',
-    detail: 'Evaluate code',
-    alias: [
-        'evul'
+    usage      : '<code>',
+    description: 'Eval',
+    detail     : 'Eval',
+    botPerm    : ['SEND_MESSAGES'],
+    authorPerm : ['SEND_MESSAGES'],
+    alias      : [
+        null
     ]
 };

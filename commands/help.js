@@ -70,7 +70,9 @@ exports.help = {
     usage: '[command Name]',
     description: 'shows the commands',
     detail: 'shows the commands',
-    alias: [
+    botPerm    : ['SEND_MESSAGES'],
+    authorPerm : ['SEND_MESSAGES'],
+    alias      : [
         'h',
         'halp'
     ]

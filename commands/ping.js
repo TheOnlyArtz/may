@@ -10,6 +10,6 @@ exports.help = {
     botPerm    : ['SEND_MESSAGES'],
     authorPerm : ['SEND_MESSAGES'],
     alias      : [
-        'pingu'
+        null
     ]
 };
