@@ -22,7 +22,7 @@ exports.run = async (bot,msg,args) => {
                     .setFooter(bot.user.username);
             msg.channel.send({embed});
         } catch (err) {
-            logger.error(err)
+            logger.error(err);
             msg.channel.send(`:x: ${config.PREFIX}${args[0]} is no command`)
         }
     }
@@ -39,7 +39,6 @@ exports.run = async (bot,msg,args) => {
                     helpInfo = require('./' + file),
                     helpName = file.split('.')[0],
                     info = helpInfo.help,
-                    usage = info.usage,
                     description = info.description;
                 help += `**${config.PREFIX}${helpName}** ${description}\n`;
                 let newBatch = batch + help;
