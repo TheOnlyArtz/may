@@ -37,9 +37,9 @@ fs.readdir('./events/', (err, files) => {
 
 // We should put this in an own file later
 
-client.on('message', async msg => {
+client.on('message', async (msg) => {
     // Return if author is a client or the content of the message does not include a command
-    if (msg.author.client || !msg.content.startsWith(config.PREFIX)) return;
+    if (msg.author.bot || !msg.content.startsWith(config.PREFIX)) return;
     // Creating the arguments array with the suffix of the content
     let args = msg.content.slice(config.PREFIX.length).trim().split(/ +/g);
 
