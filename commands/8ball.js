@@ -9,6 +9,7 @@ exports.run = async (client,msg,args) => {
 };
 
 exports.help = {
+    category: 'fun',
     usage: '[question]',
     description: 'Ask the magic 8 ball something',
     detail: 'Ask the magic 8 ball something',
