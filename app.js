@@ -57,7 +57,7 @@ client.on('message', async msg => {
                 commandFile.run(client, msg, args).catch(handler);
         }
         else {
-          return;
+
         }
 
     }
