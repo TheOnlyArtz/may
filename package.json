@@ -33,6 +33,7 @@
     "node-json-db": "^0.7.3",
     "node-opus": "^0.2.6",
     "opusscript": "0.0.3",
-    "snekfetch": "^3.2.9"
+    "snekfetch": "^3.2.9",
+    "spongeuscator": "^0.1.0"
   }
 }
