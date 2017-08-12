@@ -19,10 +19,11 @@ exports.run = async (bot,msg,args) => {
                     .addField('Usage', usage)
                     .addField('Alias', alias ? alias : 'None')
                     .setTimestamp()
-                    .setFooter(client.user.username);
+                    .setFooter(bot.user.username);
             msg.channel.send({embed});
         } catch (err) {
-            msg.channel.send(`:x: ${config.PREFIX}${args[0]} ist no command`)
+            logger.error(err)
+            msg.channel.send(`:x: ${config.PREFIX}${args[0]} is no command`)
         }
     }
     else {
