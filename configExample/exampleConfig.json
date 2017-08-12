@@ -1,4 +1,11 @@
+<<<<<<< current
 {
   "TOKEN": "TOKEN",
   "PREFIX": "+"
 }
+=======
+{
+  "TOKEN": "TOKEN",
+  "PREFIX": "-"
+}
+>>>>>>> before discard

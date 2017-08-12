@@ -36,8 +36,7 @@ exports.run = (client, msg) => {
       require(`../commands/${command}`).help.authorPerm[0],
       require(`../commands/${command}`),
       msg,
-      client
-    )) {return}
+      client)) {return}
     // Checking if the command has the potential to be a command
     try {
         let commandFile = require('../commands/' + command + '.js');
