@@ -19,7 +19,7 @@ exports.run = async (bot,msg,args) => {
                     .addField('Usage', usage)
                     .addField('Alias', alias ? alias : 'None')
                     .setTimestamp()
-                    .setFooter('May-Charlie');
+                    .setFooter(client.user.username);
             msg.channel.send({embed});
         } catch (err) {
             msg.channel.send(`:x: ${config.PREFIX}${args[0]} ist no command`)
