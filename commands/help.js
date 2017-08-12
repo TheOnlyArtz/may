@@ -16,8 +16,8 @@ exports.run = async (bot,msg,args) => {
                 embed = new discord.RichEmbed()
                     .setTitle('Command Information | ' + args[0])
                     .setDescription(detail)
-                    .addField('Usage', usage, true)
-                    .addField('Alias', alias ? alias : 'None', true)
+                    .addField('Usage', usage)
+                    .addField('Alias', alias ? alias : 'None')
                     .setTimestamp()
                     .setFooter('May-Charlie');
             msg.channel.send({embed});
