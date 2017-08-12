@@ -1,5 +1,5 @@
 const cooldowns = new Set();
-const ms = require('ms')
+const ms = require('ms');
 class cooldown {
   constructor(options) {
     this.options = options
@@ -14,7 +14,7 @@ class cooldown {
     cooldowns.add(message.author.id && message.guild.id);
     setTimeout(() => {
         cooldowns.delete(message.author.id && message.guild.id);
-    }, this.options.time);
+    }, ms(this.options.time));
     return true
   }
 }
