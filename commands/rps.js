@@ -3,8 +3,8 @@ const
         "scissors",
         "rock",
         "paper"
-    ]
-    ,rpsF = (userAns, botAns) => {
+    ],
+    rpsF = (userAns, botAns) => {
         let choice = userAns,
             botChoice = botAns;
         if (choice === "rock") {
