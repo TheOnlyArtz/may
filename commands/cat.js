@@ -1,10 +1,12 @@
-const sf = require('snekfetch');
 const coolClass = require('../classes/cooldown.js');
+const sf = require('snekfetch');
 exports.run = (client, msg, args) => {
   const cooldown  = new coolClass({time : "5 minutes"});
   if (cooldown.cooldownIt(msg)) {
-      console.log(cooldown.cooldowns);
-      sf.get('http://random.cat/meow').then(r => msg.channel.send(r.body))
+      sf.get('http://random.cat/meow').then(r => {
+        msg.channel.send(r.body)
+        console.log('sending');
+      })
   }
 };
 
