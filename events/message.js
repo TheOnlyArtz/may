@@ -33,7 +33,6 @@ exports.run = (client, msg) => {
     // Checking if the command has the potential to be a command
     try {
         let commandFile = require('../commands/' + command + '.js');
-        logger.debug(require(`../commands/${command}.js`).help.botPerm);
         if (PermissionChecker(
                 require(`../commands/${command}`).help.botPerm[0],
                 require(`../commands/${command}`).help.authorPerm[0],
