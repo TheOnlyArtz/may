@@ -1,17 +1,9 @@
 const sf = require('snekfetch')
-const calldown = [];
+const coolClass = require('../classes/cooldown.js');
 exports.run = (client, msg, args) => {
-  if (calldown.includes(msg.author.id)) {
-    return msg.reply('The cooldown is still active total (5 Minutes)')
-  }
-  setTimeout(() => {
-    calldown.pop(msg.author.id)
-  }, (60 * 5) * 1000)
-  if (calldown.includes(msg.author.id)) {
-    return msg.reply('The cooldown is still active total (5 Minutes)')
-  }
+  const cooldown  = new coolClass({time : 300000})
+  cooldown.cooldownIt(msg)
   sf.get('http://random.cat/meow').then(r => msg.channel.send(r.body))
-  calldown.push(msg.author.id)
 };
 
 exports.help = {
