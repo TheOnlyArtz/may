@@ -68,8 +68,8 @@ exports.run = async (bot,msg,args) => {
 
 exports.help = {
     usage: '[command Name]',
-    description: 'Alle commands',
-    detail: 'Alle commands',
+    description: 'shows the commands',
+    detail: 'shows the commands',
     alias: [
         'h',
         'halp'
