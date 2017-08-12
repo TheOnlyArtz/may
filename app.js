@@ -16,5 +16,3 @@ fs.readdir('./events/', (err, files) => {
         client.on(eventName, (...args) => eventFunction.run(client, ...args));
     });
 });
-
-// We should put this in an own file later
