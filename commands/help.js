@@ -39,9 +39,8 @@ exports.run = async (bot,msg,args) => {
                     helpInfo = require('./' + file),
                     helpName = file.split('.')[0],
                     info = helpInfo.help,
-                    usage = info.usage,
                     description = info.description;
-                help += `**${config.PREFIX}${helpName}** ${usage}\n ${description}\n`;
+                help += `**${config.PREFIX}${helpName}** ${description}\n`;
                 let newBatch = batch + help;
                 if (newBatch.length > (1024 - 8)) {
                     msg.channel.send({
