@@ -7,8 +7,7 @@ class cooldown {
   cooldownIt(message) {
     console.log(cooldowns);
     if (cooldowns.has(message.author.id && message.guild.id)) {
-        message.reply('**[COOLDOWN]** Info command has **5 Minutes** Cooldown!');
-        return
+         message.reply('**[COOLDOWN]** Info command has **5 Minutes** Cooldown!');
     }
     cooldowns.add(message.author.id && message.guild.id);
     setTimeout(() => {
