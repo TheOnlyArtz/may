@@ -38,7 +38,7 @@ exports.run = (client, msg) => {
     catch (err) {
         if (alias[command]) {
             let commandFile = require('../commands/' + alias[command] + '.js');
-            commandFile.run(client, msg, args).catch(handler);
+            commandFile.run(client, msg, args).catch(logger.error);
         }
         else {
             logger.error(err);
