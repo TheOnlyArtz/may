@@ -22,7 +22,7 @@ exports.run = async (bot,msg,args) => {
                     .setFooter(bot.user.username);
             msg.channel.send({embed});
         } catch (err) {
-            logger.error(err)
+            logger.error(err);
             msg.channel.send(`:x: ${config.PREFIX}${args[0]} is no command`)
         }
     }
@@ -41,7 +41,7 @@ exports.run = async (bot,msg,args) => {
                     info = helpInfo.help,
                     usage = info.usage,
                     description = info.description;
-                help += `**${config.PREFIX}${helpName}** ${description}\n`;
+                help += `**${config.PREFIX}${helpName}** ${usage}\n ${description}\n`;
                 let newBatch = batch + help;
                 if (newBatch.length > (1024 - 8)) {
                     msg.channel.send({
