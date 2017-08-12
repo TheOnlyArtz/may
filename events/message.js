@@ -1,6 +1,5 @@
 const config = require('../config/config.json');
 const fs     = require('fs');
-
 let alias = {};
 
 
@@ -16,7 +15,7 @@ fs.readdir('../commands/', (err, files) => {
         for (alia of alias2) {
             alias[alia] = helpName;
         }
-        logger.info(`${commandIndex + 1}). ` + 'Loaded ' + helpName + ` successfuly`)
+        logger.info(`${commandIndex + 1}). ` + 'Loaded ' + helpName + ` successfully`)
     });
 });
 
