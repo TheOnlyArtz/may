@@ -10,20 +10,19 @@ exports.run = async (bot,msg,args) => {
             let
                 cmd = require('./' + args[0]),
                 help = cmd.help,
-                usage = config.prefix + args[0] + ' ' + help.usage,
+                usage = config.PREFIX + args[0] + ' ' + help.usage,
                 detail = help.detail,
                 alias = help.alias.join(', '),
                 embed = new discord.RichEmbed()
                     .setTitle('Command Information | ' + args[0])
                     .setDescription(detail)
-                    .addField('Einfache Beschreibung', help.description, true)
-                    .addField('Nutzung', usage, true)
-                    .addField('Alias', alias, true)
+                    .addField('Usage', usage, true)
+                    .addField('Alias', alias ? alias : 'None', true)
                     .setTimestamp()
-                    .setFooter(config.username + ' by Charlie#3476');
+                    .setFooter('May-Charlie');
             msg.channel.send({embed});
         } catch (err) {
-            msg.channel.send(`:x: ${config.prefix}${args[0]} ist kein command`)
+            msg.channel.send(`:x: ${config.PREFIX}${args[0]} ist no command`)
         }
     }
     else {
@@ -31,7 +30,7 @@ exports.run = async (bot,msg,args) => {
         let count = 0;
         let batch = '';
         fs.readdir('./commands/', (err, files) => {
-            if (err) return console.error(err);
+            if (err) return logger.error(err);
             files.forEach(file => {
                 let help = "";
                 count++;
@@ -41,7 +40,7 @@ exports.run = async (bot,msg,args) => {
                     info = helpInfo.help,
                     usage = info.usage,
                     description = info.description;
-                help += `**${config.prefix}${helpName}** ${usage}\n\t${description}\n`;
+                help += `**${config.PREFIX}${helpName}** ${usage}\n\t${description}\n`;
                 let newBatch = batch + '\n' + help;
                 if (newBatch.length > (1024 - 8)) {
                     msg.channel.send(newBatch);
@@ -51,7 +50,7 @@ exports.run = async (bot,msg,args) => {
                     batch = newBatch;
                 }
             });
-            batch += `\nAnzahl an Commands: ${count}`;
+            batch += `\nTotal Command Count: ${count}`;
             msg.channel.send(batch)
         });
 
