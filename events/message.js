@@ -34,8 +34,8 @@ exports.run = (client, msg) => {
     try {
         let commandFile = require('../commands/' + command + '.js');
         if (PermissionChecker(
-                require(`../commands/${command}`).help.botPerm[0],
-                require(`../commands/${command}`).help.authorPerm[0],
+                require(`../commands/${command}`).help.botPerm,
+                require(`../commands/${command}`).help.authorPerm,
                 require(`../commands/${command}`),
                 msg,
                 client)) {return}
@@ -45,8 +45,8 @@ exports.run = (client, msg) => {
         if (alias[command]) {
             let commandFile = require('../commands/' + alias[command] + '.js');
             if (PermissionChecker(
-                    require(`../commands/${alias[command]}`).help.botPerm[0],
-                    require(`../commands/${alias[command]}`).help.authorPerm[0],
+                    require(`../commands/${alias[command]}`).help.botPerm,
+                    require(`../commands/${alias[command]}`).help.authorPerm,
                     require(`../commands/${alias[command]}`),
                     msg,
                     client)) {return}
