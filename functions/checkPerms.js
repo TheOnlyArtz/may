@@ -7,7 +7,7 @@ function checkForPermissions(botPermissions, authorPermissions, cmd, msg, client
     throw Error(`You must specify command name`);
   }
 
-  if (!msg.guild.member(client.user).hasPermission(cmd.help.botPerm[0])) {
+  if (!msg.guild.member(client.user).hasPermission(botPermissions)) {
     return msg.channel.send(`I cannot make it through the command Reason: Missing permissions (${cmd.help.botPerm})`)
       .catch(e => {
         logger.error(e)
@@ -15,7 +15,7 @@ function checkForPermissions(botPermissions, authorPermissions, cmd, msg, client
       });
   }
 
-  if (!msg.guild.member(msg.author).hasPermission(cmd.help.authorPerm[0])) {
+  if (!msg.guild.member(msg.author).hasPermission(authorPermissions)) {
     return msg.channel.send(`I cannot make it through the command Reason: Missing permissions (${cmd.help.authorPerm})`)
       .catch(e => {
         logger.error(e)
