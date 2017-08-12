@@ -1,6 +1,6 @@
 const config = require('../config/config.json');
 const fs     = require('fs');
-const PermissionChecker = require('../functions/checkPerms.js')
+const PermissionChecker = require('../functions/checkPerms.js');
 
 let alias = {};
 
@@ -30,24 +30,32 @@ exports.run = (client, msg) => {
 
     // Defining the content from the message arguments
     let command = args.shift().toLowerCase();
-    if (PermissionChecker(
-      require(`../commands/${command}`).help.botPerm[0],
-      require(`../commands/${command}`).help.authorPerm[0],
-      require(`../commands/${command}`),
-      msg,
-      client)) {return}
     // Checking if the command has the potential to be a command
     try {
         let commandFile = require('../commands/' + command + '.js');
+        logger.debug(require(`../commands/${command}.js`).help.botPerm);
+        if (PermissionChecker(
+                require(`../commands/${command}`).help.botPerm[0],
+                require(`../commands/${command}`).help.authorPerm[0],
+                require(`../commands/${command}`),
+                msg,
+                client)) {return}
         commandFile.run(client, msg, args);
     }
     catch (err) {
         if (alias[command]) {
             let commandFile = require('../commands/' + alias[command] + '.js');
+            logger.debug(require(`../commands/${alias[command]}.js`).help.botPerm);
+            if (PermissionChecker(
+                    require(`../commands/${alias[command]}`).help.botPerm[0],
+                    require(`../commands/${alias[command]}`).help.authorPerm[0],
+                    require(`../commands/${alias[command]}`),
+                    msg,
+                    client)) {return}
             commandFile.run(client, msg, args).catch(logger.error);
         }
         else {
-            logger.error(err);
+            logger.debug(err + ' this is when no alias or command');
         }
 
     }
