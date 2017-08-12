@@ -1,5 +1,6 @@
 const config = require('../config/config.json');
 const fs     = require('fs');
+const PermissionChecker = require('../functions/checkPerms.js')
 
 let alias = {};
 
@@ -29,7 +30,14 @@ exports.run = (client, msg) => {
 
     // Defining the content from the message arguments
     let command = args.shift().toLowerCase();
-
+    logger.debug(require(`../commands/${command}`).help.botPerm)
+    if (PermissionChecker(
+      require(`../commands/${command}`).help.botPerm[0],
+      require(`../commands/${command}`).help.authorPerm[0],
+      require(`../commands/${command}`),
+      msg,
+      client
+    )) {return}
     // Checking if the command has the potential to be a command
     try {
         let commandFile = require('../commands/' + command + '.js');
