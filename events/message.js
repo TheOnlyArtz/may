@@ -4,8 +4,8 @@ const fs     = require('fs');
 let alias = {};
 
 
-fs.readdir('../commands/', (err, files) => {
-    if (err) return console.error(err);
+fs.readdir('./commands/', (err, files) => {
+    if (err) return logger.error(err);
     let commandIndex = 0;
     files.forEach(file => {
         let
