@@ -39,11 +39,18 @@ class embedMessage {
 
     /**
     *@returns {Object}
+    *@param {boolean} inline
     *@param {string} title
     *@param {string} content
     */
     for (let i = 0; i < options.fields.length; i++) {
-      embed.addField(options.fields[i].title, options.fields[i].content)
+      let inline;
+      if (!options.fields[i].inline) {
+        inline = false
+      } else if (options.fields[i].inline === true) {
+        inline = true
+      }
+      embed.addField(options.fields[i].title, options.fields[i].content, inline)
     }
 
     /**
