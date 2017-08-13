@@ -1,7 +1,6 @@
 exports.run = async(client, msg, args) => {
   const moment = require('moment');
   const ms = require('ms')
-  const uptime = require('../functions/botUptime.js')
   let DiscordMoji = msg.guild.emojis.find('name', 'discord')
   embedMessage.advanced({
     author : {
@@ -16,7 +15,7 @@ exports.run = async(client, msg, args) => {
     },
     {
       title : `💻Process:`,
-      content : `**uptime:** ${ms(client.uptime, { long: true })}`
+      content : `**Online since:** ${ms(client.uptime, { long: false })}`
     }
     ],
     thumbnail : client.user.displayAvatarURL
