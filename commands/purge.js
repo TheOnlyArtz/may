@@ -1,25 +1,28 @@
 exports.run = async(client, msg, args) => {
-  let amount = msg.content.split(' ')[1]
-  let actualAmountInt = parseInt(amount) + 1;
-
-  if (!amount) {
-    return msg.channel.send('Please specify amount of messages to delete.');
-  }
-
-
-  if (actualAmountInt > 99) {
-    return msg.channel.send('The max I can delete are 100 messages at once')
-  }
-
-  msg.channel.fetchMessages({
-    limit: actualAmountInt
-  }).then(r => {
-    r.map(o => o.channel.bulkDelete(actualAmountInt))
-    logger.info(`Deleted ${actualAmountInt - 1} messages inside ${r.map(o => o.channel.name)[0]}`)
+  let messagecount = parseInt(args.join(' '));
+ /*
+  Check if msg is higher or lower then the limits
+ */
+    if (!messagecount) {
+        return msg.reply('How many messages?');
+    }
+    if (messagecount > 100) {
+        return msg.reply(`Purge has limits: you cant delete 101 messages per purge`);
+    }
+    /*
+    Actual purge
+    */
+    let ms;
+    if (messagecount === 1) {
+        ms = 2;
+    } else {
+        ms = messagecount;
+    }
+    msg.channel.fetchMessages({limit: messagecount}).then(messages => msg.channel.bulkDelete(ms))
+  .catch(err => {
+      logger.error(err, msg.channel.send('I cant delete msg that are older than a 14 days'));
   })
-    .catch(e => {
-      msg.channel.send('Amount has to be a number.')
-    })
+  .catch(e => logger.error(e));
 };
 
 exports.help = {
