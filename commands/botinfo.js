@@ -1,11 +1,12 @@
 exports.run = async(client, msg, args) => {
+  let DiscordMoji = msg.guild.emojis.find('name', 'discord')
   embedMessage.advanced({
     author : {
       name : `Take a look at my info`,
       pic  : client.user.displayAvatarURL
     },
     fields : [{
-        title : "My Detailed Info:",
+        title : `${DiscordMoji}My Discord Info:`,
         content: `**Username:** ${client.user.username}\n\
 **Descriminator:** ${client.user.tag}\n\
 **ID:** ${client.user.id}`
