@@ -22,8 +22,8 @@ fs.readdir('./commands/', (err, files) => {
 });
 
 
+const embedClass  = require('../classes/embedMessage.js');
 exports.run = (client, msg) => {
-  const embedClass  = require('../classes/embedMessage.js');
   embedMessage      = new embedClass(msg)
     // Return if author is a client or the content of the message does not include a command
     if (msg.author.bot || !msg.content.startsWith(config.PREFIX) || !msg.guild) return;
