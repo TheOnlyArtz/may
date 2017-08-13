@@ -18,7 +18,13 @@ exports.run = async(client, msg, args) => {
     } else {
         ms = messagecount;
     }
-    msg.channel.fetchMessages({limit: messagecount}).then(messages => msg.channel.bulkDelete(ms))
+    msg.channel.fetchMessages({limit: messagecount}).then(async messages => {
+      msg.channel.bulkDelete(ms)
+      let promise = await msg.channel.send(`Deleted ${messagecount}`)
+      promise.delete({
+        time: 2.5 * 1000
+      })
+    })
   .catch(err => {
       logger.error(err, msg.channel.send('I cant delete msg that are older than a 14 days'));
   })
