@@ -1,7 +1,10 @@
+var usageMb = process.memoryUsage().heapUsed / 1024 / 1024;
+var usage = usageMb.toFixed(2);
 exports.run = async(client, msg, args) => {
   const moment = require('moment');
   const ms = require('ms')
-  let DiscordMoji = msg.guild.emojis.find('name', 'discord')
+  let DiscordMoji = client.guilds.get("345948633184862218").emojis.find('name', 'discord');
+  let SocialMoji = client.guilds.get("345948633184862218").emojis.find('name', 'social');
   embedMessage.advanced({
     author : {
       name : `Take a look at my info`,
@@ -15,7 +18,17 @@ exports.run = async(client, msg, args) => {
     },
     {
       title : `💻Process:`,
-      content : `**Online since:** ${ms(client.uptime, { long: false })}`
+      content : `**Online since:** ${ms(client.uptime, { long: true })}\n\
+**Memory Usage:** ${usage} MB\n\
+**Operation System:** ${require('os').platform()}`,
+      inline: true
+    },
+    {
+      title : `${SocialMoji}Social`,
+      content : `**Total Guilds:** ${client.guilds.size}\n\
+**Total Users:** ${client.users.filter(i => !i.bot).size}\n\
+**Total Bots:** ${client.users.filter(i => i.bot).size}`,
+      inline: true
     }
     ],
     thumbnail : client.user.displayAvatarURL
