@@ -20,17 +20,17 @@ exports.run = async(client, msg, args) => {
   }
 
   let Fdur;
-  if (duration === 'permant') {
-    Fdur = 'permant'
-  } else {
+  if (!duration) {
+    Fdur = 'permanent'
+  } else if (duration !== 'permanent'){
     Fdur = duration;
   }
 
   let finallTime;
-  if (Fdur === 'permant') {
+  if (Fdur === 'permanent') {
     finallTime = 'permanent'
   } else {
-    finallTime = ms(ms(Fdur), {long : true});
+    finallTime = ms(ms(Fdur), {long : true})
   }
 
   if (!target) {
@@ -46,14 +46,22 @@ exports.run = async(client, msg, args) => {
       desc      : `\`\`\`\n
 Target   : ${target.username} [${target.id}]\n\
 Moderator: ${msg.author.username} [${msg.author.id}]\n\
-Duration : ${ms(ms(finallTime))}\n\
+Duration : ${finallTime}\n\
 Reason   : ${Freason}
 \`\`\``,
-      color     : 0x6580b0
     })
 
   } else if (mayLog) {
-    const embed = require('')
+    const embed = new Discord.RichEmbed()
+    .setAuthor(`Muted ${target.username}`, client.user.avatarURL)
+    .setDescription(`\`\`\`\n
+Target   : ${target.username} [${target.id}]\n\
+Moderator: ${msg.author.username} [${msg.author.id}]\n\
+Duration : ${finallTime}\n\
+Reason   : ${Freason}
+\`\`\``)
+    .setColor(0x6580b0)
+    mayLog.send({embed})
   }
 };
 
