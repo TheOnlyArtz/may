@@ -18,4 +18,17 @@ exports.run = async (client, guild) => {
       logger.error(e)
     })
   }
+
+  guild.createRole({
+    data: {
+      name: 'may-muted',
+      color: 'BLUE',
+      permissions: ["USE_VAD", "ADD_REACTIONS", "READ_MESSAGE_HISTORY", "CREATE_INSTANT_INVITE", "READ_MESSAGES"]
+    },
+    reason: 'we needed a role for muted',
+  })
+  .then(role => logger.info(`Created role ${role}`))
+  .catch(e => {
+    logger.error(e)
+  })
 }
