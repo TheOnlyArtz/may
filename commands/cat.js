@@ -5,7 +5,6 @@ exports.run = (client, msg, args) => {
   if (cooldown.cooldownIt(msg)) {
       sf.get('http://random.cat/meow').then(r => {
         msg.channel.send(r.body)
-        console.log('sending');
       })
   }
 };
