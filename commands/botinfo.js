@@ -31,6 +31,7 @@ exports.run = async(client, msg, args) => {
       inline: true
     }
     ],
+    color     : 0x17b8b3,
     thumbnail : client.user.displayAvatarURL
   })
 };
