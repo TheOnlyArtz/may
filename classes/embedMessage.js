@@ -84,6 +84,10 @@ class embedMessage {
       embed.setAuthor(options.author.name, options.author.pic);
     }
 
+    if (options.color) {
+      embed.setColor(options.color);
+    }
+
 
     this.message.channel.send({embed}) //Send the embed after all the options been selected
   }
