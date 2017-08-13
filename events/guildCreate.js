@@ -6,10 +6,20 @@ exports.run = async (client, guild) => {
   let p = guild.channels.filter(o => o.type === 'text').map(o => o)
   Id.send(`Hey :wave:, Thank you very much for adding me to \`${guild.name}\` to get access to the command list do \`${config}help\``);
 
+
+  /**
+  * Check if there's a channel with the name of may-log
+  * @type {Array}
+  */
   for (var i = 0; i < p.length; i++) {
     channelsArr.push(p[i].name)
   }
 
+  /**
+  * Create a channel for may to print out punishments
+  * @returns {Error}
+  * @returns {Promise}
+  */
   if(!channelsArr.includes('may-log')) {
     guild.createChannel("may-log", "text").then(channel => channel.overwritePermissions(guild.id, {
       SEND_MESSAGES: false
@@ -19,6 +29,16 @@ exports.run = async (client, guild) => {
     })
   }
 
+  /**
+  * Create muted role
+  * @param {Object} data
+  * @param {String} name
+  * @param {String} color
+  * @param {Array} permissions
+  * @param {String} reason
+  * @returns {Error}
+  * @returns {Promise}
+  */
   guild.createRole({
     data: {
       name: 'may-muted',
@@ -31,4 +51,14 @@ exports.run = async (client, guild) => {
   .catch(e => {
     logger.error(e)
   })
+
+  /*
+    Loop through all the channels and block muted people to talk there
+  */
+  message.guild.channels.filter(textchannel => textchannel.type === 'text').forEach(cnl => {
+    cnl.overwritePermissions(muteRole, {
+        SEND_MESSAGES: false
+    })
+      .catch(e => logger.error(e))
+});
 }
