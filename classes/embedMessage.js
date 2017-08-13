@@ -1,17 +1,19 @@
 const Discord = require('discord.js')
 class embedMessage {
-  constructor(options, msg) {
-    this.options = options
+  constructor(msg) {
     this.message = msg
   }
 
-  descEmbed() {
-    if (this.options.type === "desc" ) {
-      if (!this.options.content) {
+  descEmbed(options) {
+    if (!options) {
+      throw Error('You must specify the options, options list {content, type}')
+    }
+    if (options.type === "desc" ) {
+      if (!options.content) {
         throw Error ('You did not specify the text inside the constructor options.')
       } else {
         const embed = new Discord.RichEmbed()
-        .setDescription(this.options.content)
+        .setDescription(options.content)
         this.message.channel.send({embed})
       }
     } else {

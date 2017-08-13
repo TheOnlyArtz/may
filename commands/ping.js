@@ -1,9 +1,10 @@
-const c = require('../classes/embedMessage.js');
 exports.run = async(client, msg, args) => {
-  let embed = new c({type: "desc", content: "This is a test for description"}, msg)
   let pingMsg = await msg.channel.send('Pinging...');
   pingMsg.edit(`so fast! took ${pingMsg.createdTimestamp - msg.createdTimestamp}ms`)
-  embed.descEmbed();
+  embedMessage.descEmbed({
+    type    : "desc",
+    content : "Embed class rocks"
+  });
 };
 
 exports.help = {
