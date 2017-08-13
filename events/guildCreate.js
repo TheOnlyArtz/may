@@ -55,7 +55,7 @@ exports.run = async (client, guild) => {
   /*
     Loop through all the channels and block muted people to talk there
   */
-  message.guild.channels.filter(textchannel => textchannel.type === 'text').forEach(cnl => {
+  guild.channels.filter(textchannel => textchannel.type === 'text').forEach(cnl => {
     cnl.overwritePermissions(muteRole, {
         SEND_MESSAGES: false
     })
