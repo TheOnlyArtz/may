@@ -18,4 +18,4 @@ fs.readdir('./events/', (err, files) => {
 });
 
 process.on('unhandledRejection', err => logger.error(err));
-process.on('uncaughtException', (err) => logger.error(err));
+process.on('uncaughtException', err => logger.error(err));
