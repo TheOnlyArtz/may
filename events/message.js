@@ -21,6 +21,8 @@ fs.readdir('./commands/', (err, files) => {
     });
 });
 
+module.exports.alias = alias;
+
 
 const embedClass  = require('../classes/embedMessage.js');
 exports.run = (client, msg) => {
