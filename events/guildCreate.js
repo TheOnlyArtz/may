@@ -21,6 +21,7 @@ exports.run = async (client, guild) => {
   * @returns {Promise}
   */
   if(!channelsArr.includes('may-log')) {
+    channelsArr.shift()
     guild.createChannel("may-log", "text").then(channel => channel.overwritePermissions(guild.id, {
       SEND_MESSAGES: false
     }))
@@ -40,14 +41,11 @@ exports.run = async (client, guild) => {
   * @returns {Promise}
   */
   guild.createRole({
-    data: {
       name: 'may-muted',
-      color: 'BLUE',
-      permissions: ["USE_VAD", "ADD_REACTIONS", "READ_MESSAGE_HISTORY", "CREATE_INSTANT_INVITE", "READ_MESSAGES"]
-    },
+      permissions: ["USE_VAD", "ADD_REACTIONS", "READ_MESSAGE_HISTORY", "CREATE_INSTANT_INVITE", "READ_MESSAGES"],
     reason: 'we needed a role for muted',
   })
-  .then(role => logger.info(`Created role ${role}`))
+  .then(role => logger.info(`Created role ${role.name}`))
   .catch(e => {
     logger.error(e)
   })
@@ -55,10 +53,12 @@ exports.run = async (client, guild) => {
   /*
     Loop through all the channels and block muted people to talk there
   */
-  guild.channels.filter(textchannel => textchannel.type === 'text').forEach(cnl => {
-    cnl.overwritePermissions(guild.roles.find('name', 'may-muted'), {
-        SEND_MESSAGES: false
-    })
-      .catch(e => logger.error(e))
-});
+  setTimeout(function () {
+    guild.channels.filter(textchannel => textchannel.type === 'text').forEach(cnl => {
+      cnl.overwritePermissions(guild.roles.find('name', 'may-muted').id, {
+          SEND_MESSAGES: false
+      })
+        .catch(e => logger.error(e))
+  });
+  }, 2000);
 }
