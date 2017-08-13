@@ -1,5 +1,6 @@
+const Discord = require('discord.js')
+const ms = require('ms')
 exports.run = async(client, msg, args) => {
-  const ms = require('ms')
   /**
   * @var {target} @type {Object} user-Object to mute
   * @var {dole} @type {Object} role-Object for mutes
@@ -37,30 +38,20 @@ exports.run = async(client, msg, args) => {
     return msg.reply('Please mention a user for the punishment')
   }
 
-  if (!mayLog) {
-    embedMessage.advanced({
-      author    : {
-        name    : `Muted ${target.username}`,
-        pic     : client.user.avatarURL
-      },
-      desc      : `\`\`\`\n
-Target   : ${target.username} [${target.id}]\n\
-Moderator: ${msg.author.username} [${msg.author.id}]\n\
-Duration : ${finallTime}\n\
-Reason   : ${Freason}
-\`\`\``,
-    })
-
-  } else if (mayLog) {
-    const embed = new Discord.RichEmbed()
-    .setAuthor(`Muted ${target.username}`, client.user.avatarURL)
-    .setDescription(`\`\`\`\n
+  const embed = new Discord.RichEmbed()
+  .setAuthor(`Muted ${target.username}`, client.user.avatarURL)
+  .setDescription(`\`\`\`\n
 Target   : ${target.username} [${target.id}]\n\
 Moderator: ${msg.author.username} [${msg.author.id}]\n\
 Duration : ${finallTime}\n\
 Reason   : ${Freason}
 \`\`\``)
-    .setColor(0x6580b0)
+  .setColor(0x6580b0)
+  
+  if (!mayLog) {
+    msg.channel.send({embed})
+
+  } else if (mayLog) {
     mayLog.send({embed})
   }
 };
