@@ -28,12 +28,6 @@ class embedMessage {
       throw Error('You must specify at list one option, list {desc, footer, thumbnail, title, author fields[field1, content, field2, content]}')
     }
 
-    /**
-    *@returns {Error}
-    */
-    if (!options.fields[0]) {
-      throw Error('You must add atleast 1 field')
-    }
 
     const embed = new Discord.RichEmbed();
 
@@ -43,14 +37,16 @@ class embedMessage {
     *@param {string} title
     *@param {string} content
     */
-    for (let i = 0; i < options.fields.length; i++) {
-      let inline;
-      if (!options.fields[i].inline) {
-        inline = false
-      } else if (options.fields[i].inline === true) {
-        inline = true
+    if (options.fields) {
+      for (let i = 0; i < options.fields.length; i++) {
+        let inline;
+        if (!options.fields[i].inline) {
+          inline = false
+        } else if (options.fields[i].inline === true) {
+          inline = true
+        }
+        embed.addField(options.fields[i].title, options.fields[i].content, inline)
       }
-      embed.addField(options.fields[i].title, options.fields[i].content, inline)
     }
 
     /**
@@ -85,7 +81,7 @@ class embedMessage {
     *@param {String} author
     */
     if (options.author) {
-      embed.author(options.author.name, options.author.pic);
+      embed.setAuthor(options.author.name, options.author.pic);
     }
 
 
