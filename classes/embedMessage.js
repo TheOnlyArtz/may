@@ -81,6 +81,14 @@ class embedMessage {
       embed.setThumbnail(options.thumbnail)
     }
 
+    /**
+    *@param {String} author
+    */
+    if (options.author) {
+      embed.author(options.author.name, options.author.pic);
+    }
+
+
     this.message.channel.send({embed}) //Send the embed after all the options been selected
   }
 }
