@@ -21,19 +21,12 @@ exports.run = async(client, msg, args) => {
   }
 
   let Fdur;
-  if (!duration) {
+  if (!duration.match(/\d{1,2}(hour|h|hours|second|sec|s|seconds|d|days|day)\b/)) {
     Fdur = 'permanent'
-  } else if (duration !== 'permanent'){
-    Fdur = duration;
+  } else if (duration.match(/\d{1,2}(hour|h|hours|second|sec|s|seconds|d|days|day)\b/)){
+    console.log('match');
+    Fdur = ms(ms(duration), {long : true})
   }
-
-  let finallTime;
-  if (Fdur === 'permanent') {
-    finallTime = 'permanent'
-  } else {
-    finallTime = ms(ms(Fdur), {long : true})
-  }
-
   if (!target) {
     return msg.reply('Please mention a user for the punishment')
   }
@@ -43,17 +36,20 @@ exports.run = async(client, msg, args) => {
   .setDescription(`\`\`\`\n
 Target   : ${target.username} [${target.id}]\n\
 Moderator: ${msg.author.username} [${msg.author.id}]\n\
-Duration : ${finallTime}\n\
+Duration : ${Fdur}\n\
 Reason   : ${Freason}
 \`\`\``)
   .setColor(0x6580b0)
-  
+
   if (!mayLog) {
     msg.channel.send({embed})
 
   } else if (mayLog) {
     mayLog.send({embed})
   }
+
+
+  msg.guild.member(target).addRole(role);
 };
 
 exports.help = {
