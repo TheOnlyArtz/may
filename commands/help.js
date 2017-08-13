@@ -124,7 +124,6 @@ exports.run = async (bot,msg,args) => {
         fs.readdir('./commands/', (err, files) => {
             if (err) return logger.error(err);
             files.forEach(file => {
-
                 let help = "";
                 count++;
                 let
@@ -133,19 +132,19 @@ exports.run = async (bot,msg,args) => {
                     info = helpInfo.help,
                     description = info.description;
                 if (info.category === 'fun') {
-                    funCom.push(`**${config.PREFIX}${helpName}** ${description}`)
+                    help += `**${config.PREFIX}${helpName}** ${description}\n`
                 }
                 else if (info.category === 'util') {
-                    utilCom.push(`**${config.PREFIX}${helpName}** ${description}`)
+                    help += `**${config.PREFIX}${helpName}** ${description}\n`
                 }
                 else if (info.category === 'moderation') {
-                    modCom.push(`**${config.PREFIX}${helpName}** ${description}`)
+                    help += `**${config.PREFIX}${helpName}** ${description}\n`
                 }
                 else if (info.category === 'music') {
-                    musicCom.push(`**${config.PREFIX}${helpName}** ${description}`)
+                    help += `**${config.PREFIX}${helpName}** ${description}\n`
                 }
                 let newBatch = batch + help;
-                if (newBatch.length > (1024 - 8 - help2.length)) {
+                if (newBatch.length > (1024 - 8)) {
                     msg.channel.send({
                       embed : {
                         description : newBatch
