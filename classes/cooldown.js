@@ -1,20 +1,26 @@
 const cooldowns = new Set();
 const ms = require('ms');
 class cooldown {
-  constructor(options) {
-    this.options = options
-  }
+    constructor(options) {
+        this.options = options
+    }
 
   cooldownIt(message) {
-    if (cooldowns.has(message.author.id && message.guild.id)) {
-         message.reply('**[COOLDOWN]** Info command has **5 Minutes** Cooldown!');
-         return false;
-    }
-    cooldowns.add(message.author.id && message.guild.id);
-    setTimeout(() => {
-        cooldowns.delete(message.author.id && message.guild.id);
-    }, ms(this.options.time));
-    return true
+      logger.debug('coolshit2 \n' + JSON.stringify(cooldowns));
+      let cd = {id: message.author.id, guild: message.guild.id};
+      logger.debug(JSON.stringify(cd));
+      if (cooldowns.has(cd)) {
+          logger.debug('coolshit \n' + JSON.stringify(cooldowns));
+          message.reply(`**[COOLDOWN]** Info command has **${time} seconds** Cooldown!`);
+          return false;
+      }
+      cooldowns.add(cd);
+      setTimeout(() => {
+
+          logger.debug('coolshit3 \n' +  JSON.stringify(cooldowns));
+          cooldowns.delete(cd);
+      }, ms(this.options.time));
+      return true
   }
 }
 
