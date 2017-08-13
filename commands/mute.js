@@ -8,8 +8,8 @@ exports.run = async(client, msg, args) => {
   */
   const target = msg.mentions.users.first();
   const role = msg.guild.roles.find('name', 'may-muted');
-  const reason = msg.content.split(' ').slice(2).join(' ');
-  const duration = msg.content.split(' ')[1];
+  const reason = msg.content.split(' ').slice(3).join(' ');
+  const duration = msg.content.split(' ')[2];
   const mayLog = msg.guild.channels.find('name', 'may-log');
 
   let Freason;
@@ -19,14 +19,42 @@ exports.run = async(client, msg, args) => {
     Freason = reason;
   }
 
-  let Ftime;
+  let Fdur;
   if (duration === 'permant') {
-    Ftime = 'permant'
+    Fdur = 'permant'
   } else {
-    Ftime = ms(duration)
+    Fdur = duration;
   }
 
-  console.log(Ftime, Freason);
+  let finallTime;
+  if (Fdur === 'permant') {
+    finallTime = 'permanent'
+  } else {
+    finallTime = ms(ms(Fdur), {long : true});
+  }
+
+  if (!target) {
+    return msg.reply('Please mention a user for the punishment')
+  }
+
+  if (!mayLog) {
+    embedMessage.advanced({
+      author    : {
+        name    : `Muted ${target.username}`,
+        pic     : client.user.avatarURL
+      },
+      desc      : `\`\`\`\n
+Target   : ${target.username} [${target.id}]\n\
+Moderator: ${msg.author.username} [${msg.author.id}]\n\
+Duration : ${ms(ms(finallTime))}\n\
+Reason   : ${Freason}
+\`\`\``,
+      color     : 0x6580b0
+    })
+
+  } else if (mayLog) {
+    const embed = require('')
+  }
 };
 
 exports.help = {
