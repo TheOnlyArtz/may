@@ -1,10 +1,6 @@
 exports.run = async(client, msg, args) => {
   let pingMsg = await msg.channel.send('Pinging...');
   pingMsg.edit(`so fast! took ${pingMsg.createdTimestamp - msg.createdTimestamp}ms`)
-  embedMessage.descEmbed({
-    type    : "desc",
-    content : "Embed class rocks"
-  });
 };
 
 exports.help = {
