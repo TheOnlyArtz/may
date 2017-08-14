@@ -1,6 +1,7 @@
 const snekfetch = require('snekfetch');
 const xml2js = require('xml2js');
 // TODO: Beautify a bit
+// TODO: Add database check if channel is nsfw also make a make channel nsfw command
 exports.run = async(client, msg, args) => {
     if (!args.join(' ')) return msg.channel.send("Please give a search terms!");
     snekfetch.get('http://rule34.xxx/index.php?page=dapi&s=post&q=index&tags=' + args.join(' ')).then(r => {
