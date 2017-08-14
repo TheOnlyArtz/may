@@ -14,8 +14,11 @@ class embedMessage {
       } else {
         const embed = new Discord.RichEmbed()
         .setDescription(options.content)
-        this.message.channel.send({embed})
       }
+      if (options.color) {
+        embed.setColor(options.color)
+      }
+      this.message.channel.send({embed})
     } else {
       throw Error ('You chose descEmbed but your option does not have "desc" in it.')
     }
