@@ -23,7 +23,7 @@ exports.run = async(client, msg, args) => {
   let Fdur;
   if (!duration.match(/\d{1,2}(hour|h|hours|second|sec|s|seconds|d|days|day)\b/)) {
     Fdur = 'permanent'
-  } else if (duration.match(/\d{1,2}(hour|h|hours|second|sec|s|seconds|d|days|day)\b/)){
+  } else {
     console.log('match');
     Fdur = ms(ms(duration), {long : true})
   }
