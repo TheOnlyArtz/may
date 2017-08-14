@@ -4,17 +4,18 @@ exports.run = (client, msg, args) => {
   * @var {reason} @type {String} Punishment-Reason
   * @var {mayLog} @type {Object} Punishment-channel
   */
-
   const target = msg.mentions.users.first();
   const reason = msg.content.split(' ').slice(3).join(' ');
   const mayLog = msg.guild.channels.find('name', 'may-log');
+
+  
 };
 
 exports.help = {
-    category   : 'fun',
+    category   : 'moderation',
     usage      : '',
-    description: 'Shows a random cat',
-    detail     : `Shows you a random cat every time the command gets triggered`,
+    description: 'Kicks a memember',
+    detail     : `Kick a mentioned user and get him out of the server`,
     botPerm    : ['SEND_MESSAGES', "KICK_MEMBERS"],
     authorPerm : ['SEND_MESSAGES', "KICK_MEMBERS"],
     alias      : [
