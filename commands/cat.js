@@ -21,7 +21,7 @@ exports.help = {
     description: 'Shows a random cat',
     detail     : `Shows you a random cat every time the command gets triggered`,
     botPerm    : ['SEND_MESSAGES', "EMBED_LINKS"],
-    authorPerm : ['SEND_MESSAGES', "EMBED_LINKS"],
+    authorPerm : [null],
     alias      : [
         null
     ]

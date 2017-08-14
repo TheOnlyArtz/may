@@ -73,7 +73,7 @@ exports.help = {
     description: 'Kicks a memember',
     detail     : `Kick a mentioned user and get him out of the server`,
     botPerm    : ['SEND_MESSAGES', "KICK_MEMBERS"],
-    authorPerm : ['SEND_MESSAGES', "KICK_MEMBERS"],
+    authorPerm : ["KICK_MEMBERS"],
     alias      : [
         null
     ]

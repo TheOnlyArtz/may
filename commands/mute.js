@@ -60,7 +60,7 @@ exports.help = {
     description: 'I will be sure to shut their mouth',
     detail     : 'When using mute the bot will mute the selected user, for the time you choose(optional)',
     botPerm    : ['SEND_MESSAGES', 'MANAGE_ROLES'],
-    authorPerm : ['SEND_MESSAGES', 'MUTE_MEMBERS'],
+    authorPerm : ['MUTE_MEMBERS'],
     alias      : [
         null
     ]

@@ -9,7 +9,7 @@ exports.help = {
     description: 'I will reply with pong fast as possible',
     detail     : 'When using ping the bot will display you the response time in ms',
     botPerm    : ['SEND_MESSAGES'],
-    authorPerm : ['SEND_MESSAGES'],
+    authorPerm : [null],
     alias      : [
         null
     ]
