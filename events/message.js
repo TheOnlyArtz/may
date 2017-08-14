@@ -26,6 +26,7 @@ fs.readdir('./commands/', (err, files) => {
         }
         logger.info(`${commandIndex++}). ` + 'Loaded ' + helpName + ` successfully`)
     });
+    logger.info(chalk.cyan(`Loaded total ${commandIndex - 1} commands!`))
 });
 
 /**
