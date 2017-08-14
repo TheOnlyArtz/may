@@ -24,17 +24,22 @@ exports.run = async(client, msg, args) => {
     return msg.channel.send('Please mention someone.');
   }
 
+   await msg.channel.createInvite({
+    temporary: false,
+    maxAge   : 0,
+    maxUses  : 0
+  }).then(async link => {
+    await target.send(`Hey :wave:, Just want to let you know that you got softbanned, reason: ${Freason}\n\
+You can comeback to the server now! ${link}\מ`)
+  })
+    .catch(logger.error)
 
-  message.react('👍');
-  setTimeout(function () { //Make sure that the bot actually sends him the message
-    msg.guild.ban(target, {
-      days  : 7 //Delete messages from 7 Days
-    })
-  }, 2000);
+  await msg.react('👍');
+  await msg.guild.ban(target, {
+    days  : 7 //Delete messages from 7 Days
+  })
 
-  setTimeout(() => {
-    msg.guild.unban(target);
-  }, 3000);
+  await msg.guild.unban(target);
 
   const embed = new Discord.RichEmbed()
   .setAuthor(`Softbanned ${target.username}`, client.user.avatarURL)
@@ -52,15 +57,6 @@ Reason   : ${Freason}
     mayLog.send({embed})
   }
 
-  let backInvite = msg.channel.createInvite({
-    temporary: false,
-    maxAge   : 0,
-    maxUses  : 0
-  }).then(link => {
-    target.send(`Hey :wave:, Just want to let you know that you got softbanned, reason: ${Freason}\n\
-You can comeback to the server now! ${link}\מ`)
-  })
-    .catch(logger.error)
 
 };
 
