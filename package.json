@@ -36,6 +36,6 @@
     "node-opus": "^0.2.6",
     "opusscript": "0.0.3",
     "snekfetch": "^3.2.9",
-    "spongeuscator": "^0.1.0"
+    "spongeuscator": "^0.1.1"
   }
 }
