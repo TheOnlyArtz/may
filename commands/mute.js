@@ -15,6 +15,11 @@ exports.run = async(client, msg, args) => {
   const duration = msg.content.split(' ')[2];
   const mayLog = msg.guild.channels.find('name', 'may-log');
 
+
+  if (!target) {
+    return msg.reply('Please mention a user for the punishment')
+  }
+
   let Freason;
   if (!reason) {
     Freason = 'None'
@@ -23,14 +28,11 @@ exports.run = async(client, msg, args) => {
   }
 
   let Fdur;
-  if (!duration.match(/\d{1,2}(hour|h|hours|second|sec|s|seconds|d|days|day)\b/)) {
+  if (!duration) {
     Fdur = 'permanent'
-  } else {
+  } else if (duration.match(/\d{1,2}(hour|h|hours|second|sec|s|seconds|d|days|day)\b/)){
     console.log('match');
     Fdur = ms(ms(duration), {long : true})
-  }
-  if (!target) {
-    return msg.reply('Please mention a user for the punishment')
   }
 
   const embed = new Discord.RichEmbed()

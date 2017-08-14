@@ -23,9 +23,9 @@ exports.run = async(client, msg, args) => {
   }
 
   let Fdur;
-  if (!duration.match(/\d{1,2}(hour|h|hours|second|sec|s|seconds|d|days|day)\b/) || !duration) {
+  if (!duration) {
     Fdur = 'permanent';
-  } else {
+  } else if (duration.match(/\d{1,2}(hour|h|hours|second|sec|s|seconds|d|days|day)\b/)){
     console.log('match');
     Fdur = ms(ms(duration), {long : true});
   }
@@ -62,7 +62,7 @@ exports.help = {
     description: 'I will ban someone',
     detail     : 'When using ban the bot will ban the selected user, for the time you choose(optional)',
     botPerm    : ['SEND_MESSAGES', 'BAN_MEMBERS'],
-    authorPerm : ['BAN_MEMBERS'],
+    authorPerm : ["BAN_MEMBERS"],
     alias      : [
         null
     ]
