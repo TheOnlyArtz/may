@@ -7,10 +7,10 @@ function checkForPermissions(botPermissions, authorPermissions, cmd, msg, client
     throw Error(`You must specify command name`);
   }
 
+  let botPermsMissing = [];
   for (let i = 0; i < cmd.help.botPerm.length; i++) {
     if (!msg.guild.member(client.user).hasPermission(botPermissions[i])) {
-        msg.channel.send(`I cannot make it through the command Reason: Missing permissions (` + cmd.help.botPerm[i] + ' ' + ")")
-        .catch(e => logger.error(e, 'Missing permissions to speak at', msg.guild.name));
+      botPermsMissing.push(botPermissions[i])
     }
     if (i === cmd.help.botPerm.length);
   }
