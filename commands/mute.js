@@ -1,6 +1,8 @@
 const Discord = require('discord.js')
 const ms = require('ms')
 exports.run = async(client, msg, args) => {
+  const embedClass  = require('../classes/embedMessage.js');
+  let = embedMessage      = new embedClass(msg)
   /**
   * @var {target} @type {Object} user-Object to mute
   * @var {dole} @type {Object} role-Object for mutes
