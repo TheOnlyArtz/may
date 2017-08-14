@@ -6,7 +6,7 @@ const
 
 exports.run = async (bot,msg,args) => {
   const embedClass  = require('../classes/embedMessage.js');
-    let embedMessage      = new embedClass(msg)
+    let embedMessage      = new embedClass(msg);
 
     if (args[0]) {
         msg.delete();
