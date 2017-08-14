@@ -72,6 +72,8 @@ Reason   : ${Freason}
   })
     .catch(e => logger.error(e))
 
+    // TODO: add total kicks the user got to a database
+
 };
 
 exports.help = {

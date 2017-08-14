@@ -54,6 +54,7 @@ Reason   : ${Freason}
   msg.guild.ban(target, {
     days  : 7
   });
+  // TODO: Add the time for the ban to a database for time and add total bans the user got to a database
 };
 
 exports.help = {

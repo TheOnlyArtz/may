@@ -24,15 +24,14 @@ exports.run = async(client, msg, args) => {
     return msg.channel.send('Please mention someone.');
   }
 
-   await msg.channel.createInvite({
+   let link = await msg.channel.createInvite({
     temporary: false,
     maxAge   : 0,
     maxUses  : 0
-  }).then(async link => {
-    await target.send(`Hey :wave:, Just want to let you know that you got softbanned, reason: ${Freason}\n\
-You can comeback to the server now! ${link}\מ`)
   })
-    .catch(logger.error)
+    await target.send(`Hey :wave:, Just want to let you know that you got softbanned, reason: ${Freason}\n\
+You can comeback to the server now! ${link}`)
+
 
   await msg.react('👍');
   await msg.guild.ban(target, {
@@ -56,7 +55,7 @@ Reason   : ${Freason}
   } else if (mayLog) {
     mayLog.send({embed})
   }
-
+  // TODO: add the total softbans the user got to a database
 
 };
 

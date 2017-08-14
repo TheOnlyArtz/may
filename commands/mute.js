@@ -54,6 +54,8 @@ Reason   : ${Freason}
 
 
   msg.guild.member(target).addRole(role);
+  // TODO: Add the time for the mute to a database for time and add total mutes the user got to a database
+
 };
 
 exports.help = {
