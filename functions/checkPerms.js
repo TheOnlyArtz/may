@@ -1,4 +1,6 @@
 function checkForPermissions(botPermissions, authorPermissions, cmd, msg, client) {
+  const embedClass  = require('../classes/embedMessage.js');
+  let embedMessage = new embedClass(msg)
   if (!botPermissions && !authorPermissions) {
     throw Error `You must specify the permissions for ${cmd}`
   }

@@ -29,7 +29,6 @@ exports.run = async(client, msg, args) => {
   .setDescription(`\`\`\`\n
 Target   : ${target.username} [${target.id}]\n\
 Moderator: ${msg.author.username} [${msg.author.id}]\n\
-Duration : ${Fdur}\n\
 Reason   : ${Freason}
 \`\`\``)
   .setColor(0x58c75f)
@@ -47,17 +46,18 @@ Reason   : ${Freason}
     maxUses  : 0
   }).then(link => {
     target.send(`Hey :wave:, Just want to let you know that you got softbanned, reason: ${Freason}\n\
-You can comeback to the server now! ${link}`)
+You can comeback to the server now! ${link}\מ`)
   })
-    .catch(target.send(`Hey :wave:, Just want to let you know that you got softbanned, reason: ${Freason}\n\
-You can comeback to the server now!`))
-  msg.guild.ban(target, {
-    days  : 7
-  })
+    .catch(logger.error)
+  setTimeout(function () {
+    msg.guild.ban(target, {
+      days  : 7
+    })
+  }, 1900);
 
   setTimeout(() => {
     msg.guild.unban(target);
-  }, 1500);
+  }, 3000);
 };
 
 exports.help = {
@@ -65,7 +65,7 @@ exports.help = {
     usage      : '[time:time or permant] [reason:optional]',
     description: 'I will ban someone',
     detail     : 'When using ban the bot will ban the selected user, for the time you choose(optional)',
-    botPerm    : ['SEND_MESSAGES', 'BAN_MEMBERS'],
+    botPerm    : ['SEND_MESSAGES', 'BAN_MEMBERS', 'CREATE_INSTANT_INVITE'],
     authorPerm : ['BAN_MEMBERS'],
     alias      : [
         'sban'
