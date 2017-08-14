@@ -42,7 +42,9 @@ exports.run = (client, msg) => {
                 require(`../commands/${command}`).help.authorPerm,
                 require(`../commands/${command}`),
                 msg,
-                client)) {return}
+                client)) return
+
+
         commandFile.run(client, msg, args);
     }
     catch (err) {

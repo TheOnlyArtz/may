@@ -9,14 +9,13 @@ function checkForPermissions(botPermissions, authorPermissions, cmd, msg, client
 
   for (let i = 0; i < cmd.help.botPerm.length; i++) {
     if (!msg.guild.member(client.user).hasPermission(botPermissions[i])) {
-      console.log();
-        msg.channel.send(`I cannot make it through the command Reason: Missing permissions (` + cmd.help.botPerm + ' ' + ")")
-        .catch(e => {
-          msg.guild.owner.send(`I cannot make it through the command Reason: Missing permissions (` + cmd.help.botPerm[i] + ")")
-        });
+        msg.channel.send(`I cannot make it through the command Reason: Missing permissions (` + cmd.help.botPerm[i] + ' ' + ")")
+        .catch(e => logger.error(e, 'Missing permissions to speak at', msg.guild.name));
     }
-    if (i === cmd.help.botPerm.length) return;
+    if (i === cmd.help.botPerm.length);
   }
+  console.log(botPermissions);
+  if(msg.guild.member(client.user).hasPermission(botPermissions)) return
   for (let i = 0; i < cmd.help.authorPerm.length; i++) {
     if (!msg.guild.member(msg.author).hasPermission(authorPermissions[i])) {
       return msg.channel.send(`Missing permissions for ${msg.author.username} => \`(${cmd.help.authorPerm[i]})\``)
@@ -26,6 +25,7 @@ function checkForPermissions(botPermissions, authorPermissions, cmd, msg, client
     }
 
   }
+  return true;
 }
 
 module.exports = checkForPermissions;
