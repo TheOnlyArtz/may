@@ -10,11 +10,15 @@ client.login(config.TOKEN).catch(handler);
 
 fs.readdir('./events/', (err, files) => {
     if (err) return handler(err);
+    let commandIndex = 1
     files.forEach(file => {
         let eventFunction = require(`./events/${file}`);
         let eventName = file.split('.')[0];
         client.on(eventName, (...args) => eventFunction.run(client, ...args));
+        logger.info(`Event ${commandIndex++}). ` + `${chalk.cyan('Loaded ')}` + file + ` successfully ${chalk.cyan('[Event]')}`)
     });
+    logger.info(chalk.cyan(`Loaded total ${commandIndex - 1} Events!`))
+
 });
 
 process.on('unhandledRejection', err => logger.error(err));
