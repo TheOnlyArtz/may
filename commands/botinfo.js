@@ -3,7 +3,7 @@ var usageMb = process.memoryUsage().heapUsed / 1024 / 1024;
 var usage = usageMb.toFixed(2);
 const embedClass  = require('../classes/embedMessage.js');
 exports.run = async(client, msg, args) => {
-  let = embedMessage      = new embedClass(msg)
+  let embedMessage = new embedClass(msg)
 
   const moment = require('moment');
   const ms = require('ms')

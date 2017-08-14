@@ -1,5 +1,7 @@
 const Discord = require('discord.js')
 exports.run = (client, msg, args) => {
+  const embedClass  = require('../classes/embedMessage.js');
+  let embedMessage = new embedClass(msg)
   /**
   * @var {target} @type {Object} user-Object to mute
   * @var {reason} @type {String} Punishment-Reason
@@ -16,6 +18,10 @@ exports.run = (client, msg, args) => {
     Freason = reason;
   }
 
+  if (!target) {
+    return msg.channel.send('Please mention someone.')
+  }
+
   /**
   * Check if the user can be kicked by the bot
   * @param {Object} target the mentioned user Object
@@ -26,7 +32,8 @@ exports.run = (client, msg, args) => {
   if (msg.guild.member(target).kickable === false) {
     return embedMessage.descEmbed({
       type : "desc",
-      content : `🔒 Cannot kick\n**Reason:** Privilege is too low`
+      content : `🔒 Cannot kick\n**Reason:** Privilege is too low`,
+      color   : 0x6e1c39
     })
   }
 
