@@ -31,7 +31,7 @@ function checkForPermissions(botPermissions, authorPermissions, cmd, msg, client
 }
   for (let i = 0; i < cmd.help.authorPerm.length; i++) {
     if (!msg.guild.member(msg.author).hasPermission(authorPermissions[i])) {
-      authorPermsMissing.push(botPermissions[i])
+      authorPermsMissing.push(authorPermissions[i])
     }
   }
   if (authorPermsMissing[0]) {
