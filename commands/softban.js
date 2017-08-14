@@ -24,6 +24,18 @@ exports.run = async(client, msg, args) => {
     return msg.channel.send('Please mention someone.');
   }
 
+
+  message.react('👍');
+  setTimeout(function () { //Make sure that the bot actually sends him the message
+    msg.guild.ban(target, {
+      days  : 7 //Delete messages from 7 Days
+    })
+  }, 2000);
+
+  setTimeout(() => {
+    msg.guild.unban(target);
+  }, 3000);
+
   const embed = new Discord.RichEmbed()
   .setAuthor(`Softbanned ${target.username}`, client.user.avatarURL)
   .setDescription(`\`\`\`\n
@@ -49,15 +61,7 @@ Reason   : ${Freason}
 You can comeback to the server now! ${link}\מ`)
   })
     .catch(logger.error)
-  setTimeout(function () { //Make sure that the bot actually sends him the message
-    msg.guild.ban(target, {
-      days  : 7 //Delete messages from 7 Days
-    })
-  }, 1900);
 
-  setTimeout(() => {
-    msg.guild.unban(target);
-  }, 3000);
 };
 
 exports.help = {
