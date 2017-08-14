@@ -10,7 +10,7 @@ exports.help = {
     description: 'Spooongebob',
     detail: 'Spooongebob',
     botPerm    : ['SEND_MESSAGES'],
-    authorPerm : ['SEND_MESSAGES'],
+    authorPerm : [],
     category : "fun",
     alias      : [
         null

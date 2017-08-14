@@ -3,7 +3,7 @@ const snekfetch = require('snekfetch');
 exports.run = async (client,msg,args) => {
     // Handle error and ask for arguments
     if (!args.join(' ')) return msg.channel.send('Please include a question');
-    
+
     /**
     * @param {String} url fetch data from
     * @returns {Promise}
@@ -21,7 +21,7 @@ exports.help = {
     description: 'Ask the magic 8 ball something',
     detail: 'Ask the magic 8 ball something',
     botPerm    : ['SEND_MESSAGES'],
-    authorPerm : [null],
+    authorPerm : [],
     alias      : [
         '8b'
     ]

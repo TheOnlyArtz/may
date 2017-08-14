@@ -114,7 +114,7 @@ exports.help = {
     description: 'Eval',
     detail     : 'Eval',
     botPerm    : ['SEND_MESSAGES', "EMBED_LINKS"],
-    authorPerm : [null],
+    authorPerm : [],
     alias      : [
         null
     ]

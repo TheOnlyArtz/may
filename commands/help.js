@@ -177,7 +177,7 @@ exports.help = {
     description: 'shows the commands',
     detail: 'shows the commands',
     botPerm    : ['SEND_MESSAGES', "EMBED_LINKS"],
-    authorPerm : ['SEND_MESSAGES'],
+    authorPerm : [],
     alias      : [
         'h',
         'halp'

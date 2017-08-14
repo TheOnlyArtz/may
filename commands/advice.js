@@ -21,7 +21,7 @@ exports.help = {
     description: 'Get an useful advice',
     detail: 'Get an useful advice',
     botPerm    : ['SEND_MESSAGES'],
-    authorPerm : [null],
+    authorPerm : [],
     alias      : [
         null
     ]

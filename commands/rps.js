@@ -73,7 +73,7 @@ exports.help = {
     description: 'Rock, Paper or Scissors',
     detail: 'Rock, Paper or Scissors',
     botPerm    : ['SEND_MESSAGES'],
-    authorPerm : ['SEND_MESSAGES'],
+    authorPerm : [],
     category : "fun",
     alias      : [
         null
