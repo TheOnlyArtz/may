@@ -49,9 +49,9 @@ Reason   : ${Freason}
 You can comeback to the server now! ${link}\מ`)
   })
     .catch(logger.error)
-  setTimeout(function () {
+  setTimeout(function () { //Make sure that the bot actually sends him the message
     msg.guild.ban(target, {
-      days  : 7
+      days  : 7 //Delete messages from 7 Days
     })
   }, 1900);
 
