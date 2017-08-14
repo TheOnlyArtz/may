@@ -61,7 +61,7 @@ exports.help = {
     usage      : '[time:time or permant] [reason:optional]',
     description: 'I will ban someone',
     detail     : 'When using ban the bot will ban the selected user, for the time you choose(optional)',
-    botPerm    : ['SEND_MESSAGES', 'MANAGE_ROLES'],
+    botPerm    : ['SEND_MESSAGES', 'BAN_MEMBERS'],
     authorPerm : ['BAN_MEMBERS'],
     alias      : [
         null
