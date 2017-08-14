@@ -19,7 +19,7 @@ function checkForPermissions(botPermissions, authorPermissions, cmd, msg, client
     if(!msg.guild.member(client.user).hasPermission(botPermsMissing)) {
       embedMessage.descEmbed({
         type    : "desc",
-        content : `🔒I'm missing permissions\n**List**: ${botPermsMissing.join(', ')}`,
+        content : `🔒I'm missing permissions\n**List**: \`${botPermsMissing.join(', ')}\``,
         color   : 0xe23903
       })
 
