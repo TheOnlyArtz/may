@@ -15,11 +15,11 @@ function checkForPermissions(botPermissions, authorPermissions, cmd, msg, client
           msg.guild.owner.send(`I cannot make it through the command Reason: Missing permissions (` + cmd.help.botPerm[i] + ")")
         });
     }
-    if (i === 2) return;
+    if (i === cmd.help.botPerm.length) return;
   }
   for (let i = 0; i < cmd.help.authorPerm.length; i++) {
     if (!msg.guild.member(msg.author).hasPermission(authorPermissions[i])) {
-      return msg.channel.send(`I cannot make it through the command Reason: Missing permissions (${cmd.help.authorPerm[i]})`)
+      return msg.channel.send(`Missing permissions for ${msg.author.username} => \`(${cmd.help.authorPerm[i]})\``)
         .catch(e => {
           logger.error(e)
         })

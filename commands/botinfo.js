@@ -32,7 +32,8 @@ exports.run = async(client, msg, args) => {
     }
     ],
     color     : 0x17b8b3,
-    thumbnail : client.user.displayAvatarURL
+    thumbnail : client.user.displayAvatarURL,
+    footer    : `Requested by ${msg.author.username} | ${moment(new Date).format('DD/MM/YYYY [at] hh:mm:ss a')}`
   })
 };
 

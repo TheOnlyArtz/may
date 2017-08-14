@@ -29,6 +29,7 @@
     "artzlogger": "0.0.3",
     "chalk": "^2.1.0",
     "discord.js": "^11.1.0",
+    "knex": "^0.13.0",
     "moment": "^2.18.1",
     "ms": "^2.0.0",
     "node-json-db": "^0.7.3",
