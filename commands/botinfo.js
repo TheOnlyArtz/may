@@ -1,13 +1,24 @@
+/** @ignore */
 var usageMb = process.memoryUsage().heapUsed / 1024 / 1024;
 var usage = usageMb.toFixed(2);
+const embedClass  = require('../classes/embedMessage.js');
 exports.run = async(client, msg, args) => {
-  const embedClass  = require('../classes/embedMessage.js');
   let = embedMessage      = new embedClass(msg)
 
   const moment = require('moment');
   const ms = require('ms')
   let DiscordMoji = client.guilds.get("345948633184862218").emojis.find('name', 'discord');
   let SocialMoji = client.guilds.get("345948633184862218").emojis.find('name', 'social');
+
+  /**
+  * @param {Object} author
+  * @param {Array} {Object}
+  * @param {String} color
+  * @param {String} thumbnail
+  * @param {String} footer
+  * @return {Error}
+  * @return {Promise}
+  */
   embedMessage.advanced({
     author : {
       name : `Take a look at my info`,
@@ -46,7 +57,7 @@ exports.help = {
     description: 'Shows bot\'s info',
     detail     : 'When using bot info you will see all the info about the bot',
     botPerm    : ['SEND_MESSAGES', 'EMBED_LINKS'],
-    authorPerm : ['SEND_MESSAGES'],
+    authorPerm : [null],
     alias      : [
         null
     ]
