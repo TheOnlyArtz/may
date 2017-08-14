@@ -1,10 +1,18 @@
+/** @ignore */
 const snekfetch = require('snekfetch');
 
 exports.run = async (client,msg,args) => {
-    msg.delete();
+    msg.delete(); //Deletes the message
+
+    /**
+    * @param {String} url where to fetch data from
+    * @returns {Promise}
+    * @returns {Error}
+    */
     let r = await snekfetch.get("http://api.adviceslip.com/advice");
-    let advice = JSON.parse(r.body).slip.advice;
-    msg.channel.send(advice);
+    let advice = r.body;
+    msg.channel.send(advice)
+      .catch(e => logger.error(e))
 };
 
 exports.help = {
@@ -13,7 +21,7 @@ exports.help = {
     description: 'Get an useful advice',
     detail: 'Get an useful advice',
     botPerm    : ['SEND_MESSAGES'],
-    authorPerm : ['SEND_MESSAGES'],
+    authorPerm : [null],
     alias      : [
         null
     ]
