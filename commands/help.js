@@ -7,7 +7,7 @@ const
 exports.run = async (bot,msg,args) => {
   const embedClass  = require('../classes/embedMessage.js');
     let = embedMessage      = new embedClass(msg)
-    
+
     if (args[0]) {
         msg.delete();
         if (args[0].toLowerCase() === 'fun') {
@@ -176,7 +176,7 @@ exports.help = {
     usage: '[command Name]',
     description: 'shows the commands',
     detail: 'shows the commands',
-    botPerm    : ['SEND_MESSAGES'],
+    botPerm    : ['SEND_MESSAGES', "EMBED_LINKS"],
     authorPerm : ['SEND_MESSAGES'],
     alias      : [
         'h',
