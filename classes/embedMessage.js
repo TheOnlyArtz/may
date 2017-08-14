@@ -1,4 +1,5 @@
 const Discord = require('discord.js')
+const embed = new Discord.RichEmbed()
 class embedMessage {
   constructor(msg) {
     this.message = msg
@@ -12,10 +13,12 @@ class embedMessage {
       if (!options.content) {
         throw Error ('You did not specify the text inside the constructor options.')
       } else {
-        const embed = new Discord.RichEmbed()
-        .setDescription(options.content)
-        this.message.channel.send({embed})
+        embed.setDescription(options.content)
       }
+      if (options.color) {
+        embed.setColor(options.color)
+      }
+      this.message.channel.send({embed})
     } else {
       throw Error ('You chose descEmbed but your option does not have "desc" in it.')
     }

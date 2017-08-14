@@ -1,10 +1,16 @@
+/** @ignore */
 const config = require('../config/config.json');
 const fs     = require('fs');
 const PermissionChecker = require('../functions/checkPerms.js');
 
 let alias = {};
 
-
+/** Loop through all the commands files
+* @var {files} for the files
+* @var {err} for error handling
+* @returns {Error}
+* @returns {Files} returns all the files at the directory
+*/
 fs.readdir('./commands/', (err, files) => {
     if (err) return logger.error(err);
     let commandIndex = 1;
@@ -21,12 +27,13 @@ fs.readdir('./commands/', (err, files) => {
     });
 });
 
+/**
+* @module {alias} for the command aliases
+*/
 module.exports.alias = alias;
 
 
-const embedClass  = require('../classes/embedMessage.js');
 exports.run = (client, msg) => {
-  embedMessage      = new embedClass(msg)
     // Return if author is a client or the content of the message does not include a command
     if (msg.author.bot || !msg.content.startsWith(config.PREFIX) || !msg.guild) return;
     // Creating the arguments array with the suffix of the content
@@ -42,7 +49,9 @@ exports.run = (client, msg) => {
                 require(`../commands/${command}`).help.authorPerm,
                 require(`../commands/${command}`),
                 msg,
-                client)) {return}
+                client)) return
+
+
         commandFile.run(client, msg, args);
     }
     catch (err) {

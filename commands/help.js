@@ -5,6 +5,9 @@ const
     alias = require('../events/message.js').alias;
 
 exports.run = async (bot,msg,args) => {
+  const embedClass  = require('../classes/embedMessage.js');
+    let = embedMessage      = new embedClass(msg)
+    
     if (args[0]) {
         msg.delete();
         if (args[0].toLowerCase() === 'fun') {

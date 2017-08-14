@@ -7,25 +7,42 @@ function checkForPermissions(botPermissions, authorPermissions, cmd, msg, client
     throw Error(`You must specify command name`);
   }
 
+  let botPermsMissing = [];
+  let authorPermsMissing = [];
+
   for (let i = 0; i < cmd.help.botPerm.length; i++) {
     if (!msg.guild.member(client.user).hasPermission(botPermissions[i])) {
-      console.log();
-        msg.channel.send(`I cannot make it through the command Reason: Missing permissions (` + cmd.help.botPerm + ' ' + ")")
-        .catch(e => {
-          msg.guild.owner.send(`I cannot make it through the command Reason: Missing permissions (` + cmd.help.botPerm[i] + ")")
-        });
+      botPermsMissing.push(botPermissions[i])
     }
-    if (i === cmd.help.botPerm.length) return;
   }
+  if (botPermsMissing[0]) {
+    if(!msg.guild.member(client.user).hasPermission(botPermsMissing)) {
+      embedMessage.descEmbed({
+        type    : "desc",
+        content : `🔒I'm missing permissions\n**List**: \`${botPermsMissing.join(', ')}\``,
+        color   : 0xe23903
+      })
+
+      // msg.channel.send(`Cannot perform ${cmd.name} missing permissions => (${botPermsMissing.join(' ')})`).catch(logger.error)
+      return true
+  }
+}
   for (let i = 0; i < cmd.help.authorPerm.length; i++) {
     if (!msg.guild.member(msg.author).hasPermission(authorPermissions[i])) {
-      return msg.channel.send(`Missing permissions for ${msg.author.username} => \`(${cmd.help.authorPerm[i]})\``)
-        .catch(e => {
-          logger.error(e)
-        })
+      authorPermsMissing.push(botPermissions[i])
     }
-
   }
+  if (authorPermsMissing[0]) {
+    if(!msg.guild.member(msg.author).hasPermission(authorPermsMissing)) {
+      embedMessage.descEmbed({
+        type    : "desc",
+        content : `🔒${msg.author} is missing permissions\n**List**: ${authorPermsMissing.join(', ')}`,
+        color   : 0xe23903
+      })
+      return true
+  }
+}
+  return false;
 }
 
 module.exports = checkForPermissions;
