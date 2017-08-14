@@ -12,10 +12,13 @@ function checkForPermissions(botPermissions, authorPermissions, cmd, msg, client
     if (!msg.guild.member(client.user).hasPermission(botPermissions[i])) {
       botPermsMissing.push(botPermissions[i])
     }
-    if (i === cmd.help.botPerm.length);
   }
-  console.log(botPermissions);
-  if(msg.guild.member(client.user).hasPermission(botPermissions)) return
+  if (botPermsMissing[0]) {
+    if(!msg.guild.member(client.user).hasPermission(botPermsMissing)) {
+      msg.channel.send(`Cannot perform ${cmd.help.name} missing permissions => (${botPermsMissing.join(' ')})`).catch(logger.error)
+      return true
+  }
+}
   for (let i = 0; i < cmd.help.authorPerm.length; i++) {
     if (!msg.guild.member(msg.author).hasPermission(authorPermissions[i])) {
       return msg.channel.send(`Missing permissions for ${msg.author.username} => \`(${cmd.help.authorPerm[i]})\``)
@@ -25,7 +28,7 @@ function checkForPermissions(botPermissions, authorPermissions, cmd, msg, client
     }
 
   }
-  return true;
+  return false;
 }
 
 module.exports = checkForPermissions;
