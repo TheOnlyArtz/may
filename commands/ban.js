@@ -17,20 +17,20 @@ exports.run = async(client, msg, args) => {
 
   let Freason;
   if (!reason) {
-    Freason = 'None'
+    Freason = 'None';
   } else {
     Freason = reason;
   }
 
   let Fdur;
   if (!duration.match(/\d{1,2}(hour|h|hours|second|sec|s|seconds|d|days|day)\b/)) {
-    Fdur = 'permanent'
+    Fdur = 'permanent';
   } else {
     console.log('match');
-    Fdur = ms(ms(duration), {long : true})
+    Fdur = ms(ms(duration), {long : true});
   }
   if (!target) {
-    return msg.reply('Please mention a user for the punishment')
+    return msg.reply('Please mention a user for the punishment');
   }
 
   const embed = new Discord.RichEmbed()
