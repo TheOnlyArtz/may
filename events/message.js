@@ -2,6 +2,7 @@
 const config = require('../config/config.json');
 const fs     = require('fs');
 const PermissionChecker = require('../functions/checkPerms.js');
+const chalk  = require('chalk')
 
 let alias = {};
 
@@ -49,10 +50,11 @@ exports.run = (client, msg) => {
                 require(`../commands/${command}`).help.authorPerm,
                 require(`../commands/${command}`),
                 msg,
-                client)) return
+                client)) {return}
 
 
         commandFile.run(client, msg, args);
+        logger.info(`${chalk.cyan(command)}` + ` has just been executed by ${chalk.yellow(msg.author.username)} [${chalk.magenta(msg.author.id)}]`)
     }
     catch (err) {
         if (alias[command]) {
@@ -64,6 +66,7 @@ exports.run = (client, msg) => {
                     msg,
                     client)) {return}
             commandFile.run(client, msg, args).catch(logger.error);
+            logger.info(`${chalk.cyan(command)}` + ` has just been executed by ${chalk.yellow(msg.author.username)} [${chalk.magenta(msg.author.id)}]`)
         }
         else {
             logger.debug(err + ' this is when no alias or command');
