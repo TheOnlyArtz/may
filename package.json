@@ -26,7 +26,7 @@
   },
   "homepage": "https://github.com/TheOnlyArtz/may#readme",
   "dependencies": {
-    "artzlogger": "0.0.3",
+    "artzlogger": "0.0.4",
     "chalk": "^2.1.0",
     "discord.js": "^11.1.0",
     "knex": "^0.13.0",
