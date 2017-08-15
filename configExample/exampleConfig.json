@@ -1,4 +1,5 @@
 {
   "TOKEN": "TOKEN",
-  "PREFIX": "+"
+  "PREFIX": "+",
+  "LOVEKEY": "AN API KEY"
 }
