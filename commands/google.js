@@ -23,7 +23,7 @@ exports.help = {
     usage      : '[term]',
     description: 'Search at google',
     detail     : `Look for whatever you want when you want`,
-    botPerm    : ['SEND_MESSAGES', "EMBED_LINKS"],
+    botPerm    : ['SEND_MESSAGES'],
     authorPerm : [],
     alias      : [
         'g'
