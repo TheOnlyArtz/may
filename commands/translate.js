@@ -6,7 +6,7 @@ exports.run = async (client,msg,args) => {
   let toTrans = msg.content.split(" ").slice(1)
   let language;
   language = toTrans[toTrans.length -2] === 'to' ? toTrans.slice(toTrans.length -2, toTrans.length)[1].trim() : undefined
-  if (!toTrans) {
+  if (!language) {
     return msg.reply(`Please supply valid agruments.\n**Example** \`${config}translate May is my favorite bot to english\``)
   }
   let finalToTrans = toTrans.slice(toTrans.length - toTrans.length, toTrans.length - 2).join(" ")
