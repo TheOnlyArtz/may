@@ -9,12 +9,12 @@ exports.run = async(client, msg, args) => {
   * @var {reason} @type {String} Punishment-Reason
   * @var {duration} @type {String} Punishment-Duration
   */
-  const target = msg.mentions.users[1];
+  const target = msg.mentions.users.last();
   const role = msg.guild.roles.find('name', 'may-muted');
   const reason = msg.content.split(' ').slice(3).join(' ');
   const duration = msg.content.split(' ')[2];
   const mayLog = msg.guild.channels.find('name', 'may-log');
-
+  console.log(msg.content.split(' ')[3]);
   let Freason;
   if (!reason) {
     Freason = 'None';
@@ -26,9 +26,9 @@ exports.run = async(client, msg, args) => {
   if (!duration) {
     Fdur = 'permanent';
   } else if (duration.match(/\d{1,2}(hour|h|hours|second|sec|s|seconds|d|days|day)\b/)){
-    console.log('match');
     Fdur = ms(ms(duration), {long : true});
   }
+  console.log(Fdur);
   if (!target) {
     return msg.reply('Please mention a user for the punishment');
   }
