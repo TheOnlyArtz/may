@@ -2,7 +2,7 @@
 const config = require('../config/config.json');
 const fs     = require('fs');
 const PermissionChecker = require('../functions/checkPerms.js');
-const chalk  = require('chalk')
+const chalk  = require('chalk');
 
 let alias = {};
 
@@ -10,7 +10,7 @@ let alias = {};
 * @var {files} for the files
 * @var {err} for error handling
 * @returns {Error}
-* @returns {Files} returns all the files at the directory
+* @returns returns all the files at the directory
 */
 fs.readdir('./commands/', (err, files) => {
     if (err) return logger.error(err);
@@ -30,17 +30,17 @@ fs.readdir('./commands/', (err, files) => {
 });
 
 /**
-* @module {alias} for the command aliases
+* @module  for the command aliases
 */
 module.exports.alias = alias;
 
 
 exports.run = (client, msg) => {
     // Return if author is a client or the content of the message does not include a command
-    if (msg.author.bot || !msg.content.startsWith(config.PREFIX) || !msg.guild || msg.content.startsWith(client.user)) return;
+    if (msg.author.bot || !msg.guild) return;
+    if (!msg.content.startsWith(config.PREFIX) && !msg.isMentioned(client.user)) return;
     // Creating the arguments array with the suffix of the content
-    let args = msg.content.slice(config.PREFIX.length).trim().split(/ +/g);
-
+    let args = msg.isMentioned(client.user) ? msg.content.slice(client.user.id.length + 5).trim().split(/ +/g) : msg.content.slice(config.PREFIX.length).trim().split(/ +/g);
     // Defining the content from the message arguments
     let command = args.shift().toLowerCase();
     // Checking if the command has the potential to be a command
