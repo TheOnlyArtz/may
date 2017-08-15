@@ -170,12 +170,14 @@ exports.run = async (bot,msg,args) => {
             if ((funCat.join() + utilCat.join() + modCat.join() + musicCat.join()).length > 1950) {
                 if ((funCat.join() + utilCat.join()).length > 1950) {
                     const embed =  new discord.RichEmbed()
-                        .addField('Fun Commands', funCat.join('\n'));
+                        .addField('Fun Commands', funCat.join('\n'))
+                        .setColor('#1FBAED');
                     if ((utilCat.join() + modCat.join() + musicCat.join()) .length < 1950) {
                         const embed2 = new discord.RichEmbed()
                             .addField('Util Commands', utilCat.join('\n'))
                             .addField('Moderation Commands', modCat.join('\n'))
-                            .addField('Music Commands', musicCat.join('\n') ? musicCat.join('\n') : 'None');
+                            .addField('Music Commands', musicCat.join('\n') ? musicCat.join('\n') : 'None')
+                            .setColor('#1FBAED');
                     }
                     msg.channel.send({embed});
                     msg.channel.send({embed: embed2})
@@ -183,10 +185,12 @@ exports.run = async (bot,msg,args) => {
                 else {
                     const embed = new discord.RichEmbed()
                         .addField('Fun Commands', funCat.join('\n'))
-                        .addField('Util Commands', utilCat.join('\n'));
+                        .addField('Util Commands', utilCat.join('\n'))
+                        .setColor('#1FBAED');
                     const embed2 = new discord.RichEmbed()
                         .addField('Moderation Commands', modCat.join('\n'))
-                        .addField('Music Commands', musicCat.join('\n') ? musicCat.join('\n') : 'None');
+                        .addField('Music Commands', musicCat.join('\n') ? musicCat.join('\n') : 'None')
+                        .setColor('#1FBAED');
 
                     msg.channel.send({embed});
                     msg.channel.send({embed: embed2})
@@ -197,7 +201,8 @@ exports.run = async (bot,msg,args) => {
                     .addField('Fun Commands', funCat.join('\n'))
                     .addField('Util Commands', utilCat.join('\n'))
                     .addField('Moderation Commands', modCat.join('\n'))
-                    .addField('Music Commands', musicCat.join('\n') ? musicCat.join('\n') : 'None');
+                    .addField('Music Commands', musicCat.join('\n') ? musicCat.join('\n') : 'None')
+                    .setColor('#1FBAED');
                 msg.channel.send({embed})
             }
         });
