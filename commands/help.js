@@ -139,16 +139,16 @@ exports.run = async (bot,msg,args) => {
                     info = helpInfo.help,
                     description = info.description;
                 if (info.category === 'fun') {
-                    funCat.push(`**${config.PREFIX}${helpName}** ${description}\n`)
+                    funCat.push(`**${config.PREFIX}${helpName}** ${description}`)
                 }
                 else if (info.category === 'util') {
-                    utilCat.push(`**${config.PREFIX}${helpName}** ${description}\n`)
+                    utilCat.push(`**${config.PREFIX}${helpName}** ${description}`)
                 }
                 else if (info.category === 'moderation') {
-                    modCat.push(`**${config.PREFIX}${helpName}** ${description}\n`)
+                    modCat.push(`**${config.PREFIX}${helpName}** ${description}`)
                 }
                 else if (info.category === 'music') {
-                    musicCat.push(`**${config.PREFIX}${helpName}** ${description}\n`)
+                    musicCat.push(`**${config.PREFIX}${helpName}** ${description}`)
                 }
                 /*
                 let newBatch = batch + help;
@@ -166,12 +166,40 @@ exports.run = async (bot,msg,args) => {
                 */
             });
             // batch += `\nTotal Command Count: ${count}`;
-            const embed = new discord.RichEmbed()
-                .addField('Fun Commands', funCat.join('\n'))
-                .addField('Util Commands', utilCat.join('\n'))
-                .addField('Moderation Commands', modCat.join('\n'))
-                .addField('Music Commands', musicCat.join('\n'));
-            msg.channel.send({embed})
+            // TODO: More checks if we ever have too many commands lol
+            if ((funCat.join() + utilCat.join() + modCat.join() + musicCat.join()).length > 1950) {
+                if ((funCat.join() + utilCat.join()).length > 1950) {
+                    const embed =  new discord.RichEmbed()
+                        .addField('Fun Commands', funCat.join('\n'));
+                    if ((utilCat.join() + modCat.join() + musicCat.join()) .length < 1950) {
+                        const embed2 = new discord.RichEmbed()
+                            .addField('Util Commands', utilCat.join('\n'))
+                            .addField('Moderation Commands', modCat.join('\n'))
+                            .addField('Music Commands', musicCat.join('\n') ? musicCat.join('\n') : 'None');
+                    }
+                    msg.channel.send({embed});
+                    msg.channel.send({embed: embed2})
+                }
+                else {
+                    const embed = new discord.RichEmbed()
+                        .addField('Fun Commands', funCat.join('\n'))
+                        .addField('Util Commands', utilCat.join('\n'));
+                    const embed2 = new discord.RichEmbed()
+                        .addField('Moderation Commands', modCat.join('\n'))
+                        .addField('Music Commands', musicCat.join('\n') ? musicCat.join('\n') : 'None');
+
+                    msg.channel.send({embed});
+                    msg.channel.send({embed: embed2})
+                }
+            }
+            else {
+                const embed = new discord.RichEmbed()
+                    .addField('Fun Commands', funCat.join('\n'))
+                    .addField('Util Commands', utilCat.join('\n'))
+                    .addField('Moderation Commands', modCat.join('\n'))
+                    .addField('Music Commands', musicCat.join('\n') ? musicCat.join('\n') : 'None');
+                msg.channel.send({embed})
+            }
         });
 
     }
