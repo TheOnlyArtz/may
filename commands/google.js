@@ -14,13 +14,13 @@ exports.run = (client, msg, args) => {
       }
     }
     msg.react('✅')
-    msg.channel.send(`**I found:** ${links.join('\n')}`)
+    msg.channel.send(`**I found:**\n${links.join('\n')}`)
   })
 };
 
 exports.help = {
     category   : 'fun',
-    usage      : '',
+    usage      : '[term]',
     description: 'Search at google',
     detail     : `Look for whatever you want when you want`,
     botPerm    : ['SEND_MESSAGES', "EMBED_LINKS"],
