@@ -1,19 +1,19 @@
-const Discord = require('discord.js')
-const google = require('google')
+const Discord = require('discord.js');
+const google = require('google');
 exports.run = (client, msg, args) => {
-  const toSearch = args.join(' ')
-  let links = []
+  const toSearch = args.join(' ');
+  let links = [];
   if (!toSearch) {
     return msg.reply('Please insert something to search');
   }
 
   google(toSearch, async(err, res) => {
-    for (var i = 0; i < 3; i++) {
+    for (let i = 0; i < 3; i++) {
       if (res.links[i].href !== null){
         links.push(res.links[i].href)
       }
     }
-    msg.react('✅')
+    msg.react('✅').catch(logger.error);
     msg.channel.send(`**I found:**\n${links.join('\n')}`)
   })
 };
