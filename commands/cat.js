@@ -1,18 +1,11 @@
-const cooldown = new Set();
+const cooldown = require('../functions/cooldown.js');
 const sf = require('snekfetch');
 exports.run = (client, msg, args) => {
-    let toAdd = msg.author.id + msg.guild.id;
-    if (cooldown.has(toAdd)) {
-        return msg.reply('**[COOLDOWN]** Info command has **5 Minutes** Cooldown!');
+    if (cooldown(msg, 'cat', 300, 'This command has a cooldown of **5 Minutes**!')) {
+        sf.get('http://random.cat/meow').then(r => {
+            msg.channel.send(r.body);
+        })
     }
-    cooldown.add(toAdd);
-
-    setTimeout(() => {
-        cooldown.delete(toAdd);
-    }, 300000);
-      sf.get('http://random.cat/meow').then(r => {
-        msg.channel.send(r.body);
-      })
 };
 
 exports.help = {

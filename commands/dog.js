@@ -1,8 +1,7 @@
-const coolClass = require('../classes/cooldown.js');
+const cooldown = require('../functions/cooldown.js');
 const sf = require('snekfetch');
 exports.run = (client, msg, args) => {
-    const cooldown  = new coolClass({time : "5 minutes"});
-    if (cooldown.cooldownIt(msg)) {
+    if (cooldown(msg, 'dog', 300, 'This command has a cooldown of **5 Minutes**!')) {
         sf.get('http://random.dog/woof.json').then(r => {
             if (r.body.url.includes('mp4')) {
                 sf.get('http://random.dog/woof.json').then(r => {

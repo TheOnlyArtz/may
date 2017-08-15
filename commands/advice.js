@@ -1,18 +1,13 @@
 /** @ignore */
 const snekfetch = require('snekfetch');
+const cooldown = require('../functions/cooldown.js');
 
 exports.run = async (client,msg,args) => {
-    msg.delete(); //Deletes the message
-
-    /**
-    * @param {String} url where to fetch data from
-    * @returns {Promise}
-    * @returns {Error}
-    */
-    let r = await snekfetch.get("http://api.adviceslip.com/advice");
-    let advice = r.body;
-    msg.channel.send(advice)
-      .catch(e => logger.error(e))
+    if (cooldown(msg, 'advice', 30, 'This command has a cooldown of **30 Seconds**!')) {
+        let r = await snekfetch.get("http://api.adviceslip.com/advice");
+        let advice = JSON.parse(r.body).slip.advice;
+        msg.channel.send('**Advice: **' + advice).catch(e => logger.error(e))
+    }
 };
 
 exports.help = {

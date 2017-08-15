@@ -123,7 +123,11 @@ exports.run = async (bot,msg,args) => {
     else {
         msg.delete();
         let count = 0;
-        let batch = '';
+        // let batch = '';
+        let funCat = [];
+        let utilCat = [];
+        let modCat = [];
+        let musicCat = [];
         fs.readdir('./commands/', (err, files) => {
             if (err) return logger.error(err);
             files.forEach(file => {
@@ -135,17 +139,18 @@ exports.run = async (bot,msg,args) => {
                     info = helpInfo.help,
                     description = info.description;
                 if (info.category === 'fun') {
-                    help += `**${config.PREFIX}${helpName}** ${description}\n`
+                    funCat.push(`**${config.PREFIX}${helpName}** ${description}`)
                 }
                 else if (info.category === 'util') {
-                    help += `**${config.PREFIX}${helpName}** ${description}\n`
+                    utilCat.push(`**${config.PREFIX}${helpName}** ${description}`)
                 }
                 else if (info.category === 'moderation') {
-                    help += `**${config.PREFIX}${helpName}** ${description}\n`
+                    modCat.push(`**${config.PREFIX}${helpName}** ${description}`)
                 }
                 else if (info.category === 'music') {
-                    help += `**${config.PREFIX}${helpName}** ${description}\n`
+                    musicCat.push(`**${config.PREFIX}${helpName}** ${description}`)
                 }
+                /*
                 let newBatch = batch + help;
                 if (newBatch.length > (1024 - 8)) {
                     msg.channel.send({
@@ -158,13 +163,48 @@ exports.run = async (bot,msg,args) => {
                 else {
                     batch = newBatch;
                 }
+                */
             });
-            batch += `\nTotal Command Count: ${count}`;
-            msg.channel.send({
-              embed : {
-                description : batch
-              }
-            });
+            // batch += `\nTotal Command Count: ${count}`;
+            // TODO: More checks if we ever have too many commands lol
+            if ((funCat.join() + utilCat.join() + modCat.join() + musicCat.join()).length > 1950) {
+                if ((funCat.join() + utilCat.join()).length > 1950) {
+                    const embed =  new discord.RichEmbed()
+                        .addField('Fun Commands', funCat.join('\n'))
+                        .setColor('#1FBAED');
+                    if ((utilCat.join() + modCat.join() + musicCat.join()) .length < 1950) {
+                        const embed2 = new discord.RichEmbed()
+                            .addField('Util Commands', utilCat.join('\n'))
+                            .addField('Moderation Commands', modCat.join('\n'))
+                            .addField('Music Commands', musicCat.join('\n') ? musicCat.join('\n') : 'None')
+                            .setColor('#1FBAED');
+                    }
+                    msg.channel.send({embed});
+                    msg.channel.send({embed: embed2})
+                }
+                else {
+                    const embed = new discord.RichEmbed()
+                        .addField('Fun Commands', funCat.join('\n'))
+                        .addField('Util Commands', utilCat.join('\n'))
+                        .setColor('#1FBAED');
+                    const embed2 = new discord.RichEmbed()
+                        .addField('Moderation Commands', modCat.join('\n'))
+                        .addField('Music Commands', musicCat.join('\n') ? musicCat.join('\n') : 'None')
+                        .setColor('#1FBAED');
+
+                    msg.channel.send({embed});
+                    msg.channel.send({embed: embed2})
+                }
+            }
+            else {
+                const embed = new discord.RichEmbed()
+                    .addField('Fun Commands', funCat.join('\n'))
+                    .addField('Util Commands', utilCat.join('\n'))
+                    .addField('Moderation Commands', modCat.join('\n'))
+                    .addField('Music Commands', musicCat.join('\n') ? musicCat.join('\n') : 'None')
+                    .setColor('#1FBAED');
+                msg.channel.send({embed})
+            }
         });
 
     }
