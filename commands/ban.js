@@ -9,7 +9,7 @@ exports.run = async(client, msg, args) => {
   * @var {reason} @type {String} Punishment-Reason
   * @var {duration} @type {String} Punishment-Duration
   */
-  const target = msg.mentions.users.first();
+  const target = msg.mentions.users[1];
   const role = msg.guild.roles.find('name', 'may-muted');
   const reason = msg.content.split(' ').slice(3).join(' ');
   const duration = msg.content.split(' ')[2];
