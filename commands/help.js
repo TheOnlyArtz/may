@@ -23,7 +23,8 @@ exports.run = async (bot,msg,args) => {
                 let toSend = comm.join('\n');
                 embedMessage.descEmbed({
                     type: 'desc',
-                    content: toSend
+                    content: toSend,
+                    color  : 0x1FBAED
                 })
             });
 
@@ -41,7 +42,8 @@ exports.run = async (bot,msg,args) => {
                 let toSend = comm.join('\n');
                 embedMessage.descEmbed({
                     type: 'desc',
-                    content: toSend
+                    content: toSend,
+                    color  : 0x1FBAED
                 })
             });
 
@@ -59,7 +61,8 @@ exports.run = async (bot,msg,args) => {
                 let toSend = comm.join('\n');
                 embedMessage.descEmbed({
                     type: 'desc',
-                    content: toSend
+                    content: toSend,
+                    color  : 0x1FBAED
                 })
             });
 
@@ -77,7 +80,8 @@ exports.run = async (bot,msg,args) => {
                 let toSend = comm.join('\n');
                 embedMessage.descEmbed({
                     type: 'desc',
-                    content: toSend
+                    content: toSend,
+                    color  : 0x1FBAED
                 })
             });
 
