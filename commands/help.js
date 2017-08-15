@@ -87,7 +87,8 @@ exports.run = async (bot,msg,args) => {
                 let
                     cmd = require('./' + args[0]),
                     help = cmd.help,
-                    usage = config.PREFIX + args[0] + ' ' + help.usage,
+                    usageCheck = help.usage !== false ? help.usage : '',
+                    usage = config.PREFIX + args[0] + ' ' + usageCheck,
                     detail = help.detail,
                     alias3 = help.alias.join(', '),
                     embed = new discord.RichEmbed()
@@ -102,7 +103,8 @@ exports.run = async (bot,msg,args) => {
                 if (alias[args[0]]) {
                     let cmd = require('./' + alias[args[0]] + '.js'),
                         help = cmd.help,
-                        usage = config.PREFIX + alias[args[0]] + ' ' + help.usage,
+                        usageCheck = help.usage !== false ? help.usage : '',
+                        usage = config.PREFIX + args[0] + ' ' + usageCheck,
                         detail = help.detail,
                         alias2 = help.alias.join(', '),
                         embed = new discord.RichEmbed()
