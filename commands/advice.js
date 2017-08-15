@@ -10,9 +10,8 @@ exports.run = async (client,msg,args) => {
     * @returns {Error}
     */
     let r = await snekfetch.get("http://api.adviceslip.com/advice");
-    let advice = r.body;
-    msg.channel.send(advice)
-      .catch(e => logger.error(e))
+    let advice = JSON.parse(r.body).slip.advice;
+    msg.channel.send(advice).catch(e => logger.error(e))
 };
 
 exports.help = {
