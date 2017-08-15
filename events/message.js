@@ -37,7 +37,7 @@ module.exports.alias = alias;
 
 exports.run = (client, msg) => {
     // Return if author is a client or the content of the message does not include a command
-    if (msg.author.bot || !msg.content.startsWith(config.PREFIX) || !msg.guild) return;
+    if (msg.author.bot || !msg.content.startsWith(config.PREFIX) || !msg.guild || msg.content.startsWith(client.user)) return;
     // Creating the arguments array with the suffix of the content
     let args = msg.content.slice(config.PREFIX.length).trim().split(/ +/g);
 
