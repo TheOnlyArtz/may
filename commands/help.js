@@ -123,7 +123,11 @@ exports.run = async (bot,msg,args) => {
     else {
         msg.delete();
         let count = 0;
-        let batch = '';
+        // let batch = '';
+        let funCat = [];
+        let utilCat = [];
+        let modCat = [];
+        let musicCat = [];
         fs.readdir('./commands/', (err, files) => {
             if (err) return logger.error(err);
             files.forEach(file => {
@@ -135,17 +139,18 @@ exports.run = async (bot,msg,args) => {
                     info = helpInfo.help,
                     description = info.description;
                 if (info.category === 'fun') {
-                    help += `**${config.PREFIX}${helpName}** ${description}\n`
+                    funCat.push(`**${config.PREFIX}${helpName}** ${description}\n`)
                 }
                 else if (info.category === 'util') {
-                    help += `**${config.PREFIX}${helpName}** ${description}\n`
+                    utilCat.push(`**${config.PREFIX}${helpName}** ${description}\n`)
                 }
                 else if (info.category === 'moderation') {
-                    help += `**${config.PREFIX}${helpName}** ${description}\n`
+                    modCat.push(`**${config.PREFIX}${helpName}** ${description}\n`)
                 }
                 else if (info.category === 'music') {
-                    help += `**${config.PREFIX}${helpName}** ${description}\n`
+                    musicCat.push(`**${config.PREFIX}${helpName}** ${description}\n`)
                 }
+                /*
                 let newBatch = batch + help;
                 if (newBatch.length > (1024 - 8)) {
                     msg.channel.send({
@@ -158,13 +163,15 @@ exports.run = async (bot,msg,args) => {
                 else {
                     batch = newBatch;
                 }
+                */
             });
-            batch += `\nTotal Command Count: ${count}`;
-            msg.channel.send({
-              embed : {
-                description : batch
-              }
-            });
+            // batch += `\nTotal Command Count: ${count}`;
+            const embed = new discord.RichEmbed()
+                .addField('Fun Commands', funCat.join('\n'))
+                .addField('Util Commands', utilCat.join('\n'))
+                .addField('Moderation Commands', modCat.join('\n'))
+                .addField('Music Commands', musicCat.join('\n'));
+            msg.channel.send({embed})
         });
 
     }
