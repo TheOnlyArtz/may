@@ -10,7 +10,7 @@ exports.run = (client, msg, args) => {
   google(toSearch, async(err, res) => {
     for (let i = 0; i < 3; i++) {
       if (res.links[i].href !== null){
-        links.push(res.links[i].href)
+        links.push("<" + res.links[i].href + ">")
       }
     }
     msg.react('✅').catch(logger.error);
