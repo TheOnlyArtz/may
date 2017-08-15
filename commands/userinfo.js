@@ -2,7 +2,8 @@ const moment = require('moment');
 const discord = require('discord.js');
 
 exports.run = async (client, msg, args) => {
-    let userCom = client.users.get(args[0]) || msg.mentions.users.first();
+    if (!args[0]) return msg.channel.send('Please mention someone or use their ID for the command');
+    let userCom = client.users.get(args[0]) || msg.mentions.users.last();
     if (!userCom) return msg.channel.send('Please mention someone or use their ID for the command');
     let memberCom = await msg.guild.fetchMember(userCom);
     let created = moment(userCom.createdAt).format('MMMM Do YYYY, h:mm:ss a');
