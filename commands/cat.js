@@ -10,9 +10,9 @@ exports.run = (client, msg, args) => {
     setTimeout(() => {
         cooldown.delete(toAdd);
     }, 300000);
-      sf.get('http://random.cat/meow').then(r => {
+    sf.get('http://random.cat/meow').then(r => {
         msg.channel.send(r.body);
-      })
+    })
 };
 
 exports.help = {
