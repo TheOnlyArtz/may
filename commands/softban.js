@@ -1,60 +1,41 @@
-const Discord = require('discord.js')
-const ms = require('ms')
+const Discord = require('discord.js');
+const ms = require('ms');
 exports.run = async(client, msg, args) => {
-  const embedClass  = require('../classes/embedMessage.js');
-  let embedMessage = new embedClass(msg)
-  /**
-  * @var {target} @type {Object} user-Object to mute
-  * @var {dole} @type {Object} role-Object for mutes
-  * @var {reason} @type {String} Punishment-Reason
-  */
-  const target = msg.mentions.users.first();
-  const role = msg.guild.roles.find('name', 'may-muted');
-  const reason = msg.content.split(' ').slice(2).join(' ');
-  const mayLog = msg.guild.channels.find('name', 'may-log');
 
-  let Freason;
-  if (!reason) {
-    Freason = 'None';
-  } else {
-    Freason = reason;
-  }
+    const toBanUsr = msg.mentions.users.last() === client.user ? msg.mentions.users.first() : msg.mentions.users.last();
+    const role = msg.guild.roles.find('name', 'may-muted');
+    let reason;
+    let duration;
+    let link = await msg.channel.createInvite({
+        temporary: false,
+        maxAge   : 0,
+        maxUses  : 0
+    });
+    if (!args[1]){
+        reason = 'None'
+    } else {
+        reason = args.slice(1).join(' ');
+    }
+    const mayLog = msg.guild.channels.find('name', 'may-log');
 
-  if (!target) {
-    return msg.channel.send('Please mention someone.');
-  }
+    try {
+        await toBanUsr.send(`Hey :wave:, Just want to let you know that you got soft banned, reason: \`${reason}\`\nYou can comeback to the server now! ${link}`);
+    } catch (e) {
+        msg.channel.send('Cannot send message to user.')
+    }
 
-   let link = await msg.channel.createInvite({
-    temporary: false,
-    maxAge   : 0,
-    maxUses  : 0
-  })
-    await target.send(`Hey :wave:, Just want to let you know that you got softbanned, reason: ${Freason}\n\
-You can comeback to the server now! ${link}`)
+    msg.guild.ban(toBanUsr, {
+        days  : 7
+    }).catch(logger.error);
 
+    await msg.guild.unban(toBanUsr);
 
-  await msg.react('👍');
-  await msg.guild.ban(target, {
-    days  : 7 //Delete messages from 7 Days
-  })
+    const embed = new Discord.RichEmbed()
+        .setAuthor('Soft Banned ' + toBanUsr.tag, client.user.avatarURL)
+        .setDescription(`Punished User: \`${toBanUsr.tag} (${toBanUsr.id})\`\nPunished by: \`${msg.author.tag} (${msg.author.id})\`\nReason: \`${reason}\``)
+        .setTimestamp();
 
-  await msg.guild.unban(target);
-
-  const embed = new Discord.RichEmbed()
-  .setAuthor(`Softbanned ${target.username}`, client.user.avatarURL)
-  .setDescription(`\`\`\`\n
-Target   : ${target.username} [${target.id}]\n\
-Moderator: ${msg.author.username} [${msg.author.id}]\n\
-Reason   : ${Freason}
-\`\`\``)
-  .setColor(0x58c75f)
-
-  if (!mayLog) {
-    msg.channel.send({embed})
-
-  } else if (mayLog) {
-    mayLog.send({embed})
-  }
+    mayLog ? mayLog.send({embed}) : msg.channel.send({embed});
   // TODO: add the total softbans the user got to a database
 
 };
