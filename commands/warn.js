@@ -16,6 +16,7 @@ exports.run = async (client,msg,args) => {
     return msg.channel.send('Please mention someone.')
   }
   const embed = new Discord.RichEmbed()
+  .setColor(0x23d992)
   .setAuthor(`Warned ${toWarn.tag}`)
   .setDescription(`**Punished User:** ${toWarn.tag} \`(${toWarn.id})\`\n**Punished By** ${msg.author.tag} \`(${msg.author.id})\`\n**Reason:** ${reason}`);
   mayLog ? mayLog.send({embed}) : msg.channel.send({embed});
