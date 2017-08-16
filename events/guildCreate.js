@@ -1,9 +1,9 @@
-const config = require('../config/config.json').PREFIX
+const config = require('../config/config.json').PREFIX;
 let channelsArr = [];
 exports.run = async (client, guild) => {
 
   let Id = guild.channels.get(guild.channels.filter(i=> i.type === "text").map(i => i)[0].id);
-  let p = guild.channels.filter(o => o.type === 'text').map(o => o)
+  let p = guild.channels.filter(o => o.type === 'text').map(o => o);
   Id.send(`Hey :wave:, Thank you very much for adding me to \`${guild.name}\` to get access to the command list do \`${config}help\``);
 
 
@@ -11,7 +11,7 @@ exports.run = async (client, guild) => {
   * Check if there's a channel with the name of may-log
   * @type {Array}
   */
-  for (var i = 0; i < p.length; i++) {
+  for (let i = 0; i < p.length; i++) {
     channelsArr.push(p[i].name)
   }
 
@@ -21,7 +21,7 @@ exports.run = async (client, guild) => {
   * @returns {Promise}
   */
   if(!channelsArr.includes('may-log')) {
-    channelsArr.shift()
+    channelsArr.shift();
     guild.createChannel("may-log", "text").then(channel => channel.overwritePermissions(guild.id, {
       SEND_MESSAGES: false
     }))
@@ -48,7 +48,7 @@ exports.run = async (client, guild) => {
   .then(role => logger.info(`Created role ${role.name}`))
   .catch(e => {
     logger.error(e)
-  })
+  });
 
   /*
     Loop through all the channels and block muted people to talk there
@@ -61,4 +61,4 @@ exports.run = async (client, guild) => {
         .catch(e => logger.error(e))
   });
   }, 2000);
-}
+};
