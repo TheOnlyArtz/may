@@ -19,7 +19,7 @@ exports.run = async(client, msg, args) => {
     const mayLog = msg.guild.channels.find('name', 'may-log');
 
     try {
-        await toBanUsr.send(`Hey :wave:, Just want to let you know that you got soft banned, reason: ${reason}\nYou can comeback to the server now! ${link}`);
+        await toBanUsr.send(`Hey :wave:, Just want to let you know that you got soft banned, reason: \`${reason}\`\nYou can comeback to the server now! ${link}`);
     } catch (e) {
         msg.channel.send('Cannot send message to user.')
     }
