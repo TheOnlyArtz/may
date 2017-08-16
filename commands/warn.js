@@ -1,5 +1,7 @@
+const Discord = require('discord.js')
 exports.run = async (client,msg,args) => {
-  const toBanUsr = msg.mentions.users.last() === client.user ? msg.mentions.users.first() : msg.mentions.users.last();
+  const toWarn = msg.mentions.users.last() === client.user ? msg.mentions.users.first() : msg.mentions.users.last();
+  const mayLog = msg.guild.channels.find('name', 'may-log');
   let reason;
   let duration;
   if (!args[1]){
@@ -10,8 +12,13 @@ exports.run = async (client,msg,args) => {
       reason = args.slice(1).join(' ');
   }
 
+  if (!toWarn) {
+    return msg.channel.send('Please mention someone.')
+  }
   const embed = new Discord.RichEmbed()
-  .addField('')
+  .setAuthor(`Warned ${toWarn.tag}`)
+  .setDescription(`**Punished User:** ${toWarn.tag} \`(${toWarn.id})\`\n**Punished By** ${msg.author.tag} \`(${msg.author.id})\`\n**Reason:** ${reason}`);
+  mayLog ? mayLog.send({embed}) : msg.channel.send({embed});
 };
 
 exports.help = {
