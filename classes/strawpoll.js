@@ -1,3 +1,4 @@
+const asnc = require('async')
 class strawpoll {
   constructor(options, msg) {
     this.msg = msg
@@ -11,15 +12,19 @@ class strawpoll {
     }
     let messageForm = [
       '```',
-      'Title Soon.'
+      `Straw poll by ${this.msg.author.username}.\n`
   ]
     for (var i = 0; i < selectedOptions.length; i++) {
-      messageForm.push(selectedOptions[i])
+      messageForm.push(`Option ${i + 1}:: ${selectedOptions[i]}`)
     }
     messageForm.push('```');
     this.msg.channel.send(messageForm.join('\n'))
     this.options.push(selectedOptions)
     console.log(this.options);
+  }
+
+  startInteractiveMenu() {
+
   }
 }
 module.exports = strawpoll;
