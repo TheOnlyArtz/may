@@ -5,8 +5,6 @@ exports.run = async(client, msg, args) => {
   let embedMessage = new embedClass(msg)
     const toBanUsr = msg.mentions.users.last() === client.user ? msg.mentions.users.first() : msg.mentions.users.last();
     const role = msg.guild.roles.find('name', 'may-muted');
-    let reason;
-    let duration;
 
 
     if (msg.guild.member(toBanUsr).bannable === false) {
@@ -16,6 +14,9 @@ exports.run = async(client, msg, args) => {
         color   : 0x6e1c39
       })
     }
+
+    let reason;
+    let duration;
     if (!args[1]){
         duration = 'permanent';
         reason = 'None'
