@@ -1,15 +1,15 @@
 const translate = require('google-translate-api');
-const config = require('../config/config.json').PREFIX
+const config = require('../config/config.json').PREFIX;
 const Discord = require('discord.js');
 exports.run = async (client,msg,args) => {
 
-  let toTrans = msg.content.split(" ").slice(1)
+  let toTrans = msg.content.split(" ").slice(1);
   let language;
-  language = toTrans[toTrans.length -2] === 'to' ? toTrans.slice(toTrans.length -2, toTrans.length)[1].trim() : undefined
+  language = toTrans[toTrans.length -2] === 'to' ? toTrans.slice(toTrans.length -2, toTrans.length)[1].trim() : undefined;
   if (!language) {
     return msg.reply(`Please supply valid agruments.\n**Example** \`${config}translate May is my favorite bot to english\``)
   }
-  let finalToTrans = toTrans.slice(toTrans.length - toTrans.length, toTrans.length - 2).join(" ")
+  let finalToTrans = toTrans.slice(toTrans.length - toTrans.length, toTrans.length - 2).join(" ");
   translate(finalToTrans, {to: language}).then(res => {
       const embed = new Discord.RichEmbed()
       .setAuthor('May\'s translator', client.user.displayAvatarURL)

@@ -1,4 +1,4 @@
-const Discord = require('discord.js')
+const Discord = require('discord.js');
 exports.run = async (client,msg,args) => {
   const toWarn = msg.mentions.users.last() === client.user ? msg.mentions.users.first() : msg.mentions.users.last();
   const mayLog = msg.guild.channels.find('name', 'may-log');
@@ -6,7 +6,7 @@ exports.run = async (client,msg,args) => {
   let duration;
   if (!args[1]){
       duration = 'permanent';
-      reason = 'None'
+      reason = 'None';
       reason = args.slice(2).join(' ') ? args.slice(2).join(' ') : 'None';
   } else {
       reason = args.slice(1).join(' ');
