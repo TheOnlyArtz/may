@@ -1,8 +1,8 @@
-const Discord = require('discord.js')
-const ms = require('ms')
+const Discord = require('discord.js');
+const ms = require('ms');
 exports.run = async(client, msg, args) => {
   const embedClass  = require('../classes/embedMessage.js');
-  let embedMessage = new embedClass(msg)
+  let embedMessage = new embedClass(msg);
   /**
   * @var {target} @type {Object} user-Object to mute
   * @var {dole} @type {Object} role-Object for mutes
@@ -10,9 +10,10 @@ exports.run = async(client, msg, args) => {
   * @var {duration} @type {String} Punishment-Duration
   */
   const target = msg.mentions.users.last();
+  console.log(JSON.stringify(msg.mentions.users));
   const role = msg.guild.roles.find('name', 'may-muted');
-  const reason = msg.content.split(' ').slice(3).join(' ');
-  const duration = msg.content.split(' ')[2];
+  const reason = args.slice(2).join(' ');
+  const duration = args[1];
   const mayLog = msg.guild.channels.find('name', 'may-log');
   console.log(msg.content.split(' ')[3]);
   let Freason;
@@ -27,6 +28,8 @@ exports.run = async(client, msg, args) => {
     Fdur = 'permanent';
   } else if (duration.match(/\d{1,2}(hour|h|hours|second|sec|s|seconds|d|days|day)\b/)){
     Fdur = ms(ms(duration), {long : true});
+  } else {
+      Fdur = 'permanent'
   }
   console.log(Fdur);
   if (!target) {
@@ -41,7 +44,7 @@ Moderator: ${msg.author.username} [${msg.author.id}]\n\
 Duration : ${Fdur}\n\
 Reason   : ${Freason}
 \`\`\``)
-  .setColor(0x58c75f)
+  .setColor(0x58c75f);
 
   if (!mayLog) {
     msg.channel.send({embed})
@@ -53,7 +56,7 @@ Reason   : ${Freason}
 
   msg.guild.ban(target, {
     days  : 7
-  });
+  }).catch(logger.error);
   // TODO: Add the time for the ban to a database for time and add total bans the user got to a database
 };
 
