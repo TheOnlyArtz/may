@@ -32,7 +32,7 @@ exports.run = async(client, msg, args) => {
     const embed = new Discord.RichEmbed()
         .setColor(0xc65e57)
         .setAuthor('Banned ' + toBanUsr.tag, client.user.avatarURL)
-        .setDescription(`Banned User: \`${toBanUsr.tag} (${toBanUsr.id})\`\nPunished by: \`${msg.author.tag} (${msg.author.id})\`\nDuration: \`${duration}\`\nReason: \`${reason}\``)
+        .setDescription(`Banned User: \`${toBanUsr.tag} (${toBanUsr.id})\`\nBanned by: \`${msg.author.tag} (${msg.author.id})\`\nDuration: \`${duration}\`\nReason: \`${reason}\``)
         .setTimestamp();
 
     mayLog ? mayLog.send({embed}) : msg.channel.send({embed});
