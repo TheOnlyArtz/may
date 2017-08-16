@@ -9,6 +9,15 @@ class strawpoll {
     if (!selectedOptions) {
       return this.msg.channel.send('Please add options to the strawpoll')
     }
+    let messageForm = [
+      '```',
+      'Title Soon.'
+  ]
+    for (var i = 0; i < selectedOptions.length; i++) {
+      messageForm.push(selectedOptions[i])
+    }
+    messageForm.push('```');
+    this.msg.channel.send(messageForm.join('\n'))
     this.options.push(selectedOptions)
     console.log(this.options);
   }
