@@ -1,8 +1,9 @@
 const asnc = require('async')
 class strawpoll {
-  constructor(options, msg) {
+  constructor(msg) {
     this.msg = msg
-    this.options = options
+    this.options = []
+    this.votedTo = {}
   }
 
   getOptions () {
@@ -10,21 +11,54 @@ class strawpoll {
     if (!selectedOptions) {
       return this.msg.channel.send('Please add options to the strawpoll')
     }
+
+    if (selectedOptions.length > 5) {
+      return this.msg.channel.send('Maximum options are 5')
+    }
+    this.options = selectedOptions
     let messageForm = [
       '```',
       `Straw poll by ${this.msg.author.username}.\n`
   ]
-    for (var i = 0; i < selectedOptions.length; i++) {
-      messageForm.push(`Option ${i + 1}:: ${selectedOptions[i]}`)
+    for (var i = 0; i < this.options.length; i++) {
+      messageForm.push(`Option ${i + 1}:: ${this.options[i]}`)
     }
     messageForm.push('```');
-    this.msg.channel.send(messageForm.join('\n'))
-    this.options.push(selectedOptions)
-    console.log(this.options);
+
+    let messags = messageForm.join('\n')
+    return messags
   }
 
-  startInteractiveMenu() {
+  startInteractiveMenu(Begin, strawMessage) {
+    let cancel = false;
+    if (Begin) {
+      strawMessage = this.getOptions();
+    }
 
-  }
+        this.msg.channel.send(strawMessage)
+        .then(async messages => {
+        asnc.whilst(() => !cancel,
+          callback => {
+              const filter = r => r.author.id === this.msg.author.id;
+              this.msg.channel.awaitMessages(filter, {
+                max : 1,
+                time : 60 * 1000, //1 Min
+                error : ['time']
+              }).then(async usersMessage => {
+                const timeout = setTimeout(() => {
+                  usersMessage.delete();
+              }, 30000);
+              let userMessage = usersMessage.first();
+              const inputNo = parseInt(userMessage.content.trim());
+              const inputStr = userMessage.content.trim().toLowerCase();
+              if (!isNaN(inputNo) && inputNo > 0) {
+                    this.votedTo = this.options.filter((game, index) => index === (inputNo - 1))[0];
+                        await this.msg.channel.send(`You chose ${this.votedTo}`);
+                        cancel = true
+                }
+            });
+        });
+    });
+  };
 }
 module.exports = strawpoll;
