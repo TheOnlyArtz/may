@@ -10,6 +10,6 @@ exports.help = {
     botPerm    : ['SEND_MESSAGES', 'EMBED_LINKS'],
     authorPerm : [],
     alias      : [
-        '8b'
+        'wa'
     ]
 };
