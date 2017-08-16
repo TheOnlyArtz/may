@@ -8,7 +8,7 @@ class strawpoll {
 
   getOptions () {
     let selectedOptions = this.msg.content.split(' ').slice(1).join(',').split(',')
-    if (!selectedOptions) {
+    if (!selectedOptions[0]) {
       return this.msg.channel.send('Please add options to the strawpoll')
     }
 
@@ -39,9 +39,9 @@ class strawpoll {
         .then(async messages => {
         asnc.whilst(() => !cancel,
           callback => {
-              const filter = r => r.author.id === this.msg.author.id;
+              const filter = r => r.content.match(/[0-9]/g);
               this.msg.channel.awaitMessages(filter, {
-                max : 1,
+                max : 10,
                 time : 60 * 1000, //1 Min
                 error : ['time']
               }).then(async usersMessage => {
@@ -51,8 +51,9 @@ class strawpoll {
               let userMessage = usersMessage.first();
               const inputNo = parseInt(userMessage.content.trim());
               const inputStr = userMessage.content.trim().toLowerCase();
-              if (!isNaN(inputNo) && inputNo > 0) {
+              if (inputNo > 0) {
                     this.votedTo = this.options.filter((game, index) => index === (inputNo - 1))[0];
+                        console.log('s');
                         await this.msg.channel.send(`You chose ${this.votedTo}`);
                         cancel = true
                 }

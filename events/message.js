@@ -41,7 +41,6 @@ exports.run = (client, msg) => {
     if (!msg.content.startsWith(config.PREFIX) && !msg.isMentioned(client.user)) return;
     // Creating the arguments array with the suffix of the content
     let args = msg.isMentioned(client.user) ? msg.content.slice(client.user.id.length + 4).trim().split(/ +/g) : msg.content.slice(config.PREFIX.length).trim().split(/ +/g);
-    logger.debug(args);
     // Defining the content from the message arguments
     let command = args.shift().toLowerCase();
     // Checking if the command has the potential to be a command
