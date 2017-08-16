@@ -10,7 +10,7 @@ exports.run = async(client, msg, args) => {
     if (msg.guild.member(toBanUsr).bannable === false) {
       return embedMessage.descEmbed({
         type : "desc",
-        content : `🔒 Cannot kick\n**Reason:** Privilege is too low`,
+        content : `🔒 Cannot ban\n**Reason:** Privilege is too low`,
         color   : 0x6e1c39
       })
     }
