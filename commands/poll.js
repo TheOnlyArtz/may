@@ -1,7 +1,7 @@
 const strawpoll = require('../classes/strawpoll.js')
 exports.run = async(client, msg, args) => {
-  const s = new strawpoll([], msg)
-  s.getOptions()
+  const s = new strawpoll(msg)
+  s.startInteractiveMenu(true)
 };
 
 exports.help = {
