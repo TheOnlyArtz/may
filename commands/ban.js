@@ -1,8 +1,20 @@
 const Discord = require('discord.js');
 const ms = require('ms');
+const embedClass  = require('../classes/embedMessage.js');
 exports.run = async(client, msg, args) => {
+  let embedMessage = new embedClass(msg)
     const toBanUsr = msg.mentions.users.last() === client.user ? msg.mentions.users.first() : msg.mentions.users.last();
     const role = msg.guild.roles.find('name', 'may-muted');
+
+
+    if (msg.guild.member(toBanUsr).bannable === false) {
+      return embedMessage.descEmbed({
+        type : "desc",
+        content : `🔒 Cannot kick\n**Reason:** Privilege is too low`,
+        color   : 0x6e1c39
+      })
+    }
+
     let reason;
     let duration;
     if (!args[1]){
@@ -18,6 +30,7 @@ exports.run = async(client, msg, args) => {
     const mayLog = msg.guild.channels.find('name', 'may-log');
 
     const embed = new Discord.RichEmbed()
+        .setColor(0xc65e57)
         .setAuthor('Banned ' + toBanUsr.tag, client.user.avatarURL)
         .setDescription(`Punished User: \`${toBanUsr.tag} (${toBanUsr.id})\`\nPunished by: \`${msg.author.tag} (${msg.author.id})\`\nDuration: \`${duration}\`\nReason: \`${reason}\``)
         .setTimestamp();
