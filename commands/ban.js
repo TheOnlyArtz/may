@@ -30,6 +30,7 @@ exports.run = async(client, msg, args) => {
     const mayLog = msg.guild.channels.find('name', 'may-log');
 
     const embed = new Discord.RichEmbed()
+        .setColor(0xc65e57)
         .setAuthor('Banned ' + toBanUsr.tag, client.user.avatarURL)
         .setDescription(`Punished User: \`${toBanUsr.tag} (${toBanUsr.id})\`\nPunished by: \`${msg.author.tag} (${msg.author.id})\`\nDuration: \`${duration}\`\nReason: \`${reason}\``)
         .setTimestamp();
