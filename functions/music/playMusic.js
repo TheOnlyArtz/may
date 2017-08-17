@@ -1,6 +1,7 @@
-const ytdl = require('ytdl-core');
-const jsonDatabase = require('node-json-db');
-const db = new jsonDatabase('./musicQueue/queue.json', true, true);
+const ytdl            = require('ytdl-core');
+const jsonDatabase    = require('node-json-db');
+const db              = new jsonDatabase('./musicQueue/queue.json', true, true);
+
 const fetcher = require('youtube-info');
 async function playMusic(connection, msg) {
   db.reload();
