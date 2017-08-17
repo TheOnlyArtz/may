@@ -1,8 +1,9 @@
 /** @ignore */
 const apiKey = require('../../config/config.json').YOUTUBEAPIKEY
 const ytPI         = require('simple-youtube-api');
-const videoFetcher = new ytPI(apiKey)
+const videoFetcher = new ytPI(apiKey);
 const sf = require('snekfetch');
+const jsonDatabase = require('node-json-db')
 
 function fetchSongData(client, msg, toSearch) {
 
@@ -12,12 +13,15 @@ function fetchSongData(client, msg, toSearch) {
   * @returns {Promise}
   * @returns {Error}
   */
+  let vidID;
   sf.get(`https://www.googleapis.com/youtube/v3/search?part=id&type=video&q=` + encodeURIComponent(toSearch) + '&key=' + apiKey)
     .then(async response => {
-      logger.log(Object.keys(response.body.items));
+      vidID = response.body.items[0].id.videoId
+
   }).catch(e => {
     logger.error(e)
   })
+  console.log(vidID);
 }
 
 module.exports = fetchSongData;
