@@ -15,13 +15,13 @@ async function playMusic(connection, msg) {
       try {
         await play(playMusic, msg);
       } catch (e) {
-        db.delete(`/parent/${message.guild.id}`)
+        db.delete(`/parent/${msg.guild.id}`)
         connection.disconnect();
       }
 
     } else {
       connection.disconnect();
-      db.delete(`/parent/${message.guild.id}`);
+      db.delete(`/parent/${msg.guild.id}`);
     }
   });
 }
