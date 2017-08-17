@@ -4,3 +4,4 @@ config/
 !/may/configExample/exampleConfig.json
 /configExample/
 musicQueue/queue.json
+musicQueue/
