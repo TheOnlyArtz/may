@@ -1,10 +1,10 @@
 /**
-*@function {fetchVideoData} fetching data from the video to play it
+*@function {fetchSongData} fetching data from the video to play it
 */
-const fetchVideoData = require('../functions/music/fetchVideoData.js');
+const fetchSongData = require('../functions/music/fetchSongData.js');
 exports.run = async (client,msg,args) => {
   let searchTerms = args.join(' ');
-  fetchVideoData(client, msg, searchTerms);
+  fetchSongData(client, msg, searchTerms);
 };
 
 exports.help = {
