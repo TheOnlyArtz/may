@@ -3,7 +3,6 @@ const apiKey = require('../../config/config.json').YOUTUBEAPIKEY
 const ytPI         = require('simple-youtube-api');
 const videoFetcher = new ytPI(apiKey);
 const sf = require('snekfetch');
-const jsonDatabase = require('node-json-db')
 async function fetchSongData(client, msg, toSearch) {
 
   /**
