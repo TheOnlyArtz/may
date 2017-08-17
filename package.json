@@ -10,6 +10,20 @@
     "type": "git",
     "url": "git+https://github.com/TheOnlyArtz/may.git"
   },
+  "xo": {
+  "space": 4,
+  "semicolon": true,
+  "rules": {
+    "camelcase": 0,
+    "new-parens": 0,
+    "guard-for-in": 0,
+    "prefer-const": 0,
+    "no-eval": 0,
+    "no-unused-vars": 0,
+    "no-prototype-builtins": 0,
+    "unicorn/filename-case": 0,
+    "import/no-dynamic-require": 0
+  },
   "keywords": [
     "bot",
     "discord",
