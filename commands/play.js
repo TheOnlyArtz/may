@@ -17,7 +17,6 @@ exports.run = async (client,msg,args) => {
     return msg.reply('You must be in a voiceChannel');
   }
   if (videoId) {
-    if (!searchTerms.includes('&list') && !searchTerms.includes('index')) {
       await pushSongs(msg, videoId);
       await checkGuildVC(client, msg);
       let yInfo = await InfoFetcher(videoId);
@@ -27,7 +26,6 @@ exports.run = async (client,msg,args) => {
       .setThumbnail(yInfo.thumbnailUrl)
       .addField('Song Info', `**Uploaded By:** ${yInfo.owner}\n**Duration:** ${(yInfo.duration / 60).toFixed(2)} Minutes\n**Views:** ${yInfo.views}`);
       msg.channel.send({embed})
-    }
   } else {
     return;
   }
