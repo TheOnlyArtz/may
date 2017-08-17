@@ -9,7 +9,7 @@ const checkGuildVC = require('../functions/music/checkGuildVC.js');
 exports.run = async (client,msg,args) => {
   let searchTerms = args.join(' ');
   let videoId = await fetchSongData(client, msg, searchTerms);
-  await checkGuildVC(client, msg);
+  await checkGuildVC(client, msg, videoId);
 };
 
 exports.help = {
