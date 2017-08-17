@@ -3,4 +3,4 @@ config/
 .idea/
 !/may/configExample/exampleConfig.json
 /configExample/
-musicQueue/
+musicQueue/queue.json
