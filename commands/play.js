@@ -8,7 +8,7 @@ const checkGuildVC = require('../functions/music/checkGuildVC.js');
 const pushSongs = require('../functions/music/pushSongs.js');
 const InfoFetcher = require('youtube-info');
 const moment = require('moment');
-const Discord = require('discord.js')
+const Discord = require('discord.js');
 exports.run = async (client,msg,args) => {
   msg.delete();
   let searchTerms = args.join(' ');
@@ -27,7 +27,7 @@ exports.run = async (client,msg,args) => {
       .addField('Song Info', `**Uploaded By:** ${yInfo.owner}\n**Duration:** ${(yInfo.duration / 60).toFixed(2)} Minutes\n**Views:** ${yInfo.views}`);
       msg.channel.send({embed})
   } else {
-    return;
+
   }
 };
 

@@ -1,6 +1,6 @@
 exports.run = async (client,msg,args) => {
   let hugMoji = client.emojis.find('name', 'Hug');
-  const target = msg.mentions.users.last() === client.user ? msg.mentions.users.first() : msg.mentions.users.last()
+  const target = msg.mentions.users.last() === client.user ? msg.mentions.users.first() : msg.mentions.users.last();
 
   if (!target || target === client.user) {
     return msg.reply('Please mention someone.')

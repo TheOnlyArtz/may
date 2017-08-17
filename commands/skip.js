@@ -28,7 +28,7 @@ exports.run = async (client, msg) => {
 				msg.reply('Skipped on the song successfully!');
 				logger.info(`${msg.author.username} Skipped successfully on the song`);
 			} catch (e) {
-        logger.error(e)
+        logger.error(e);
 				msg.channel.send('**No songs are currently playing!**');
 			}
   			} else {
