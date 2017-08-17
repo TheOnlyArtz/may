@@ -6,7 +6,6 @@ async function playMusic(connection, msg) {
   db.reload();
 
   let nextSong = db.getData(`/guilds/${msg.guild.id}/queue`);
-  console.log(nextSong);
   dispatcher = connection.playStream(ytdl(nextSong[0], {filter: 'audioonly'}));
   setTimeout(async function () {
     await db.delete(`/guilds/${msg.guild.id}/queue[0]`);
@@ -17,8 +16,7 @@ async function playMusic(connection, msg) {
       try {
         await playMusic(connection, msg);
       } catch (e) {
-        logger.error(e)
-        db.delete(`/guilds/${msg.guild.id}/queue`)
+        db.delete(`/guilds/${msg.guild.id}/queue`);
         connection.disconnect();
       }
 
