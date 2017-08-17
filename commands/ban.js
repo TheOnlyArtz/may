@@ -6,8 +6,6 @@ exports.run = async(client, msg, args) => {
     const toBanUsr = msg.mentions.users.last() === client.user ? msg.mentions.users.first() : msg.mentions.users.last();
     const role = msg.guild.roles.find('name', 'may-muted');
 
-
-
     let reason;
     let duration;
     if (!args[1]){
