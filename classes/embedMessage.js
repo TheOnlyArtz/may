@@ -1,5 +1,5 @@
-const Discord = require('discord.js')
-const embed = new Discord.RichEmbed()
+const Discord = require('discord.js');
+const embed = new Discord.RichEmbed();
 class embedMessage {
   constructor(msg) {
     this.message = msg

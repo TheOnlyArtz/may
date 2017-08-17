@@ -1,7 +1,7 @@
-const Discord = require('discord.js')
+const Discord = require('discord.js');
 exports.run = (client, msg, args) => {
   const embedClass  = require('../classes/embedMessage.js');
-  let embedMessage = new embedClass(msg)
+  let embedMessage = new embedClass(msg);
   /**
   * @var {target} @type {Object} user-Object to mute
   * @var {reason} @type {String} Punishment-Reason
@@ -44,7 +44,7 @@ Target   : ${target.username} [${target.id}]\n\
 Moderator: ${msg.author.username} [${msg.author.id}]\n\
 Reason   : ${Freason}
 \`\`\``)
-  .setColor(0x6e1c39)
+  .setColor(0x6e1c39);
 
   /**
   * Send the message to the channel where the message was sent in or to mayLog

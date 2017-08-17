@@ -10,7 +10,7 @@ client.login(config.TOKEN).catch(handler);
 
 fs.readdir('./events/', (err, files) => {
     if (err) return handler(err);
-    let commandIndex = 1
+    let commandIndex = 1;
     files.forEach(file => {
         let eventFunction = require(`./events/${file}`);
         let eventName = file.split('.')[0];

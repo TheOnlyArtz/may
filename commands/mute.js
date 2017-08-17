@@ -1,8 +1,8 @@
-const Discord = require('discord.js')
-const ms = require('ms')
+const Discord = require('discord.js');
+const ms = require('ms');
 exports.run = async(client, msg, args) => {
   const embedClass  = require('../classes/embedMessage.js');
-  let embedMessage = new embedClass(msg)
+  let embedMessage = new embedClass(msg);
   /**
   * @var {target} @type {Object} user-Object to mute
   * @var {dole} @type {Object} role-Object for mutes
@@ -43,7 +43,7 @@ Moderator: ${msg.author.username} [${msg.author.id}]\n\
 Duration : ${Fdur}\n\
 Reason   : ${Freason}
 \`\`\``)
-  .setColor(0x6580b0)
+  .setColor(0x6580b0);
 
   if (!mayLog) {
     msg.channel.send({embed})
@@ -60,7 +60,7 @@ Reason   : ${Freason}
 
 exports.help = {
     category   : 'moderation',
-    usage      : '[time:time or permant] [reason:optional]',
+    usage      : '[time:time or permanent] [reason:optional]',
     description: 'I will be sure to shut their mouth',
     detail     : 'When using mute the bot will mute the selected user, for the time you choose(optional)',
     botPerm    : ['SEND_MESSAGES', 'MANAGE_ROLES'],

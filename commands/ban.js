@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const ms = require('ms');
 const embedClass  = require('../classes/embedMessage.js');
 exports.run = async(client, msg, args) => {
-  let embedMessage = new embedClass(msg)
+  let embedMessage = new embedClass(msg);
     const toBanUsr = msg.mentions.users.last() === client.user ? msg.mentions.users.first() : msg.mentions.users.last();
     const role = msg.guild.roles.find('name', 'may-muted');
 

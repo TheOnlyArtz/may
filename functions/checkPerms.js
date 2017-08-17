@@ -1,6 +1,6 @@
 function checkForPermissions(botPermissions, authorPermissions, cmd, msg, client) {
   const embedClass  = require('../classes/embedMessage.js');
-  let embedMessage = new embedClass(msg)
+  let embedMessage = new embedClass(msg);
   if (!botPermissions && !authorPermissions) {
     throw Error `You must specify the permissions for ${cmd}`
   }
@@ -23,7 +23,7 @@ function checkForPermissions(botPermissions, authorPermissions, cmd, msg, client
         type    : "desc",
         content : `🔒I'm missing permissions\n**List**: \`${botPermsMissing.join(', ')}\``,
         color   : 0xe23903
-      })
+      });
 
       // msg.channel.send(`Cannot perform ${cmd.name} missing permissions => (${botPermsMissing.join(' ')})`).catch(logger.error)
       return true
@@ -40,7 +40,7 @@ function checkForPermissions(botPermissions, authorPermissions, cmd, msg, client
         type    : "desc",
         content : `🔒${msg.author} is missing permissions\n**List**: ${authorPermsMissing.join(', ')}`,
         color   : 0xe23903
-      })
+      });
       return true
   }
 }
