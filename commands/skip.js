@@ -12,6 +12,7 @@ exports.run = async (client, msg) => {
 			return msg.reply('You can\' skip since you aren\'t In a voice channel!');
 		}
     shuffReq++;
+    console.log(shuffReq);
 		if (shuffReq >= Math.ceil((msg.member.voiceChannel.members.size - 1) / 2)) {
 
       try {
