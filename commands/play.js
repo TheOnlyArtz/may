@@ -1,3 +1,7 @@
+/**
+*@function {fetchVideoData} fetching data from the video to play it
+*/
+
 exports.run = async (client,msg,args) => {
 
 };
