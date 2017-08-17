@@ -4,7 +4,7 @@ async function checkGuildVC(client, msg, songID) {
     msg.member.voiceChannel.join()
       .then(async connection => {
         logger.info(`Started to stream ${msg.author.username}`);
-        await playMusic(connection, msg, songID);
+        await playMusic(connection, msg);
     });
   }
 }
