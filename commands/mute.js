@@ -1,60 +1,38 @@
 const Discord = require('discord.js');
 const ms = require('ms');
 exports.run = async(client, msg, args) => {
-  const embedClass  = require('../classes/embedMessage.js');
-  let embedMessage = new embedClass(msg);
-  /**
-  * @var {target} @type {Object} user-Object to mute
-  * @var {dole} @type {Object} role-Object for mutes
-  * @var {reason} @type {String} Punishment-Reason
-  * @var {duration} @type {String} Punishment-Duration
-  */
-  const target = msg.mentions.users.first();
-  const role = msg.guild.roles.find('name', 'may-muted');
-  const reason = msg.content.split(' ').slice(3).join(' ');
-  const duration = msg.content.split(' ')[2];
-  const mayLog = msg.guild.channels.find('name', 'may-log');
+    const toBanUsr = msg.mentions.users.last() === client.user ? msg.mentions.users.first() : msg.mentions.users.last();
+    const role = msg.guild.roles.find('name', 'may-muted');
 
+    let reason;
+    let duration;
+    if (!args[1]){
+        duration = 'permanent';
+        reason = 'None'
+    } else if (args[1].match(/\d{1,2}(hour|h|hours|second|sec|s|seconds|d|days|day)\b/)) {
+        duration = ms(ms(args[1]), {long : true});
+        reason = args.slice(2).join(' ') ? args.slice(2).join(' ') : 'None';
+    } else {
+        duration = 'permanent';
+        reason = args.slice(1).join(' ');
+    }
 
-  if (!target) {
-    return msg.reply('Please mention a user for the punishment')
-  }
+    if (toBanUsr === client.user || !toBanUsr) {
+        return msg.reply('Please mention someone.')
+    }
 
-  let Freason;
-  if (!reason) {
-    Freason = 'None'
-  } else {
-    Freason = reason;
-  }
+    const mayLog = msg.guild.channels.find('name', 'may-log');
 
-  let Fdur;
-  if (!duration) {
-    Fdur = 'permanent'
-  } else if (duration.match(/\d{1,2}(hour|h|hours|second|sec|s|seconds|d|days|day)\b/)){
-    console.log('match');
-    Fdur = ms(ms(duration), {long : true})
-  }
+    const embed = new Discord.RichEmbed()
+        .setColor(0xc65e57)
+        .setAuthor('Banned ' + toBanUsr.tag, client.user.avatarURL)
+        .setDescription(`Muted User: \`${toBanUsr.tag} (${toBanUsr.id})\`\nMuted by: \`${msg.author.tag} (${msg.author.id})\`\nDuration: \`${duration}\`\nReason: \`${reason}\``)
+        .setTimestamp();
 
-  const embed = new Discord.RichEmbed()
-  .setAuthor(`Muted ${target.username}`, client.user.avatarURL)
-  .setDescription(`\`\`\`\n
-Target   : ${target.username} [${target.id}]\n\
-Moderator: ${msg.author.username} [${msg.author.id}]\n\
-Duration : ${Fdur}\n\
-Reason   : ${Freason}
-\`\`\``)
-  .setColor(0x6580b0);
+    mayLog ? mayLog.send({embed}) : msg.channel.send({embed});
 
-  if (!mayLog) {
-    msg.channel.send({embed})
-
-  } else if (mayLog) {
-    mayLog.send({embed})
-  }
-
-
-  msg.guild.member(target).addRole(role).catch(logger.error);
-  // TODO: Add the time for the mute to a database for time and add total mutes the user got to a database
+    msg.guild.member(toBanUsr).addRole(role).catch(logger.error);
+    // TODO: Add the time for the mute to a database for time and add total mutes the user got to a database
 
 };
 
