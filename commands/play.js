@@ -17,8 +17,6 @@ exports.run = async (client,msg,args) => {
   if (videoId) {
     await pushSongs(msg, videoId);
     await checkGuildVC(client, msg);
-  } else {
-    return;
   }
 };
 

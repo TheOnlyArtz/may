@@ -17,8 +17,8 @@ async function playMusic(connection, msg) {
       try {
         await playMusic(connection, msg);
       } catch (e) {
-        logger.error(e)
-        db.delete(`/guilds/${msg.guild.id}/queue`)
+        logger.error(e);
+        db.delete(`/guilds/${msg.guild.id}/queue`);
         connection.disconnect();
       }
 
@@ -30,4 +30,4 @@ async function playMusic(connection, msg) {
   });
 }
 
-module.exports = playMusic
+module.exports = playMusic;
