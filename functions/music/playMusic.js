@@ -19,12 +19,14 @@ async function playMusic(connection, msg) {
         await playMusic(connection, msg);
       } catch (e) {
         db.delete(`/guilds/${msg.guild.id}/queue`);
+        msg.channel.send({embed:{description: "Queue finished leaving voice channel", color: 0x1bd99a}})
         connection.disconnect();
       }
 
     } else {
       console.log(nextSong);
       connection.disconnect();
+      msg.channel.send({embed:{description: "Queue finished leaving voice channel", color: 0x1bd99a}})
       db.delete(`/guilds/${msg.guild.id}/queue`);
     }
   });
