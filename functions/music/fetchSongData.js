@@ -1,4 +1,4 @@
-function fetchSongData() {
+function fetchSongData(client, msg, toSearch) {
 
 }
 
