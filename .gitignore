@@ -4,4 +4,4 @@ config/
 !/may/configExample/exampleConfig.json
 /configExample/
 musicQueue/
-musicQueue/queue.json
+/commands/rankback.js

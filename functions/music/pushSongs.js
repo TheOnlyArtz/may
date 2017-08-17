@@ -1,4 +1,4 @@
-const jsonDatabase = require('node-json-db')
+const jsonDatabase = require('node-json-db');
 const db = new jsonDatabase('./musicQueue/queue.json', true, true);
   async function pushSongs(msg, songID) {
     db.reload();
