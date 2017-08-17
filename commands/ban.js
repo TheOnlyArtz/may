@@ -7,13 +7,6 @@ exports.run = async(client, msg, args) => {
     const role = msg.guild.roles.find('name', 'may-muted');
 
 
-    if (msg.guild.member(toBanUsr).bannable === false) {
-      return embedMessage.descEmbed({
-        type : "desc",
-        content : `🔒 Cannot ban\n**Reason:** Privilege is too low`,
-        color   : 0x6e1c39
-      })
-    }
 
     let reason;
     let duration;
@@ -27,7 +20,20 @@ exports.run = async(client, msg, args) => {
         duration = 'permanent';
         reason = args.slice(1).join(' ');
     }
+
+    if (toBanUsr === client.user || !toBanUsr) {
+      return msg.reply('Please mention someone.')
+    }
+
     const mayLog = msg.guild.channels.find('name', 'may-log');
+
+    if (msg.guild.member(toBanUsr).bannable === false) {
+      return embedMessage.descEmbed({
+        type : "desc",
+        content : `🔒 Cannot ban\n**Reason:** Privilege is too low`,
+        color   : 0x6e1c39
+      })
+    }
 
     const embed = new Discord.RichEmbed()
         .setColor(0xc65e57)

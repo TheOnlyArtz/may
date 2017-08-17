@@ -12,9 +12,10 @@ exports.run = async (client,msg,args) => {
       reason = args.slice(1).join(' ');
   }
 
-  if (!toWarn) {
+  if (!toWarn || toWarn === client.user) {
     return msg.channel.send('Please mention someone.')
   }
+
   const embed = new Discord.RichEmbed()
   .setColor(0x23d992)
   .setAuthor(`Warned ${toWarn.tag}`)
