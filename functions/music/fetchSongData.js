@@ -4,8 +4,7 @@ const ytPI         = require('simple-youtube-api');
 const videoFetcher = new ytPI(apiKey);
 const sf = require('snekfetch');
 const jsonDatabase = require('node-json-db')
-
-function fetchSongData(client, msg, toSearch) {
+async function fetchSongData(client, msg, toSearch) {
 
   /**
   * @param {String} toSearch Getting the right video to play
@@ -13,15 +12,13 @@ function fetchSongData(client, msg, toSearch) {
   * @returns {Promise}
   * @returns {Error}
   */
-  let vidID;
-  sf.get(`https://www.googleapis.com/youtube/v3/search?part=id&type=video&q=` + encodeURIComponent(toSearch) + '&key=' + apiKey)
-    .then(async response => {
-      vidID = response.body.items[0].id.videoId
 
-  }).catch(e => {
-    logger.error(e)
-  })
-  console.log(vidID);
+  let data = await sf.get(`https://www.googleapis.com/youtube/v3/search?part=id&type=video&q=` + encodeURIComponent(toSearch) + '&key=' + apiKey)
+  try {
+    return(data.body.items[0].id.videoId);
+  } catch (e) {
+    msg.reply('We could not find the current song.');
+  }
 }
 
 module.exports = fetchSongData;
