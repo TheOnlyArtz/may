@@ -1,7 +1,7 @@
 const jsonDatabase = require('node-json-db')
 const db = new jsonDatabase('./musicQueue/queue.json', true, true);
+db.reload();
   async function pushSongs(msg, songID) {
-    db.reload();
   try {
     await db.getData(`guilds/${msg.guild.id}/queue`)
   } catch (e) {
