@@ -8,6 +8,7 @@ const checkGuildVC = require('../functions/music/checkGuildVC.js');
 const pushSongs = require('../functions/music/pushSongs.js');
 
 exports.run = async (client,msg,args) => {
+  msg.delete();
   let searchTerms = args.join(' ');
   let videoId = await fetchSongData(client, msg, searchTerms);
   if (!msg.member.voiceChannel) {
