@@ -1,8 +1,11 @@
 /** @ignore */
-const apiKey = require('../../config/config.json').YOUTUBEAPIKEY;
-const ytPI         = require('simple-youtube-api');
-const videoFetcher = new ytPI(apiKey);
-const sf = require('snekfetch');
+const apiKey          = require('../../config/config.json').YOUTUBEAPIKEY;
+const ytPI            = require('simple-youtube-api');
+const videoFetcher    = new ytPI(apiKey);
+const sf              = require('snekfetch');
+const p               = require('simple-youtube-api');
+const playListFetcher = new p(require('../config/config.json').YOUTUBEAPIKEY);
+
 async function fetchSongData(client, msg, toSearch) {
 
   /**
