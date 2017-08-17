@@ -12,12 +12,12 @@ const Discord = require('discord.js')
 exports.run = async (client,msg,args) => {
   msg.delete();
   let searchTerms = args.join(' ');
-  let videoId = await fetchSongData(client, msg, searchTerms);
   if (!msg.member.voiceChannel) {
     return msg.reply('You must be in a voiceChannel');
   }
   if (videoId) {
       await pushSongs(msg, videoId);
+      let videoId = await fetchSongData(client, msg, searchTerms);
       await checkGuildVC(client, msg);
       let yInfo = await InfoFetcher(videoId);
       const embed = new Discord.RichEmbed()

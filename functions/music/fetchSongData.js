@@ -4,7 +4,7 @@ const ytPI            = require('simple-youtube-api');
 const videoFetcher    = new ytPI(apiKey);
 const sf              = require('snekfetch');
 const p               = require('simple-youtube-api');
-const playListFetcher = new p(require('../config/config.json').YOUTUBEAPIKEY);
+const playListFetcher = new p(apiKey);
 
 async function fetchSongData(client, msg, toSearch) {
 
@@ -19,8 +19,7 @@ async function fetchSongData(client, msg, toSearch) {
   try {
     return(data.body.items[0].id.videoId);
   } catch (e) {
-    msg.reply('We could not find the current song.');
+    msg.reply('We could not find the requested song')
   }
 }
-
 module.exports = fetchSongData;
