@@ -2,16 +2,15 @@ const ytdl = require('ytdl-core');
 const jsonDatabase = require('node-json-db')
 const db = new jsonDatabase('./musicQueue/queue.json', true, true);
 async function playMusic(connection, msg) {
-  let nextSong = db.getData(`parent/${msg.guild.id}/queue[0]`);
-  dispatcher = connection.playStream(ytdl(nextSong, {filter: 'audioonly'}));
+  let nextSong = db.getData(`parent/${msg.guild.id}/queue`);
+  dispatcher = connection.playStream(ytdl(nextSong[0], {filter: 'audioonly'}));
 
-  setTimeout(() =>  {
-    db.delete(`parent/${msg.guild.id}/queue[0]`);
-  }, 1000);
+  setTimeout(async function () {
+    await db.delete(`parent/${msg.guild.id}/queue[0]`);
+  }, 500);
 
-  db.reload();
   dispatcher.on('end', async () => {
-    if (nextSong) {
+    if (nextSong[0] || nextSong.length > 0) {
       try {
         await play(playMusic, msg);
       } catch (e) {
