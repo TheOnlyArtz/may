@@ -43,6 +43,7 @@
   "dependencies": {
     "artzlogger": "0.0.4",
     "chalk": "^2.1.0",
+    "cheerio": "^1.0.0-rc.2",
     "discord.js": "^11.1.0",
     "ffmpeg-binaries": "^3.2.2-3",
     "google": "^2.1.0",
