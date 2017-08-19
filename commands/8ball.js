@@ -25,5 +25,5 @@ exports.help = {
     alias      : [
         '8b'
     ],
-    example    : '`Are you the may from overwatch?`'
+    example    : 'Are you the may from overwatch?'
 };

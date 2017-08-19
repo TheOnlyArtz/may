@@ -21,6 +21,7 @@ exports.help = {
     detail     : `Shows you a random dog every time the command gets triggered`,
     botPerm    : ['SEND_MESSAGES', "EMBED_LINKS"],
     authorPerm : [],
+    example    : false,
     alias      : [
         null
     ]

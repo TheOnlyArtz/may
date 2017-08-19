@@ -54,6 +54,7 @@ exports.help = {
     detail     : 'When using ban the bot will ban the selected user, for the time you choose(optional)',
     botPerm    : ['SEND_MESSAGES', 'BAN_MEMBERS'],
     authorPerm : ["BAN_MEMBERS"],
+    example    : '@user#5743 15min This is the reason.',
     alias      : [
         null
     ]

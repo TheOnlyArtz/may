@@ -58,6 +58,7 @@ exports.help = {
     detail     : 'When using bot info you will see all the info about the bot',
     botPerm    : ['SEND_MESSAGES', 'EMBED_LINKS'],
     authorPerm : [],
+    example    : false,
     alias      : [
         null
     ]
