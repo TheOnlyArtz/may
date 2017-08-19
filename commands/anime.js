@@ -14,6 +14,7 @@ exports.help = {
     detail     : 'Displaying a random anime picture',
     botPerm    : ['SEND_MESSAGES', 'EMBED_LINKS'],
     authorPerm : [],
+    example    : false,
     alias      : [
         null
     ]
