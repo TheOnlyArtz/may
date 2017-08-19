@@ -4,13 +4,16 @@ exports.run = async(client, msg, args) => {
 
   let command;
   if (require('./' + args[0])) {
-    command = require('./' + args[0])
-  } else if(alias[args[0]]) {
-    command = require('./' + alias[args[0]])
+    command = args[0]
   }
-  console.log(command);
-  delete require.cache[require.resolve(`./` + args[0])]
-  const cmd = require('./' + args[0])
+
+  try {
+    delete require.cache[require.resolve(`./` + command[0])];
+    msg.channel.send(`Reloaded command ${command}`);
+  } catch (e) {
+    msg.channel.send(`**${command}** Does not exists.`)
+  }
+
 };
 
 exports.help = {
