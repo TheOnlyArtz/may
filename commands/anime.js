@@ -1,4 +1,5 @@
 const sf = require('snekfetch');
+const cooldown = require('../functions/cooldown.js');
 exports.run = async(client, msg, args) => {
     if (cooldown(msg, 'anime', 60, 'This command has a cooldown of **1 Minute**!')) {
         let res = await sf.get('http://api.cutegirls.moe/json');
