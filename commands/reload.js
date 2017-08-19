@@ -8,9 +8,10 @@ exports.run = async(client, msg, args) => {
   }
 
   try {
-    delete require.cache[require.resolve(`./` + command[0])];
-    msg.channel.send(`Reloaded command ${command}`);
+    delete require.cache[require.resolve(`./` + command)];
+    msg.channel.send(`Reloaded command __***${command}***__`);
   } catch (e) {
+    logger.error(e)
     msg.channel.send(`**${command}** Does not exists.`)
   }
 
