@@ -25,6 +25,7 @@ exports.help = {
     detail     : `Look for whatever you want when you want`,
     botPerm    : ['SEND_MESSAGES'],
     authorPerm : [],
+    example    : 'Why am I a jake pauler?',
     alias      : [
         'g'
     ]

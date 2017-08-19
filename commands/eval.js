@@ -117,6 +117,7 @@ exports.help = {
     detail     : 'Eval',
     botPerm    : ['SEND_MESSAGES', "EMBED_LINKS"],
     authorPerm : [],
+    example    : 'if (\'I like javascript\') {// Do something you freak}',
     alias      : [
         null
     ]
