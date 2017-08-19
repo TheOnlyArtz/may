@@ -102,10 +102,14 @@ exports.run = async (bot,msg,args) => {
                         .addField('Alias', alias3 ? alias3 : 'None')
                         .setTimestamp()
                         .setFooter(bot.user.username);
+                    if (help.example) {
+                        embed.addField('Example', help.example)
+                    }
                 msg.channel.send({embed});
             } catch (err) {
                 if (alias[args[0]]) {
-                    let cmd = require('./' + alias[args[0]] + '.js'),
+                    let
+                        cmd = require('./' + alias[args[0]] + '.js'),
                         help = cmd.help,
                         usageCheck = help.usage !== false ? help.usage : '',
                         usage = config.PREFIX + args[0] + ' ' + usageCheck,
@@ -118,6 +122,9 @@ exports.run = async (bot,msg,args) => {
                             .addField('Alias', alias2 ? alias2 : 'None')
                             .setTimestamp()
                             .setFooter(bot.user.username);
+                    if (help.example) {
+                        embed.addField('Example', help.example)
+                    }
                     msg.channel.send({embed});
                 }
                 else {
