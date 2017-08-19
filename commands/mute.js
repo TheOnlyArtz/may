@@ -43,6 +43,7 @@ exports.help = {
     detail     : 'When using mute the bot will mute the selected user, for the time you choose(optional)',
     botPerm    : ['SEND_MESSAGES', 'MANAGE_ROLES'],
     authorPerm : ['MUTE_MEMBERS'],
+    example    : '@user#3476 15min This is the reason.',
     alias      : [
         null
     ]

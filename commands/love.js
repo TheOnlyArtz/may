@@ -28,6 +28,7 @@ exports.help = {
     detail     : 'Get out the percentage chance that the two persons love each other',
     botPerm    : ['SEND_MESSAGES'],
     authorPerm : [],
+    example    : 'name1 name2',
     alias      : [
         'lovecalc'
     ]

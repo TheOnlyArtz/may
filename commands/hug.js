@@ -5,7 +5,7 @@ exports.run = async (client,msg,args) => {
   if (!target || target === client.user) {
     return msg.reply('Please mention someone.')
   }
-  
+
   const hugSentences = [
     `There you go ${target.username} I love you ♥`,
     `Oh... ${target.username} I got you buddy ${hugMoji}`,
@@ -24,6 +24,7 @@ exports.help = {
     detail     : 'Give your friend a hug.',
     botPerm    : ['SEND_MESSAGES'],
     authorPerm : [],
+    example    : '@user#3476',
     alias      : [
         'hu'
     ]

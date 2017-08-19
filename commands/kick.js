@@ -46,6 +46,7 @@ exports.help = {
     detail     : `Kick a mentioned user and get him out of the server`,
     botPerm    : ['SEND_MESSAGES', "KICK_MEMBERS"],
     authorPerm : ["KICK_MEMBERS"],
+    example    : '@user#5743 Cause this guy spams.',
     alias      : [
         null
     ]
