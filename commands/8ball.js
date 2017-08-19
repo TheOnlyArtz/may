@@ -24,5 +24,6 @@ exports.help = {
     authorPerm : [],
     alias      : [
         '8b'
-    ]
+    ],
+    example    : '`Are you the may from overwatch?`'
 };
