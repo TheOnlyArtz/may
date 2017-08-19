@@ -5,7 +5,7 @@ const
     alias = require('../events/message.js').alias;
 
 exports.run = async (bot,msg,args) => {
-  const embedClass  = require('../classes/embedMessage.js');
+    const embedClass  = require('../classes/embedMessage.js');
     let embedMessage = new embedClass(msg);
 
     if (args[0]) {
@@ -102,9 +102,9 @@ exports.run = async (bot,msg,args) => {
                         .addField('Alias', alias3 ? alias3 : 'None')
                         .setTimestamp()
                         .setFooter(bot.user.username);
-                    if (help.example) {
-                        embed.addField('Example', help.example)
-                    }
+                if (help.example) {
+                    embed.addField('Example', config.PREFIX + help.example)
+                }
                 msg.channel.send({embed});
             } catch (err) {
                 if (alias[args[0]]) {
@@ -123,7 +123,7 @@ exports.run = async (bot,msg,args) => {
                             .setTimestamp()
                             .setFooter(bot.user.username);
                     if (help.example) {
-                        embed.addField('Example', help.example)
+                        embed.addField('Example', config.PREFIX + help.example)
                     }
                     msg.channel.send({embed});
                 }
