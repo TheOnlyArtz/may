@@ -44,7 +44,7 @@ exports.run = (client, msg, args) => {
                 .addField(':inbox_tray: Input', Input)
                 .addField(':outbox_tray: Output', output)
                 .setColor(0x80ff00)
-                .setFooter('Evaaaaal')
+                .setFooter('May ')
                 .setTimestamp();
             msg.channel.send({embed});
         }else {
@@ -54,7 +54,7 @@ exports.run = (client, msg, args) => {
                         .addField('EVAL', `**Type:** ${type}`)
                         .addField(':inbox_tray: Input', Input)
                         .addField(':outbox_tray: Output', `Output was to long so it was uploaded to hastebin https://www.hastebin.com/${res.body.key}.js `, true)
-                        .setFooter('Evaaaaal')
+                        .setFooter('May ')
                         .setColor(0x80ff00);
                     msg.channel.send({embed});
                 })
@@ -64,7 +64,7 @@ exports.run = (client, msg, args) => {
                         .addField('EVAL', `**Type:** ${type}`)
                         .addField(':inbox_tray: Input', Input)
                         .addField(':x: ERROR', `Output was to long and could not upload to hastebin`, true)
-                        .setFooter('Evaaaaal')
+                        .setFooter('May ')
                         .setColor(0x80ff00);
                     msg.channel.send({embed});
                 });
@@ -79,17 +79,19 @@ exports.run = (client, msg, args) => {
                 .addField('EVAL', `**Type:** Error`)
                 .addField(':inbox_tray: Input', Input)
                 .addField(':x: ERROR', error, true)
-                .setFooter('Evaaaaal')
+                .setFooter('May ')
                 .setColor(0x80ff00);
             msg.channel.send({embed});
         } else {
             snekfetch.post("https://www.hastebin.com/documents").send(errIns)
                 .then(res  => {
                     const embed = new Discord.RichEmbed()
+                        .setTitle('Eval Error')
                         .addField('EVAL', `**Type:** Error`)
                         .addField(':inbox_tray: Input', Input)
-                        .addField(':x: ERROR', `output was to long so it was uploaded to hastebin https://www.hastebin.com/${res.body.key}.js `, true)
-                        .setFooter('Evaaaaal')
+                        .addField(':x: ERROR', '```' + err.name + ': ' + err.message + '```', true)
+                        .setURL(`https://www.hastebin.com/${res.body.key}.js`)
+                        .setFooter('May ')
                         .setColor(0x80ff00);
                     msg.channel.send({embed});
                 })
@@ -99,7 +101,7 @@ exports.run = (client, msg, args) => {
                         .addField('EVAL', `**Type:** Error`)
                         .addField(':inbox_tray: Input', Input)
                         .addField(':x: ERROR', `output was to long and could not upload to hastebin :/`, true)
-                        .setFooter('Evaaaaal')
+                        .setFooter('May ')
                         .setColor(0x80ff00);
                     msg.channel.send({embed});
                 });
