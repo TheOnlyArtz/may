@@ -103,7 +103,7 @@ exports.run = async (bot,msg,args) => {
                         .setTimestamp()
                         .setFooter(bot.user.username);
                 if (help.example) {
-                    embed.addField('Example', '`' + config.PREFIX + args[0] + help.example + '`')
+                    embed.addField('Example', '`' + config.PREFIX + args[0] + ' ' + help.example + '`')
                 }
                 msg.channel.send({embed});
             } catch (err) {
@@ -123,7 +123,7 @@ exports.run = async (bot,msg,args) => {
                             .setTimestamp()
                             .setFooter(bot.user.username);
                     if (help.example) {
-                        embed.addField('Example', '`' + config.PREFIX + alias[args[0]] + help.example + '`')
+                        embed.addField('Example', '`' + config.PREFIX + alias[args[0]] + ' ' + help.example + '`')
                     }
                     msg.channel.send({embed});
                 }

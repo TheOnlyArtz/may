@@ -2,9 +2,9 @@ const cooldown = require('../functions/cooldown.js');
 const config = require('../config/config.json');
 const snekfetch = require('snekfetch');
 exports.run = async(client, msg, args) => {
-        if (!args[0] || !args[1]) return msg.channel.send('I need two names to calculate the love!');
-        if (args[2]) return msg.channel.send('Please only give me 2 names');
-        if (cooldown(msg, 'love', 60, 'This command has a cooldown of **1 Minute**!')) {
+    if (!args[0] || !args[1]) return msg.channel.send('I need two names to calculate the love!');
+    if (args[2]) return msg.channel.send('Please only give me 2 names');
+    if (cooldown(msg, 'love', 60, 'This command has a cooldown of **1 Minute**!')) {
         let name1 = args[0];
         let name2 = args[1];
         name1 = name1.startsWith('<@') ? msg.mentions.users.first().username : name1;
@@ -28,7 +28,6 @@ exports.help = {
     detail     : 'Get out the percentage chance that the two persons love each other',
     botPerm    : ['SEND_MESSAGES'],
     authorPerm : [],
-    example    : 'name1 name2',
     alias      : [
         'lovecalc'
     ]
