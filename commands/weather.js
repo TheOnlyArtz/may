@@ -2,6 +2,7 @@ const sf = require('snekfetch');
 const discord = require('discord.js');
 const config = require('../config/config.json');
 const cooldown = require('../functions/cooldown.js');
+// TODO: Use a map to log the usage of each key
 
 exports.run = async (client, msg, args) => {
     if (!args[0]) return msg.channel.send('Please give a location');
@@ -12,7 +13,7 @@ exports.run = async (client, msg, args) => {
         let resS = res.body.results[0];
         let geocodelocation = resS.formatted_address;
         let params = resS.geometry.location.lat + "," + resS.geometry.location.lng;
-        let wea = await sf.get(`https://api.darksky.net/forecast/${config.WEATHERKEY}/${params}?exclude=minutely,hourly,flags&units=si`);
+        let wea = await sf.get(`https://api.darksky.net/forecast/${config.WEATHERKEY[Math.floor(config.WEATHERKEY.length * Math.random())]}/${params}?exclude=minutely,hourly,flags&units=si`);
         let tempF = Math.round(wea.body.currently.temperature);
         let humidity = `${wea.body.currently.humidity * 100}%`;
         let wind = wea.body.currently.windSpeed;
@@ -23,7 +24,7 @@ exports.run = async (client, msg, args) => {
             .setDescription(wea.body.daily.summary)
             .addField(':thermometer: Temperature', `${tempF}°C (feels like ${Math.round(wea.body.currently.apparentTemperature)}°C)`, true)
             .addField(':sweat_drops: Humidity', `${humidity}`, true)
-            .addField(':wind_blowing_face: Wind Speed', `${Math.round(wind * 1.609344)} km/h (${wind} mph)`,true)
+            .addField(':wind_blowing_face: Wind Speed', `${wind } m/s`,true)
             .addField(':white_sun_small_cloud: Cloud Coverage', `${cloudCover}`,true)
             .addField(':sunny: UV Index', wea.body.currently.uvIndex, true)
             .addField(':parking: Pressure', wea.body.currently.pressure + ' hPa', true)
