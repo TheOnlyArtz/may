@@ -12,7 +12,7 @@ exports.run = async (client, msg, args) => {
         let resS = res.body.results[0];
         let geocodelocation = resS.formatted_address;
         let params = resS.geometry.location.lat + "," + resS.geometry.location.lng;
-        let wea = await sf.get(`https://api.darksky.net/forecast/${config.WEATHERKEY}/${params}?exclude=minutely,hourly,flags&units=auto`);
+        let wea = await sf.get(`https://api.darksky.net/forecast/${config.WEATHERKEY}/${params}?exclude=minutely,hourly,flags&units=si`);
         let tempF = Math.round(wea.body.currently.temperature);
         let humidity = `${wea.body.currently.humidity * 100}%`;
         let wind = wea.body.currently.windSpeed;
