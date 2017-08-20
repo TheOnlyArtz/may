@@ -5,7 +5,7 @@ const xml2js = require('xml2js');
 // TODO: Add database check if channel is nsfw also make a make channel nsfw command
 exports.run = async(client, msg, args) => {
     if (cooldown(msg, 'rule34', 60, 'This command has a cooldown of **1 Minute**!')) {
-        if (!args.join(' ')) return msg.channel.send("Please give a search terms!");
+        if (!args[0]) return msg.channel.send("Please give a search terms!");
         snekfetch.get('http://rule34.xxx/index.php?page=dapi&s=post&q=index&tags=' + args.join(' ')).then(r => {
             if (r.body.length < 75) return msg.channel.send(":x: Nothing found!");
             xml2js.parseString(r.body, (err, reply) => {
