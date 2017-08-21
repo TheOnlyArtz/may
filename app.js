@@ -6,6 +6,8 @@ const fs          = require('fs');
 logger            = new loggerClass({timeStamp: moment(new Date).format('hh:mm:ss:')});
 const handler     = (err) => {logger.error(err)};
 client.login(config.TOKEN).catch(handler);
+client.on('warn', logger.warn);
+client.on('error', logger.error);
 
 
 fs.readdir('./events/', (err, files) => {
