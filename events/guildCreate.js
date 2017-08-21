@@ -26,10 +26,15 @@ exports.run = async (client, guild) => {
       SEND_MESSAGES: false
     }))
     .catch(e => {
-      logger.error(e)
-    })
+      logger.error(e);
+    });
   }
 
+
+  /*
+  * Check if may-muted is already exists.
+  */
+  let checkIfMayMutedExists = guild.roles.filter(o => o.name === 'may-muted').map(o => o);
   /**
   * Create muted role
   * @param {Object} data
@@ -40,15 +45,19 @@ exports.run = async (client, guild) => {
   * @returns {Error}
   * @returns {Promise}
   */
-  guild.createRole({
-      name: 'may-muted',
-      permissions: ["USE_VAD", "ADD_REACTIONS", "READ_MESSAGE_HISTORY", "CREATE_INSTANT_INVITE", "READ_MESSAGES"],
-    reason: 'we needed a role for muted',
-  })
-  .then(role => logger.info(`Created role ${role.name}`))
-  .catch(e => {
-    logger.error(e)
-  });
+  if (checkIfMayMutedExists.length < 1) {
+      guild.createRole({
+        name: 'may-muted',
+        permissions: ["USE_VAD", "ADD_REACTIONS", "READ_MESSAGE_HISTORY", "CREATE_INSTANT_INVITE", "READ_MESSAGES"],
+        reason: 'we needed a role for muted',
+    })
+      .then(role => logger.info(`Created role ${role.name}`))
+      .catch(e => {
+       logger.error(e);
+    });
+  } else {
+    logger.log('The role is already exists.')
+  }
 
   /*
     Loop through all the channels and block muted people to talk there
