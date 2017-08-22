@@ -13,7 +13,7 @@ exports.run = (client, msg, args) => {
     function token(input) {
         if (typeof(input) === 'string') {
             return input.replace(msg.client.token, "{Secret Token}")
-        } else if(typeof(input) === 'object') {
+        } else if (typeof(input) === 'object') {
             if(Array.isArray(input)){
                 function hasToken(value) {
                     if(typeof(value) !== 'string') {
@@ -38,7 +38,7 @@ exports.run = (client, msg, args) => {
         const output = '```js\n' + func + '\n```';
         const Input = '```js\n' + msg.content.slice(6) + '\n```';
         let type = typeof(evaled);
-        if(func.length < 1000) {
+        if (func.length < 1000) {
             const embed = new Discord.RichEmbed()
                 .addField('EVAL', `**Type:** ${type}`)
                 .addField(':inbox_tray: Input', Input)
@@ -47,7 +47,7 @@ exports.run = (client, msg, args) => {
                 .setFooter('May ')
                 .setTimestamp();
             msg.channel.send({embed});
-        }else {
+        } else {
             snekfetch.post("https://www.hastebin.com/documents").send(func)
                 .then(res  => {
                     const embed = new Discord.RichEmbed()
@@ -73,8 +73,7 @@ exports.run = (client, msg, args) => {
         let errIns = require("util").inspect(err);
         const error = '```js\n' + errIns + '\n```';
         const Input = '```js\n' + msg.content.slice(6) + '\n```';
-        if(errIns.length < 1000)
-        {
+        if (errIns.length < 1000) {
             const embed = new Discord.RichEmbed()
                 .addField('EVAL', `**Type:** Error`)
                 .addField(':inbox_tray: Input', Input)
@@ -100,7 +99,7 @@ exports.run = (client, msg, args) => {
                     const embed = new Discord.RichEmbed()
                         .addField('EVAL', `**Type:** Error`)
                         .addField(':inbox_tray: Input', Input)
-                        .addField(':x: ERROR', `output was to long and could not upload to hastebin :/`, true)
+                        .addField(':x: ERROR', `The output was too long`, true)
                         .setFooter('May ')
                         .setColor(0x80ff00);
                     msg.channel.send({embed});
