@@ -10,76 +10,76 @@ function permInstructions(permission) {
 			return 'https://goo.gl/7KhVj7';
 		break;
 		case "BAM_MEMBERS":
-			return	'https://goo.gl/N4UDnu'
+			return	'https://goo.gl/N4UDnu';
 		break;
 		case "MANAGE_GUILD":
-			return 	'https://goo.gl/RSvH9k'
+			return 	'https://goo.gl/RSvH9k';
 		break;
 		case "ADD_REACTIONS":
-			return	'https://goo.gl/uyHGjw'
+			return	'https://goo.gl/uyHGjw';
 		break;
 		case "VIEW_AUDIT_LOG":
-			return	'https://goo.gl/S3yz2a'
+			return	'https://goo.gl/S3yz2a';
 		break;
 		case "READ_MESSAGES":
-			return	'https://goo.gl/DCYz5G'
+			return	'https://goo.gl/DCYz5G';
 		break;
 		case "SEND_TTS_MESSAGES":
-			return	'https://goo.gl/eftfHq'
+			return	'https://goo.gl/eftfHq';
 		break;
 		case "MANAGE_MESSAGES":
-			return	'https://goo.gl/NBXRjH'
+			return	'https://goo.gl/NBXRjH';
 		break;
 		case "EMBED_LINKS":
-			return	'https://goo.gl/b6MwDP'
+			return	'https://goo.gl/b6MwDP';
 		break;
 		case "ATTACH_FILES":
-			return	'https://goo.gl/abT6vd'
+			return	'https://goo.gl/abT6vd';
 		break;
 		case "READ_MESSAGE_HISTORY":
-			return	'https://goo.gl/DCYz5G'
+			return	'https://goo.gl/DCYz5G';
 		break;
 		case "MENTION_EVERYONE":
-			return	'https://goo.gl/toX2vh'
+			return	'https://goo.gl/toX2vh';
 		break;
 		case "USE_EXTERNAL_EMOJIS":
-			return	'https://goo.gl/17i9AY'
+			return	'https://goo.gl/17i9AY';
 		break;
 		case "CONNECT":
-			return	'https://goo.gl/WDP3Rr'
+			return	'https://goo.gl/WDP3Rr';
 		break;
 		case "SPEAK":
-			return	'https://goo.gl/wLURoA'
+			return	'https://goo.gl/wLURoA';
 		break;
 		case "MUTE_MEMBERS":
-			return	'https://goo.gl/wWiwrt'
+			return	'https://goo.gl/wWiwrt';
 		break;
 		case "DEAFEN_MEMBERS":
-			return	'https://goo.gl/EqqQr3'
+			return	'https://goo.gl/EqqQr3';
 		break;
 		case "MOVE_MEMBERS":
-			return	'https://goo.gl/oDpmKy'
+			return	'https://goo.gl/oDpmKy';
 		break;
 		case "USE_VAD":
-			return	'https://goo.gl/EQqvRB'
+			return	'https://goo.gl/EQqvRB';
 		break;
 		case "CHANGE_NICKNAME":
-			return	'https://goo.gl/YTDeos'
+			return	'https://goo.gl/YTDeos';
 		break;
 		case "MANAGE_NICKNAMES":
-			return	'https://goo.gl/PBRc8W'
+			return	'https://goo.gl/PBRc8W';
 		break;
 		case "MANAGE_ROLES":
-			return	'https://goo.gl/wKwkNM'
+			return	'https://goo.gl/wKwkNM';
 		break;
 		case "MANAGE_WEBHOOKS":
-			return	'https://goo.gl/59uu7R'
+			return	'https://goo.gl/59uu7R';
 		break;
 		case "MANAGE_EMOJIS":
-			return	'https://goo.gl/avdATD'
+			return	'https://goo.gl/avdATD';
 		break;
 
 	}
 }
 
-module.exports = permInstructions
+module.exports = permInstructions;
