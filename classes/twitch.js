@@ -1,3 +1,5 @@
+// TODO: Database Integration
+
 const https = require('https');
 const config = require('../config/config.json');
 class twitch {
