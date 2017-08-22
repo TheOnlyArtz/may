@@ -163,22 +163,7 @@ exports.run = async (bot,msg,args) => {
                 else if (info.category === 'music') {
                     musicCat.push(`**${config.PREFIX}${helpName}** ${description}`)
                 }
-                /*
-                let newBatch = batch + help;
-                if (newBatch.length > (1024 - 8)) {
-                    msg.channel.send({
-                      embed : {
-                        description : newBatch
-                      }
-                    });
-                    batch = help;
-                }
-                else {
-                    batch = newBatch;
-                }
-                */
             });
-            // batch += `\nTotal Command Count: ${count}`;
             // TODO: More checks if we ever have too many commands lol
             if ((funCat.join() + utilCat.join() + modCat.join() + musicCat.join()).length > 1950) {
                 if ((funCat.join() + utilCat.join()).length > 1950) {
