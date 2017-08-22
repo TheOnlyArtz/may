@@ -1,11 +1,84 @@
 function permInstructions(permission) {
-	switch {
+	switch (permission){
 		case "ADMINISTRATOR":
-			return 'https://gyazo.com/fef2ea597650a63a9351c9d763bd1f3e';
+			return 'https://goo.gl/Q1AwBx';
 			break;
 		case "CREATE_INSTANT_INVITE":
-			return 'https://gyazo.com/8c6ccec449c29011cf1bfdac3b0b5560'
+			return 'https://goo.gl/MgWd3E';
 			break;
+		case "KICK_MEMBERS":
+			return 'https://goo.gl/7KhVj7';
+		break;
+		case "BAM_MEMBERS":
+			return	'https://goo.gl/N4UDnu'
+		break;
+		case "MANAGE_GUILD":
+			return 	'https://goo.gl/RSvH9k'
+		break;
+		case "ADD_REACTIONS":
+			return	'https://goo.gl/uyHGjw'
+		break;
+		case "VIEW_AUDIT_LOG":
+			return	'https://goo.gl/S3yz2a'
+		break;
+		case "READ_MESSAGES":
+			return	''
+		break;
+		case "SEND_TTS_MESSAGES":
+			return	''
+		break;
+		case "MANAGE_MESSAGES":
+			return	''
+		break;
+		case "EMBED_LINKS":
+			return	''
+		break;
+		case "ATTACH_FILES":
+			return	''
+		break;
+		case "READ_MESSAGE_HISTORY":
+			return	''
+		break;
+		case "MENTION_EVERYONE":
+			return	''
+		break;
+		case "USE_EXTERNAL_EMOJIS":
+			return
+		break;
+		case "CONNECT":
+			return
+		break;
+		case "SPEAK":
+			return
+		break;
+		case "MUTE_MEMBERS":
+			return
+		break;
+		case "DEAFEN_MEMBERS":
+			return
+		break;
+		case "MOVE_MEMBERS":
+			return
+		break;
+		case "USE_VAD":
+			return
+		break;
+		case "CHANGE_NICKNAME":
+			return
+		break;
+		case "MANAGE_NICKNAMES":
+			return
+		break;
+		case "MANAGE_ROLES":
+			return
+		break;
+		case "MANAGE_WEBHOOKS":
+			return
+		break;
+		case "MANAGE_EMOJIS":
+			return
+		break;
+
 	}
 }
 
