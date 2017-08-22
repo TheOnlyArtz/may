@@ -1,6 +1,6 @@
 /** @ignore */
-var usageMb = process.memoryUsage().heapUsed / 1024 / 1024;
-var usage = usageMb.toFixed(2);
+let usageMb = process.memoryUsage().heapUsed / 1024 / 1024;
+let usage = usageMb.toFixed(2);
 const embedClass  = require('../classes/embedMessage.js');
 exports.run = async(client, msg, args) => {
   let embedMessage = new embedClass(msg);
@@ -20,34 +20,34 @@ exports.run = async(client, msg, args) => {
   * @return {Promise}
   */
   embedMessage.advanced({
-    author : {
-      name : `Take a look at my info`,
-      pic  : client.user.displayAvatarURL
-    },
-    fields : [{
-        title : `${DiscordMoji}My Discord Info:`,
-        content: `**Username:** ${client.user.username}\n\
+      author : {
+          name : `Take a look at my info`,
+          pic  : client.user.displayAvatarURL
+      },
+      fields : [{
+          title : `${DiscordMoji}My Discord Info:`,
+          content: `**Username:** ${client.user.username}\n\
 **Descriminator:** ${client.user.tag}\n\
 **ID:** ${client.user.id}`
-    },
-    {
-      title : `💻Process:`,
-      content : `**Online since:** ${ms(client.uptime, { long: true })}\n\
+      },
+          {
+              title : `💻Process:`,
+              content : `**Online since:** ${ms(client.uptime, { long: true })}\n\
 **Memory Usage:** ${usage} MB\n\
 **Operation System:** ${require('os').platform()}`,
-      inline: true
-    },
-    {
-      title : `${SocialMoji}Social`,
-      content : `**Total Guilds:** ${client.guilds.size}\n\
+              inline: true
+          },
+          {
+              title : `${SocialMoji}Social`,
+              content : `**Total Guilds:** ${client.guilds.size}\n\
 **Total Users:** ${client.users.filter(i => !i.bot).size}\n\
 **Total Bots:** ${client.users.filter(i => i.bot).size}`,
-      inline: true
-    }
-    ],
-    color     : 0x17b8b3,
-    thumbnail : client.user.displayAvatarURL,
-    footer    : `Requested by ${msg.author.username} | ${moment(new Date).format('DD/MM/YYYY [at] hh:mm:ss a')}`
+              inline: true
+          }
+      ],
+      color     : 0x17b8b3,
+      thumbnail : client.user.displayAvatarURL,
+      footer    : `Requested by ${msg.author.username} | ${moment(new Date).format('DD/MM/YYYY [at] hh:mm:ss a')}`
   })
 };
 
