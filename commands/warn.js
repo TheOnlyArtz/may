@@ -5,8 +5,6 @@ exports.run = async (client,msg,args) => {
   let reason;
   let duration;
   if (!args[1]){
-      duration = 'permanent';
-      reason = 'None';
       reason = args.slice(2).join(' ') ? args.slice(2).join(' ') : 'None';
   } else {
       reason = args.slice(1).join(' ');
