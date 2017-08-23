@@ -32,10 +32,8 @@ exports.help = {
     detail: 'Creates a new strawpoll with given options',
     botPerm    : ['SEND_MESSAGES', 'EMBED_LINKS'],
     authorPerm : [],
+    example    : "\"Is may the best bot ever?\" Yes,No"
     alias      : [
         'poll'
     ]
 };
-
-
-
