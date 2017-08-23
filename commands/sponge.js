@@ -7,8 +7,8 @@ exports.run = async (client,msg,args) => {
 
 exports.help = {
     usage: '[text]',
-    description: 'Spooongebob',
-    detail: 'Spooongebob',
+    description: 'SPOngEbOB',
+    detail: 'SPOngEbOB',
     botPerm    : ['SEND_MESSAGES'],
     authorPerm : [],
     category : "fun",
