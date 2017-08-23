@@ -23,7 +23,7 @@ const sf = require('snekfetch');
 const Discord = require('discord.js');
 const cooldown = require('../functions/cooldown.js');
 exports.run = async (client, msg, args) => {
-    if (!regTest.test(args[0])) return msg.channel.send('Please give a valid URL');
+    if (!args[0] || !regTest.test(args[0])) return msg.channel.send('Please give a valid URL');
     if (cooldown(msg, 'urlshort', 300, 'This command has a cooldown of **5 Minutes**!')) {
         sf.post('https://www.googleapis.com/urlshortener/v1/url?key=' + require('../config/config.json').URLSHORTAPI).send({"longUrl": args[0]}).then(res => {
             msg.delete();
