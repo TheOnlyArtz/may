@@ -1,4 +1,13 @@
 function permInstructions(permission) {
+
+	permissionsObjectInstructions = {
+		ADMINISTRATOR 		   : "Administrator",
+		CREATE_INSTANT_INVITE  : "Create Instant Invite",
+		KICK_MEMBERS		   : "Kick members",
+		BAM_MEMBERS			   : "Ban members",
+		MANAGE_GUILD		   : "Manage guild",
+		ADD_REACTIONS		   : "Add reactions",  
+	}
 	switch (permission){
 		case "ADMINISTRATOR":
 			return 'https://goo.gl/Q1AwBx';
