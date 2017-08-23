@@ -42,6 +42,7 @@ exports.help = {
     detail     : `Gives you an idea about the weather in different locations`,
     botPerm    : ['SEND_MESSAGES'],
     authorPerm : [],
+    example    : "london"
     alias      : [
         null
     ],

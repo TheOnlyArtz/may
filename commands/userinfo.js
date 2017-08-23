@@ -39,6 +39,7 @@ exports.help = {
     detail     : `Shows detailed information about a user`,
     botPerm    : ['SEND_MESSAGES'],
     authorPerm : [],
+    example    : "@user#3478",
     alias      : [
         null
     ]
