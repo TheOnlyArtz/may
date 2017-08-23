@@ -38,6 +38,7 @@ exports.help = {
     detail     : 'When using purge the bot delete the amount of requested messages',
     botPerm    : ['MANAGE_MESSAGES', "SEND_MESSAGES"],
     authorPerm : ['MANAGE_MESSAGES'],
+    example    : "1",
     alias      : [
         'pur'
     ]
