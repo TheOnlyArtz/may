@@ -1,19 +1,19 @@
 const alias = require('../events/message.js').alias;
 exports.run = async(client, msg, args) => {
-  if (!args || args.length < 1) return msg.reply('Please type the command name to reload');
+    if (!args || args.length < 1) return msg.reply('Please type the command name to reload');
 
-  let command;
-  if (require('./' + args[0])) {
-    command = args[0]
-  }
+    let command;
+    if (require('./' + args[0])) {
+        command = args[0]
+    }
 
-  try {
-    delete require.cache[require.resolve(`./` + command)];
-    msg.channel.send(`Reloaded command __***${command}***__`);
-  } catch (e) {
-    logger.error(e);
-    msg.channel.send(`**${command}** Does not exists.`)
-  }
+    try {
+        delete require.cache[require.resolve(`./` + command)];
+        msg.channel.send(`Reloaded command __***${command}***__`);
+    } catch (e) {
+        logger.error(e);
+        msg.channel.send(`**${command}** Does not exists.`)
+    }
 
 };
 

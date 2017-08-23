@@ -1,6 +1,6 @@
 exports.run = async(client, msg, args) => {
-  let pingMsg = await msg.channel.send('Pinging...');
-  pingMsg.edit(`Pong! Ping: ${pingMsg.createdTimestamp - msg.createdTimestamp}ms`)
+    let pingMsg = await msg.channel.send('Pinging...');
+    pingMsg.edit(`Pong! Ping: ${pingMsg.createdTimestamp - msg.createdTimestamp}ms`)
 };
 
 exports.help = {

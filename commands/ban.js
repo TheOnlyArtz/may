@@ -26,11 +26,11 @@ exports.run = async(client, msg, args) => {
     const mayLog = msg.guild.channels.find('name', 'may-log');
 
     if (msg.guild.member(toBanUsr).bannable === false) {
-      return embedMessage.descEmbed({
-        type : "desc",
-        content : `🔒 Cannot ban\n**Reason:** Privilege is too low`,
-        color   : 0x6e1c39
-      })
+        return embedMessage.descEmbed({
+            type : "desc",
+            content : `🔒 Cannot ban\n**Reason:** Privilege is too low`,
+            color   : 0x6e1c39
+        })
     }
 
     const embed = new Discord.RichEmbed()
