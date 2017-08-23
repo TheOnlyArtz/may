@@ -8,7 +8,7 @@ exports.run = async (client, msg, args) => {
     if (!args[0]) return msg.channel.send('Please give a location');
     if (cooldown(msg, 'weather', 60, 'This command has a cooldown of **1 Minute**!')) {
         let loc = encodeURIComponent(args.join('+'));
-        let res = await sf.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${loc}&key=${config.GOOGLEKEY}`);
+        let res = await sf.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(loc)}&key=${config.GOOGLEKEY}`);
         if (res.body.results.length === 0) return msg.channel.send('Nothing found!');
         let resS = res.body.results[0];
         let geocodelocation = resS.formatted_address;
