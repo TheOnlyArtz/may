@@ -16,7 +16,7 @@ exports.help = {
     detail     : 'Admin Util',
     botPerm    : ['SEND_MESSAGES', 'MANAGE_ROLES'],
     authorPerm : [],
-    example    : flse
+    example    : false,
     alias      : [
         null
     ]
