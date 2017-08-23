@@ -38,6 +38,7 @@ exports.help = {
     detail: 'Play music while you are in a voicechannel',
     botPerm    : ['SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK', 'USE_VAD'],
     authorPerm : [],
+    example    : "song name / link",
     alias      : [
         'm p'
     ]
