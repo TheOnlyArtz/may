@@ -36,6 +36,7 @@ module.exports.alias = alias;
 
 
 exports.run = (client, msg) => {
+    // TODO: Add check for forbidden word from database
     // Return if author is a client or the content of the message does not include a command
     if (msg.author.bot || !msg.guild) return;
     if (!msg.content.startsWith(config.PREFIX) && !msg.isMentioned(client.user)) return;
