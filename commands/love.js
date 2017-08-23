@@ -7,8 +7,8 @@ exports.run = async(client, msg, args) => {
     if (cooldown(msg, 'love', 60, 'This command has a cooldown of **1 Minute**!')) {
         let name1 = args[0];
         let name2 = args[1];
-        name1 = name1.startsWith('<@') ? msg.mentions.users.first().username : name1;
-        name2 = name2.startsWith('<@') ? msg.mentions.users[1].username : name2;
+        name1 = name1.startsWith('<@') ? msg.mentions.users.first().username : encodeURIComponent(name1);
+        name2 = name2.startsWith('<@') ? msg.mentions.users[1].username : encodeURIComponent(name2);
         let love = await snekfetch.get(`https://love-calculator.p.mashape.com/getPercentage?fname=${name1}&sname=${name2}`)
             .set("X-Mashape-Key", config.LOVEKEY)
             .set("Accept", "application/json");
