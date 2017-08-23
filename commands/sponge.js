@@ -12,6 +12,7 @@ exports.help = {
     botPerm    : ['SEND_MESSAGES'],
     authorPerm : [],
     category : "fun",
+    example  : "I like may",
     alias      : [
         null
     ]

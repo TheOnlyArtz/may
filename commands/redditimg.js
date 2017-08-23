@@ -30,6 +30,7 @@ exports.help = {
     detail: 'Get a random image from a subreddit',
     botPerm    : ['SEND_MESSAGES', 'EMBED_LINKS'],
     authorPerm : [],
+    example    : "discordapp",
     alias      : [
         'redimg'
     ]

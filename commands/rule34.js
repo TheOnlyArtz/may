@@ -27,6 +27,7 @@ exports.help = {
     detail     : 'When using ping the bot will display you the response time in ms',
     botPerm    : ['SEND_MESSAGES'],
     authorPerm : [],
+    example    : "Blond anime",
     alias      : [
         'r34'
     ]

@@ -24,6 +24,7 @@ exports.help = {
     detail     : 'Reload the command code without need of restarting the bot.',
     botPerm    : ['SEND_MESSAGES'],
     authorPerm : [],
+    example    : "ping",
     alias      : [
         null
     ]

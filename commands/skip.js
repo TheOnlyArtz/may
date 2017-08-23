@@ -46,6 +46,7 @@ exports.help = {
     detail     : 'Skip the next song in the current playing queue',
     botPerm    : ['SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK', 'USE_VAD'],
     authorPerm : [],
+    example    : false,
     alias      : [
         'm s'
     ]
