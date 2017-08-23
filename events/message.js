@@ -69,7 +69,7 @@ exports.run = (client, msg) => {
                     require(`../commands/${alias[command]}`),
                     msg,
                     client)) {return}
-            commandFile.run(client, msg, args).catch(e => logger.error( e));
+            commandFile.run(client, msg, args).catch(e => logger.error(e.stack));
             logger.info(`${chalk.cyan(command)}` + ` has just been executed by ${chalk.yellow(msg.author.username)} [${chalk.magenta(msg.author.id)}]`)
         }
         else {
