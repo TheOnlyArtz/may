@@ -47,6 +47,7 @@ exports.help = {
     botPerm    : ['SEND_MESSAGES', 'EMBED_LINKS'],
     authorPerm : [],
     alias      : [
-        null
+        'url',
+        'shorten'
     ]
 };
