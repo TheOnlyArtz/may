@@ -64,6 +64,7 @@ exports.help = {
     detail     : `Gives info to which website and URL leads to`,
     botPerm    : ['SEND_MESSAGES', 'EMBED_LINKS'],
     authorPerm : [],
+    example    : "https://google.com/",
     alias      : [
         'urllu',
         'lookup',

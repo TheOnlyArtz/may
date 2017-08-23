@@ -46,6 +46,7 @@ exports.help = {
     detail     : `Shortens an URL with Google's API`,
     botPerm    : ['SEND_MESSAGES', 'EMBED_LINKS'],
     authorPerm : [],
+    example    : "https://google.com/",
     alias      : [
         'url',
         'shorten'

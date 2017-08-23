@@ -33,6 +33,7 @@ exports.help = {
     detail: 'Translate words from different languages',
     botPerm    : ['SEND_MESSAGES', 'EMBED_LINKS'],
     authorPerm : [],
+    example    : "Ich mag May to english"
     alias      : [
         'trans'
     ]

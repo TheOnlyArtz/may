@@ -32,6 +32,7 @@ exports.help = {
     detail     : `Gives info about a goo.gl shorten URL`,
     botPerm    : ['SEND_MESSAGES', 'EMBED_LINKS'],
     authorPerm : [],
+    example    : "https://goo.gl/aSF54h",
     alias      : [
         'urlre',
         'resolve'
