@@ -45,6 +45,5 @@ exports.help = {
     example    : "london",
     alias      : [
         null
-    ],
-    example    : 'New York City'
+    ]
 };
