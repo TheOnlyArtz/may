@@ -1,4 +1,3 @@
-function permInstructions(permission) {
 
 	permissionsObjectInstructions = {
 		ADMINISTRATOR 		   : "Administrator",
@@ -27,9 +26,7 @@ function permInstructions(permission) {
 		MANAGE_ROLES           : "Manage roles",
 		MANAGE_WEBHOOKS        : "Manage webhooks",
 		MANAGE_EMOJIS          : "Manage emojis"
-
 	}
 
-}
 
-module.exports = permInstructions
+module.exports = permissionsObjectInstructions
