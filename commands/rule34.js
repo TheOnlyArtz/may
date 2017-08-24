@@ -10,10 +10,11 @@ exports.run = async(client, msg, args) => {
             if (r.body.length < 75) return msg.channel.send(":x: Nothing found!");
             xml2js.parseString(r.body, (err, reply) => {
                 if (err) {
-                    return msg.channel.send('The API returned an unconventional response. :thinking:')
+                    msg.channel.send('The API returned an unconventional response. :thinking:');
+                    return logger.error(err);
                 } else {
                     let count = Math.floor((Math.random() * reply.posts.post.length));
-                    msg.channel.send({files: [reply.posts.post[count].$.file_url]}).catch(logger.error);
+                    msg.channel.send({files: [reply.posts.post[count].$.file_url]}).catch( err => logger.error(err));
                 }
             })
         })
