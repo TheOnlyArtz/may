@@ -1,6 +1,5 @@
-const
-    Discord = require('discord.js'),
-    snekfetch = require('snekfetch');
+const Discord = require('discord.js');
+const snekfetch = require('snekfetch');
 
 exports.run = (client, msg, args) => {
     if (!['208936898566160384', '193394584271847425'].includes(msg.author.id)) {
