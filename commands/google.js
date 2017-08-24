@@ -19,7 +19,7 @@ exports.run = (client, msg, args) => {
 };
 
 exports.help = {
-    category   : 'fun',
+    category   : 'util',
     usage      : '[term]',
     description: 'Search at google',
     detail     : `Look for whatever you want when you want`,
