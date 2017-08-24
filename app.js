@@ -31,15 +31,18 @@ const client = new Discord.Client({options: {disabledEvents: [
 ]}});
 const config = require('./config/config.json');
 const loggerClass = require('artzlogger');
-const fs = require('fs');
 
-logger = new loggerClass({timeStamp: moment(new Date).format('hh:mm:ss:')});
+const fs = require('fs');
+const moment = require('moment');
+
+global.logger = new loggerClass({timeStamp: moment(new Date).format('hh:mm:ss:')});
 const handler = err => {
     logger.error(err);
 };
+
 client.login(config.TOKEN).catch(handler);
-client.on('warn', logger.warn);
-client.on('error', logger.error);
+client.on('warn', info => {logger.warn(info)});
+client.on('error', info => {logger.error(info)});
 
 fs.readdir('./events/', (err, files) => {
     if (err) {
@@ -56,4 +59,3 @@ fs.readdir('./events/', (err, files) => {
 });
 
 process.on('unhandledRejection', err => logger.error(err));
-// Process.on('uncaughtException', err => logger.error(err));
