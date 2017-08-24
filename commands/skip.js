@@ -1,10 +1,9 @@
 let db = require('node-json-db');
+
 const queue = new db('./musicQueue/queue.json', true, true);
 let shuffler = [];
 let shuffReq = 0;
 exports.run = async (client, msg) => {
-
-
     queue.reload();
     if (!shuffler.includes(msg.author.id)) {
         shuffler.push(msg.author.id);
@@ -13,13 +12,11 @@ exports.run = async (client, msg) => {
         }
         shuffReq++;
         if (shuffReq >= Math.ceil((msg.member.voiceChannel.members.size - 1) / 2)) {
-
             try {
-                let p = queue.getData(`/guilds/${msg.guild.id}/queue[0]`)
+                let p = queue.getData(`/guilds/${msg.guild.id}/queue[0]`);
             } catch (e) {
                 return msg.reply('No songs are currently in the play list');
             }
-
 
             try {
                 dispatcher.end();
@@ -38,16 +35,15 @@ exports.run = async (client, msg) => {
     }
 };
 
-
 exports.help = {
-    category   : 'music',
-    usage      : false,
+    category: 'music',
+    usage: false,
     description: 'Skip music',
-    detail     : 'Skip the next song in the current playing queue',
-    botPerm    : ['SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK', 'USE_VAD'],
-    authorPerm : [],
-    example    : false,
-    alias      : [
+    detail: 'Skip the next song in the current playing queue',
+    botPerm: ['SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK', 'USE_VAD'],
+    authorPerm: [],
+    example: false,
+    alias: [
         'm s'
     ]
 };

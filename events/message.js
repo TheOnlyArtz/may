@@ -1,8 +1,8 @@
 /** @ignore */
 const config = require('../config/config.json');
-const fs     = require('fs');
+const fs = require('fs');
 const PermissionChecker = require('../functions/checkPerms.js');
-const chalk  = require('chalk');
+const chalk = require('chalk');
 
 let alias = {};
 
@@ -13,7 +13,9 @@ let alias = {};
 * @returns returns all the files at the directory
 */
 fs.readdir('./commands/', (err, files) => {
-    if (err) return logger.error(err);
+    if (err) {
+        return logger.error(err);
+    }
     let commandIndex = 1;
     files.forEach(file => {
         let
@@ -24,9 +26,9 @@ fs.readdir('./commands/', (err, files) => {
         for (alia of alias2) {
             alias[alia] = helpName;
         }
-        logger.info(`Command ${commandIndex++}). ` + `${chalk.cyan('Loaded ')}` + helpName + ` ${chalk.green('successfully')} ${chalk.yellow('[Command]')}`)
+        logger.info(`Command ${commandIndex++}). ` + `${chalk.cyan('Loaded ')}` + helpName + ` ${chalk.green('successfully')} ${chalk.yellow('[Command]')}`);
     });
-    logger.info(chalk.cyan(`Loaded total ${commandIndex - 1} commands!`))
+    logger.info(chalk.cyan(`Loaded total ${commandIndex - 1} commands!`));
 });
 
 /**
@@ -34,14 +36,17 @@ fs.readdir('./commands/', (err, files) => {
 */
 module.exports.alias = alias;
 
-
 exports.run = (client, msg) => {
     // TODO: Add check for forbidden word from database
     // TODO: Add possibility to block discord invite links
     // TODO: Anti spam system
     // Return if author is a client or the content of the message does not include a command
-    if (msg.author.bot || !msg.guild) return;
-    if (!msg.content.startsWith(config.PREFIX) && !msg.isMentioned(client.user)) return;
+    if (msg.author.bot || !msg.guild) {
+        return;
+    }
+    if (!msg.content.startsWith(config.PREFIX) && !msg.isMentioned(client.user)) {
+        return;
+    }
     // Creating the arguments array with the suffix of the content
     let args = msg.isMentioned(client.user) ? msg.content.slice(client.user.id.length + 4).trim().split(/ +/g) : msg.content.slice(config.PREFIX.length).trim().split(/ +/g);
     // Defining the content from the message arguments
@@ -54,13 +59,13 @@ exports.run = (client, msg) => {
                 require(`../commands/${command}`).help.authorPerm,
                 require(`../commands/${command}`),
                 msg,
-                client)) {return}
-
+                client)) {
+            return;
+        }
 
         commandFile.run(client, msg, args);
-        logger.info(`${chalk.cyan(command)}` + ` has just been executed by ${chalk.yellow(msg.author.username)} [${chalk.magenta(msg.author.id)}]`)
-    }
-    catch (err) {
+        logger.info(`${chalk.cyan(command)}` + ` has just been executed by ${chalk.yellow(msg.author.username)} [${chalk.magenta(msg.author.id)}]`);
+    } catch (err) {
         if (alias[command]) {
             let commandFile = require('../commands/' + alias[command] + '.js');
             if (PermissionChecker(
@@ -68,13 +73,13 @@ exports.run = (client, msg) => {
                     require(`../commands/${alias[command]}`).help.authorPerm,
                     require(`../commands/${alias[command]}`),
                     msg,
-                    client)) {return}
+                    client)) {
+                return;
+            }
             commandFile.run(client, msg, args).catch(e => logger.error(e.stack));
-            logger.info(`${chalk.cyan(command)}` + ` has just been executed by ${chalk.yellow(msg.author.username)} [${chalk.magenta(msg.author.id)}]`)
-        }
-        else {
+            logger.info(`${chalk.cyan(command)}` + ` has just been executed by ${chalk.yellow(msg.author.username)} [${chalk.magenta(msg.author.id)}]`);
+        } else {
             logger.debug(err + ' this is when no alias or command');
         }
-
     }
 };
