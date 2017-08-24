@@ -3,7 +3,7 @@
 const https = require('https');
 const config = require('../config/config.json');
 
-class twitch {
+class Twitch {
     /**
      *
      * @param clientID {string}
@@ -45,15 +45,36 @@ class twitch {
                         return reject(logger.error(err));
                     }
                     if (json.stream === null) {
-                        return reject(stream);
+                        return resolve([stream]);
                     }
-
+                    /**
+                     * @param {{game:string}} The game the streamer is playing
+                     */
                     let game = json.stream.game;
+                    /**
+                     * @param {{viewers:number}} Number of viewers the streamer has
+                     */
                     let views = json.stream.viewers;
+                    /**
+                     * @param {{preview:object}} Object contains twitch preview pictures
+                     * @param {{large:string}} Link of large image
+                     */
                     let image = json.stream.preview.large;
+                    /**
+                     * @param {{mature:boolean}} Marks if a stream is for a mature viewer base
+                     */
                     let mature = json.stream.channel.mature;
+                    /**
+                     * @param {{broadcaster_language:string}} Language of the stream
+                     */
                     let lang = json.stream.channel.broadcaster_language;
+                    /**
+                     * @param {{display_name:string}} The displayed name of the Twitch Streamer
+                     */
                     let name = json.stream.channel.display_name;
+                    /**
+                     * @param {{url:string}} Link to stream
+                     */
                     let url = json.stream.channel.url;
                     return resolve([game, views, image, mature, lang, name, url]);
                 });
@@ -63,26 +84,36 @@ class twitch {
         });
     }
 
-    async online(streams) {
+    online(streams) {
+        let toPromise = [];
         let full = {};
         for (let i = 0; i < streams.length; i++) {
-            try {
-                let checkArr = await this.check(streams[i]);
-                full[checkArr[5]] = {
-                    game: checkArr[0],
-                    views: checkArr[1],
-                    image: checkArr[2],
-                    mature: checkArr[3],
-                    lang: checkArr[4],
-                    name: checkArr[5],
-                    url: checkArr[6],
-                    online: true
-                };
-            } catch (val) {
-                full[val] = {online: false};
-            }
+            toPromise.push(new Promise( (resolve, reject) => {
+                this.check(streams[i]).then( checkArr => {
+                    if (!checkArr[1]) {
+                        full[checkArr[0]] = {online: false}
+                    } else {
+                        full[checkArr[5]] = {
+                            game: checkArr[0],
+                            views: checkArr[1],
+                            image: checkArr[2],
+                            mature: checkArr[3],
+                            lang: checkArr[4],
+                            name: checkArr[5],
+                            url: checkArr[6],
+                            online: true
+                        };
+                    }
+
+                    resolve();
+                })
+            }));
         }
-        return JSON.stringify(full);
+        return Promise.all(toPromise).then(() => {
+            return new Promise( (resolve, reject) => {
+                resolve(full);
+            });
+        });
     }
 
     register(stream) {
@@ -118,4 +149,7 @@ class twitch {
     }
 }
 
-module.exports = twitch;
+const tw = new Twitch(config.CLIENTID);
+tw.online(['TheEnclase', 'venicraft']).then( res => console.log(JSON.stringify(res)));
+
+module.exports = Twitch;
