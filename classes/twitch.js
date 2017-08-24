@@ -4,7 +4,6 @@ const config = require('../config/config.json');
 
 class Twitch {
     /**
-     *
      * @param clientID {string}
      */
     constructor(clientID) {
@@ -15,7 +14,6 @@ class Twitch {
     }
 
     /**
-     *
      * @param stream {string} Streamer name
      */
     check(stream) {
