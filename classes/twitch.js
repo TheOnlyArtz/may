@@ -148,7 +148,4 @@ class Twitch {
     }
 }
 
-const tw = new Twitch(config.CLIENTID);
-tw.online(['TheEnclase', 'venicraft']).then(res => console.log(JSON.stringify(res)));
-
 module.exports = Twitch;
