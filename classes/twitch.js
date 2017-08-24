@@ -88,11 +88,9 @@ class Twitch {
         let toPromise = [];
         let full = {};
         for (let i = 0; i < streams.length; i++) {
-            toPromise.push(new Promise( (resolve, reject) => {
-                this.check(streams[i]).then( checkArr => {
-                    if (!checkArr[1]) {
-                        full[checkArr[0]] = {online: false}
-                    } else {
+            toPromise.push(new Promise((resolve, reject) => {
+                this.check(streams[i]).then(checkArr => {
+                    if (checkArr[1]) {
                         full[checkArr[5]] = {
                             game: checkArr[0],
                             views: checkArr[1],
@@ -103,14 +101,16 @@ class Twitch {
                             url: checkArr[6],
                             online: true
                         };
+                    } else {
+                        full[checkArr[0]] = {online: false};
                     }
 
                     resolve();
-                })
+                });
             }));
         }
         return Promise.all(toPromise).then(() => {
-            return new Promise( (resolve, reject) => {
+            return new Promise((resolve, reject) => {
                 resolve(full);
             });
         });
@@ -150,6 +150,6 @@ class Twitch {
 }
 
 const tw = new Twitch(config.CLIENTID);
-tw.online(['TheEnclase', 'venicraft']).then( res => console.log(JSON.stringify(res)));
+tw.online(['TheEnclase', 'venicraft']).then(res => console.log(JSON.stringify(res)));
 
 module.exports = Twitch;
