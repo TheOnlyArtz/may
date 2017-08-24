@@ -31,7 +31,8 @@ const client      = new Discord.Client({options: {disabledEvents: [
 const config      = require('./config/config.json');
 const loggerClass = require('artzlogger');
 const fs          = require('fs');
-logger            = new loggerClass({timeStamp: moment(new Date).format('hh:mm:ss:')});
+const moment      = require('moment');
+global.logger            = new loggerClass({timeStamp: moment(new Date).format('hh:mm:ss:')});
 const handler     = (err) => {logger.error(err)};
 client.login(config.TOKEN).catch(handler);
 client.on('warn', logger.warn);
