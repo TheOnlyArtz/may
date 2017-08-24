@@ -7,7 +7,7 @@ exports.run = async(client, msg, args) => {
         return msg.reply('How many messages?');
     }
     if (messagecount > 100) {
-        return msg.reply(`Purge has limits: you cant delete 101 messages per purge`);
+        return msg.reply(`Purge has a limit of 100 messages a time`);
     }
     /*
     Actual purge
