@@ -70,4 +70,6 @@ exports.run = async (client, guild) => {
                 .catch(e => logger.error(e))
         });
     }, 2000);
+
+    //TODO: create document with the name of the guildID to hold all the data for the specific guild.
 };
