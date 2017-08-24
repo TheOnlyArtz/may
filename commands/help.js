@@ -4,89 +4,89 @@ const
     fs = require('fs'),
     alias = require('../events/message.js').alias;
 
-exports.run = async (bot,msg,args) => {
-    const embedClass  = require('../classes/embedMessage.js');
+exports.run = async (bot, msg, args) => {
+    const embedClass = require('../classes/embedMessage.js');
     let embedMessage = new embedClass(msg);
 
     if (args[0]) {
         msg.delete();
         if (args[0].toLowerCase() === 'fun') {
             let comm = [];
-            fs.readdir('./commands/', (err,files) => {
-                if (err) logger.error(err);
+            fs.readdir('./commands/', (err, files) => {
+                if (err) {
+                    logger.error(err);
+                }
                 files.forEach(file => {
                     let info = require('./' + file);
                     if (info.help.category === 'fun') {
-                        comm.push(`**${config.PREFIX}${file.split('.')[0]}** ${info.help.description}`)
+                        comm.push(`**${config.PREFIX}${file.split('.')[0]}** ${info.help.description}`);
                     }
                 });
                 let toSend = comm.join('\n');
                 embedMessage.descEmbed({
                     type: 'desc',
                     content: toSend,
-                    color  : 0x1FBAED
-                })
+                    color: 0x1FBAED
+                });
             });
-
-        }
-        else if (args[0].toLowerCase() === 'util') {
+        } else if (args[0].toLowerCase() === 'util') {
             let comm = [];
-            fs.readdir('./commands/', (err,files) => {
-                if (err) logger.error(err);
+            fs.readdir('./commands/', (err, files) => {
+                if (err) {
+                    logger.error(err);
+                }
                 files.forEach(file => {
                     let info = require('./' + file);
                     if (info.help.category === 'util') {
-                        comm.push(`**${config.PREFIX}${file.split('.')[0]}** ${info.help.description}`)
+                        comm.push(`**${config.PREFIX}${file.split('.')[0]}** ${info.help.description}`);
                     }
                 });
                 let toSend = comm.join('\n');
                 embedMessage.descEmbed({
                     type: 'desc',
                     content: toSend,
-                    color  : 0x1FBAED
-                })
+                    color: 0x1FBAED
+                });
             });
-
-        }
-        else if (args[0].toLowerCase() === 'moderation') {
+        } else if (args[0].toLowerCase() === 'moderation') {
             let comm = [];
-            fs.readdir('./commands/', (err,files) => {
-                if (err) logger.error(err);
+            fs.readdir('./commands/', (err, files) => {
+                if (err) {
+                    logger.error(err);
+                }
                 files.forEach(file => {
                     let info = require('./' + file);
                     if (info.help.category === 'moderation') {
-                        comm.push(`**${config.PREFIX}${file.split('.')[0]}** ${info.help.description}`)
+                        comm.push(`**${config.PREFIX}${file.split('.')[0]}** ${info.help.description}`);
                     }
                 });
                 let toSend = comm.join('\n');
                 embedMessage.descEmbed({
                     type: 'desc',
                     content: toSend,
-                    color  : 0x1FBAED
-                })
+                    color: 0x1FBAED
+                });
             });
-
-        }
-        else if (args[0].toLowerCase() === 'music') {
+        } else if (args[0].toLowerCase() === 'music') {
             let comm = [];
-            fs.readdir('./commands/', (err,files) => {
-                if (err) logger.error(err);
+            fs.readdir('./commands/', (err, files) => {
+                if (err) {
+                    logger.error(err);
+                }
                 files.forEach(file => {
                     let info = require('./' + file);
                     if (info.help.category === 'music') {
-                        comm.push(`**${config.PREFIX}${file.split('.')[0]}** ${info.help.description}`)
+                        comm.push(`**${config.PREFIX}${file.split('.')[0]}** ${info.help.description}`);
                     }
                 });
                 let toSend = comm.join('\n');
                 embedMessage.descEmbed({
                     type: 'desc',
                     content: toSend,
-                    color  : 0x1FBAED
-                })
+                    color: 0x1FBAED
+                });
             });
-
-        }
-        else {
+        } else {
             try {
                 let
                     cmd = require('./' + args[0]),
@@ -103,7 +103,7 @@ exports.run = async (bot,msg,args) => {
                         .setTimestamp()
                         .setFooter(bot.user.username);
                 if (help.example) {
-                    embed.addField('Example', '`' + config.PREFIX + args[0] + ' ' + help.example + '`')
+                    embed.addField('Example', '`' + config.PREFIX + args[0] + ' ' + help.example + '`');
                 }
                 msg.channel.send({embed});
             } catch (err) {
@@ -123,28 +123,28 @@ exports.run = async (bot,msg,args) => {
                             .setTimestamp()
                             .setFooter(bot.user.username);
                     if (help.example) {
-                        embed.addField('Example', '`' + config.PREFIX + alias[args[0]] + ' ' + help.example + '`')
+                        embed.addField('Example', '`' + config.PREFIX + alias[args[0]] + ' ' + help.example + '`');
                     }
                     msg.channel.send({embed});
-                }
-                else {
-                    msg.channel.send(`:x: ${config.PREFIX}${args[0]} is no command`)
+                } else {
+                    msg.channel.send(`:x: ${config.PREFIX}${args[0]} is no command`);
                 }
             }
         }
-    }
-    else {
+    } else {
         msg.delete();
         let count = 0;
-        // let batch = '';
+        // Let batch = '';
         let funCat = [];
         let utilCat = [];
         let modCat = [];
         let musicCat = [];
         fs.readdir('./commands/', (err, files) => {
-            if (err) return logger.error(err);
+            if (err) {
+                return logger.error(err);
+            }
             files.forEach(file => {
-                let help = "";
+                let help = '';
                 count++;
                 let
                     helpInfo = require('./' + file),
@@ -152,25 +152,22 @@ exports.run = async (bot,msg,args) => {
                     info = helpInfo.help,
                     description = info.description;
                 if (info.category === 'fun') {
-                    funCat.push(`**${config.PREFIX}${helpName}** ${description}`)
-                }
-                else if (info.category === 'util') {
-                    utilCat.push(`**${config.PREFIX}${helpName}** ${description}`)
-                }
-                else if (info.category === 'moderation') {
-                    modCat.push(`**${config.PREFIX}${helpName}** ${description}`)
-                }
-                else if (info.category === 'music') {
-                    musicCat.push(`**${config.PREFIX}${helpName}** ${description}`)
+                    funCat.push(`**${config.PREFIX}${helpName}** ${description}`);
+                } else if (info.category === 'util') {
+                    utilCat.push(`**${config.PREFIX}${helpName}** ${description}`);
+                } else if (info.category === 'moderation') {
+                    modCat.push(`**${config.PREFIX}${helpName}** ${description}`);
+                } else if (info.category === 'music') {
+                    musicCat.push(`**${config.PREFIX}${helpName}** ${description}`);
                 }
             });
             // TODO: More checks if we ever have too many commands lol
             if ((funCat.join() + utilCat.join() + modCat.join() + musicCat.join()).length > 1950) {
                 if ((funCat.join() + utilCat.join()).length > 1950) {
-                    const embed =  new discord.RichEmbed()
+                    const embed = new discord.RichEmbed()
                         .addField('Fun Commands', funCat.join('\n'))
                         .setColor('#1FBAED');
-                    if ((utilCat.join() + modCat.join() + musicCat.join()) .length < 1950) {
+                    if ((utilCat.join() + modCat.join() + musicCat.join()).length < 1950) {
                         const embed2 = new discord.RichEmbed()
                             .addField('Util Commands', utilCat.join('\n'))
                             .addField('Moderation Commands', modCat.join('\n'))
@@ -178,9 +175,8 @@ exports.run = async (bot,msg,args) => {
                             .setColor('#1FBAED');
                     }
                     msg.channel.send({embed});
-                    msg.channel.send({embed: embed2})
-                }
-                else {
+                    msg.channel.send({embed: embed2});
+                } else {
                     const embed = new discord.RichEmbed()
                         .addField('Fun Commands', funCat.join('\n'))
                         .addField('Util Commands', utilCat.join('\n'))
@@ -191,22 +187,19 @@ exports.run = async (bot,msg,args) => {
                         .setColor('#1FBAED');
 
                     msg.channel.send({embed});
-                    msg.channel.send({embed: embed2})
+                    msg.channel.send({embed: embed2});
                 }
-            }
-            else {
+            } else {
                 const embed = new discord.RichEmbed()
                     .addField('Fun Commands', funCat.join('\n'))
                     .addField('Util Commands', utilCat.join('\n'))
                     .addField('Moderation Commands', modCat.join('\n'))
                     .addField('Music Commands', musicCat.join('\n') ? musicCat.join('\n') : 'None')
                     .setColor('#1FBAED');
-                msg.channel.send({embed})
+                msg.channel.send({embed});
             }
         });
-
     }
-
 };
 
 exports.help = {
@@ -214,9 +207,9 @@ exports.help = {
     usage: '[command Name]',
     description: 'shows the commands',
     detail: 'shows the commands',
-    botPerm    : ['SEND_MESSAGES', "EMBED_LINKS"],
-    authorPerm : [],
-    alias      : [
+    botPerm: ['SEND_MESSAGES', 'EMBED_LINKS'],
+    authorPerm: [],
+    alias: [
         'h',
         'halp'
     ]

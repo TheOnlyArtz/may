@@ -9,7 +9,8 @@ const pushSongs = require('../functions/music/pushSongs.js');
 const InfoFetcher = require('youtube-info');
 const moment = require('moment');
 const Discord = require('discord.js');
-exports.run = async (client,msg,args) => {
+
+exports.run = async (client, msg, args) => {
     msg.delete();
     let searchTerms = args.join(' ');
     let videoId = await fetchSongData(client, msg, searchTerms);
@@ -21,11 +22,11 @@ exports.run = async (client,msg,args) => {
         await checkGuildVC(client, msg);
         let yInfo = await InfoFetcher(videoId);
         const embed = new Discord.RichEmbed()
-            .setColor(0x00abe0)
+            .setColor(0x00ABE0)
             .setAuthor('Added new song to the queue', client.user.displayAvatarURL)
             .setThumbnail(yInfo.thumbnailUrl)
             .addField('Song Info', `**Uploaded By:** ${yInfo.owner}\n**Duration:** ${(yInfo.duration / 60).toFixed(2)} Minutes\n**Views:** ${yInfo.views}`);
-        msg.channel.send({embed})
+        msg.channel.send({embed});
     } else {
 
     }
@@ -36,10 +37,10 @@ exports.help = {
     usage: '[Link or Term]',
     description: 'Play music',
     detail: 'Play music while you are in a voicechannel',
-    botPerm    : ['SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK', 'USE_VAD'],
-    authorPerm : [],
-    example    : "song name / link",
-    alias      : [
+    botPerm: ['SEND_MESSAGES', 'EMBED_LINKS', 'CONNECT', 'SPEAK', 'USE_VAD'],
+    authorPerm: [],
+    example: 'song name / link',
+    alias: [
         'm p'
     ]
 };

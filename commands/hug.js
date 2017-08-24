@@ -1,9 +1,9 @@
-exports.run = async (client,msg,args) => {
+exports.run = async (client, msg, args) => {
     let hugMoji = client.emojis.find('name', 'Hug');
     const target = msg.mentions.users.last() === client.user ? msg.mentions.users.first() : msg.mentions.users.last();
 
     if (!target || target === client.user) {
-        return msg.reply('Please mention someone.')
+        return msg.reply('Please mention someone.');
     }
 
     const hugSentences = [
@@ -14,18 +14,18 @@ exports.run = async (client,msg,args) => {
         `Come here ${target.username} my hug will make your day better. ${hugMoji}`
     ];
 
-    msg.channel.send(hugSentences[Math.floor(Math.random() * hugSentences.length)])
+    msg.channel.send(hugSentences[Math.floor(Math.random() * hugSentences.length)]);
 };
 
 exports.help = {
-    category   : 'fun',
-    usage      : '[mention]',
+    category: 'fun',
+    usage: '[mention]',
     description: 'Hugggg',
-    detail     : 'Give your friend a hug.',
-    botPerm    : ['SEND_MESSAGES'],
-    authorPerm : [],
-    example    : '@user#3476',
-    alias      : [
+    detail: 'Give your friend a hug.',
+    botPerm: ['SEND_MESSAGES'],
+    authorPerm: [],
+    example: '@user#3476',
+    alias: [
         'hu'
     ]
 };

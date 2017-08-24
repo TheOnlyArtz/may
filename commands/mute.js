@@ -1,16 +1,17 @@
 const Discord = require('discord.js');
 const ms = require('ms');
-exports.run = async(client, msg, args) => {
+
+exports.run = async (client, msg, args) => {
     const toBanUsr = msg.mentions.users.last() === client.user ? msg.mentions.users.first() : msg.mentions.users.last();
     const role = msg.guild.roles.find('name', 'may-muted');
 
     let reason;
     let duration;
-    if (!args[1]){
+    if (!args[1]) {
         duration = 'permanent';
-        reason = 'None'
+        reason = 'None';
     } else if (args[1].match(/\d{1,2}(hour|h|hours|second|sec|s|seconds|d|days|day)\b/)) {
-        duration = ms(ms(args[1]), {long : true});
+        duration = ms(ms(args[1]), {long: true});
         reason = args.slice(2).join(' ') ? args.slice(2).join(' ') : 'None';
     } else {
         duration = 'permanent';
@@ -18,13 +19,13 @@ exports.run = async(client, msg, args) => {
     }
 
     if (toBanUsr === client.user || !toBanUsr) {
-        return msg.reply('Please mention someone.')
+        return msg.reply('Please mention someone.');
     }
 
     const mayLog = msg.guild.channels.find('name', 'may-log');
 
     const embed = new Discord.RichEmbed()
-        .setColor(0xc65e57)
+        .setColor(0xC65E57)
         .setAuthor('Banned ' + toBanUsr.tag, client.user.avatarURL)
         .setDescription(`Muted User: \`${toBanUsr.tag} (${toBanUsr.id})\`\nMuted by: \`${msg.author.tag} (${msg.author.id})\`\nDuration: \`${duration}\`\nReason: \`${reason}\``)
         .setTimestamp();
@@ -33,18 +34,17 @@ exports.run = async(client, msg, args) => {
 
     msg.guild.member(toBanUsr).addRole(role).catch(logger.error);
     // TODO: Add the time for the mute to a database for time and add total mutes the user got to a database
-
 };
 
 exports.help = {
-    category   : 'moderation',
-    usage      : '[time:time or permanent] [reason:optional]',
+    category: 'moderation',
+    usage: '[time:time or permanent] [reason:optional]',
     description: 'I will be sure to shut their mouth',
-    detail     : 'When using mute the bot will mute the selected user, for the time you choose(optional)',
-    botPerm    : ['SEND_MESSAGES', 'MANAGE_ROLES'],
-    authorPerm : ['MUTE_MEMBERS'],
-    example    : '@user#3476 15min This is the reason.',
-    alias      : [
+    detail: 'When using mute the bot will mute the selected user, for the time you choose(optional)',
+    botPerm: ['SEND_MESSAGES', 'MANAGE_ROLES'],
+    authorPerm: ['MUTE_MEMBERS'],
+    example: '@user#3476 15min This is the reason.',
+    alias: [
         null
     ]
 };
