@@ -1,5 +1,8 @@
-const cooldown = require('../functions/cooldown.js');
+/**
+ * @member {Object}
+ */
 const sf = require('snekfetch');
+const cooldown = require('../functions/cooldown.js');
 
 exports.run = (client, msg, args) => {
     if (cooldown(msg, 'dog', 300, 'This command has a cooldown of **5 Minutes**!')) {
