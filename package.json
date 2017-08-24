@@ -13,6 +13,9 @@
   "xo": {
     "space": 4,
     "semicolon": true,
+    "globals": [
+      "logger"
+    ],
     "rules": {
       "camelcase": 0,
       "new-parens": 0,

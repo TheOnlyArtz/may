@@ -1,5 +1,4 @@
 // TODO: Database Integration
-
 const https = require('https');
 const config = require('../config/config.json');
 class twitch {
@@ -79,8 +78,8 @@ class twitch {
                         url: checkArr[6],
                         online: true
                     }
-            } catch (val) {
-                full[val] = {online: false};
+            } catch (err) {
+                full[err] = {online: false};
             }
         }
         return JSON.stringify(full);
@@ -116,10 +115,9 @@ class twitch {
 
             });
 
-        }).on("error", (err)=>{
+        }).on("error", err => {
             logger.error(err);
         });
     }
 }
-
 module.exports = twitch;
