@@ -35,8 +35,8 @@ const moment      = require('moment');
 global.logger            = new loggerClass({timeStamp: moment(new Date).format('hh:mm:ss:')});
 const handler     = (err) => {logger.error(err)};
 client.login(config.TOKEN).catch(handler);
-client.on('warn', logger.warn);
-client.on('error', logger.error);
+client.on('warn', info => {logger.warn(info)});
+client.on('error', info => {logger.error(info)});
 
 
 fs.readdir('./events/', (err, files) => {
