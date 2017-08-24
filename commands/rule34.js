@@ -22,7 +22,7 @@ exports.run = async(client, msg, args) => {
 };
 // TODO: Add real stuff to the help I am too lazy rn
 exports.help = {
-    category   : 'fun',
+    category   : 'nsfw',
     usage      : false,
     description: 'I will reply with pong fast as possible',
     detail     : 'When using ping the bot will display you the response time in ms',
