@@ -1,3 +1,6 @@
+/**
+ * @method {Object}
+ */
 const sf = require('snekfetch');
 const cooldown = require('../functions/cooldown.js');
 
