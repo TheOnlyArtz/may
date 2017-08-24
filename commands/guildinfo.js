@@ -1,8 +1,10 @@
 const Discord = require('discord.js');
 const moment = require('moment');
-exports.run = async (client,msg,args) => {
 
-    if (!msg.guild.available) return msg.channel.send('Discord API Error');
+exports.run = async (client, msg, args) => {
+    if (!msg.guild.available) {
+        return msg.channel.send('Discord API Error');
+    }
     let guild = msg.guild;
     let name = guild.name;
     let createdAt = moment(guild.createdAt).format('MMMM Do YYYY, h:mm:ss a');
@@ -23,17 +25,17 @@ exports.run = async (client,msg,args) => {
         .setFooter('May')
         .setTimestamp();
 
-    msg.channel.send({embed})
+    msg.channel.send({embed});
 };
 
 exports.help = {
-    category   : 'util',
-    usage      : false,
+    category: 'util',
+    usage: false,
     description: 'Displays Information',
-    detail     : 'Displays Information about the guild you execute this command in',
-    botPerm    : ['SEND_MESSAGES'],
-    authorPerm : [],
-    alias      : [
+    detail: 'Displays Information about the guild you execute this command in',
+    botPerm: ['SEND_MESSAGES'],
+    authorPerm: [],
+    alias: [
         'gi'
     ]
 };
