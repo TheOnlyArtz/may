@@ -10,7 +10,7 @@ exports.run = async(client, msg, args) => {
 };
 
 exports.help = {
-    category   : 'admin',
+    category   : 'devonly',
     usage      : false,
     description: 'Admin Util',
     detail     : 'Admin Util',
