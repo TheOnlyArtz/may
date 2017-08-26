@@ -17,7 +17,7 @@ async function updateModHistory(column, guild, user) {
     * @var {Array} exists - Checks if the user is already inside the database
     */
     let exists = await table.filter({
-        guildID : guild
+        guildID : guild,
         userID  : user,
       })
       .run()[0];
