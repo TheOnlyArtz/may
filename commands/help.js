@@ -1,8 +1,7 @@
-const
-    discord = require('discord.js'),
-    config = require('../config/config.json'),
-    fs = require('fs'),
-    alias = require('../events/message.js').alias;
+const fs = require('fs');
+const discord = require('discord.js');
+const config = require('../config/config.json');
+const alias = require('../events/message.js').alias;
 
 exports.run = async (bot, msg, args) => {
     const embedClass = require('../classes/embedMessage.js');
@@ -88,40 +87,38 @@ exports.run = async (bot, msg, args) => {
             });
         } else {
             try {
-                let
-                    cmd = require('./' + args[0]),
-                    help = cmd.help,
-                    usageCheck = help.usage !== false ? help.usage : '',
-                    usage = config.PREFIX + args[0] + ' ' + usageCheck,
-                    detail = help.detail,
-                    alias3 = help.alias.join(', '),
-                    embed = new discord.RichEmbed()
-                        .setTitle('Command Information | ' + args[0])
-                        .setDescription(detail)
-                        .addField('Usage', usage)
-                        .addField('Alias', alias3 ? alias3 : 'None')
-                        .setTimestamp()
-                        .setFooter(bot.user.username);
+                let cmd = require('./' + args[0]);
+                let help = cmd.help;
+                let usageCheck = help.usage === true ? help.usage : '';
+                let usage = config.PREFIX + args[0] + ' ' + usageCheck;
+                let detail = help.detail;
+                let alias3 = help.alias.join(', ');
+                let embed = new discord.RichEmbed()
+                    .setTitle('Command Information | ' + args[0])
+                    .setDescription(detail)
+                    .addField('Usage', usage)
+                    .addField('Alias', alias3 ? alias3 : 'None')
+                    .setTimestamp()
+                    .setFooter(bot.user.username);
                 if (help.example) {
                     embed.addField('Example', '`' + config.PREFIX + args[0] + ' ' + help.example + '`');
                 }
                 msg.channel.send({embed});
             } catch (err) {
                 if (alias[args[0]]) {
-                    let
-                        cmd = require('./' + alias[args[0]] + '.js'),
-                        help = cmd.help,
-                        usageCheck = help.usage !== false ? help.usage : '',
-                        usage = config.PREFIX + args[0] + ' ' + usageCheck,
-                        detail = help.detail,
-                        alias2 = help.alias.join(', '),
-                        embed = new discord.RichEmbed()
-                            .setTitle('Command Information | ' + alias[args[0]])
-                            .setDescription(detail)
-                            .addField('Usage', usage)
-                            .addField('Alias', alias2 ? alias2 : 'None')
-                            .setTimestamp()
-                            .setFooter(bot.user.username);
+                    let cmd = require('./' + alias[args[0]] + '.js');
+                    let help = cmd.help;
+                    let usageCheck = help.usage === true ? help.usage : '';
+                    let usage = config.PREFIX + args[0] + ' ' + usageCheck;
+                    let detail = help.detail;
+                    let alias2 = help.alias.join(', ');
+                    let embed = new discord.RichEmbed()
+                        .setTitle('Command Information | ' + alias[args[0]])
+                        .setDescription(detail)
+                        .addField('Usage', usage)
+                        .addField('Alias', alias2 ? alias2 : 'None')
+                        .setTimestamp()
+                        .setFooter(bot.user.username);
                     if (help.example) {
                         embed.addField('Example', '`' + config.PREFIX + alias[args[0]] + ' ' + help.example + '`');
                     }
@@ -146,11 +143,10 @@ exports.run = async (bot, msg, args) => {
             files.forEach(file => {
                 let help = '';
                 count++;
-                let
-                    helpInfo = require('./' + file),
-                    helpName = file.split('.')[0],
-                    info = helpInfo.help,
-                    description = info.description;
+                let helpInfo = require('./' + file);
+                let helpName = file.split('.')[0];
+                let info = helpInfo.help;
+                let description = info.description;
                 if (info.category === 'fun') {
                     funCat.push(`**${config.PREFIX}${helpName}** ${description}`);
                 } else if (info.category === 'util') {
@@ -173,9 +169,12 @@ exports.run = async (bot, msg, args) => {
                             .addField('Moderation Commands', modCat.join('\n'))
                             .addField('Music Commands', musicCat.join('\n') ? musicCat.join('\n') : 'None')
                             .setColor('#1FBAED');
+
+                        msg.channel.send({embed});
+                        msg.channel.send({embed: embed2});
+                    } else {
+                        msg.channel.send({embed});
                     }
-                    msg.channel.send({embed});
-                    msg.channel.send({embed: embed2});
                 } else {
                     const embed = new discord.RichEmbed()
                         .addField('Fun Commands', funCat.join('\n'))
