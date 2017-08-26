@@ -23,7 +23,7 @@ exports.run = async (client, msg, args) => {
     mayLog ? mayLog.send({embed}) : msg.channel.send({embed});
 
 
-    update('warnCount', msg.guild.id, toBanUsr.id)
+    update('warnCount', msg.guild.id, toWarn.id)
 };
 
 exports.help = {

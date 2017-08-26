@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 const ms = require('ms');
+const update = require('../functions/modhistory.js');
+
 
 exports.run = async (client, msg, args) => {
     const toBanUsr = msg.mentions.users.last() === client.user ? msg.mentions.users.first() : msg.mentions.users.last();
@@ -36,7 +38,8 @@ exports.run = async (client, msg, args) => {
         .setTimestamp();
 
     mayLog ? mayLog.send({embed}) : msg.channel.send({embed});
-  // TODO: add the total softbans the user got to a database
+    console.log(toBanUsr);
+  update('softbanCount', msg.guild.id, toBanUsr.id);
 };
 
 exports.help = {
