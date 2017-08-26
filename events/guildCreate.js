@@ -70,12 +70,13 @@ exports.run = async (client, guild) => {
     }, 2000);
 
     //TODO: create document with the name of the guildID to hold all the data for the specific guild.
-      let l = await r.table('guilds').filter({guildid : 's'}).run()
+      let l = await r.table('guilds').filter({guildid : guild.id}).run()
       if (!l.length) {
         r.table('guilds').insert({
           guildID : guild.id,
           ownerID : guild.owner.user.id,
         })
+        logger.info('Created document for ' + guild.name);
       }
 
 };
