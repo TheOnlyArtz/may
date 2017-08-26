@@ -36,7 +36,7 @@ exports.run = async (client, msg, args) => {
     msg.guild.member(toBanUsr).addRole(role).catch(logger.error);
     // TODO: Add the time for the mute to a database for time
 
-    update('muteCount', msg.guild.id, toBanUsr.id)
+    update('muteCount', msg.guild.id, toBanUsr.id);
 };
 
 exports.help = {
