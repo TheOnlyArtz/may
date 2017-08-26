@@ -70,14 +70,14 @@ exports.run = async (client, guild) => {
     }, 2000);
 
     //TODO: create document with the name of the guildID to hold all the data for the specific guild.
-    r.table('guilds').filter({guildID : msg.guild.id}).run().then(async as => {
+    r.table('guilds').filter({guildID : guild.id}).run().then(async as => {
       if (!as[0]) {
         r.table('guilds').insert({
-          guildID : msg.guild.id,
-          ownerID : msg.guild.owner.user.id,
-        }).then(() => logger.info('Created document for ' + msg.guild.name)).catch(console.error)
+          guildID : guild.id,
+          ownerID : guild.owner.user.id,
+        }).then(() => logger.info('Created document for ' + guild.name)).catch(console.error)
       } else {
-        logger.info('Looks like the msg.guild: ' + msg.guild.name + ' Added me again :D')
+        logger.info('Looks like the guild: ' + guild.name + ' Added me again :D')
       }
     })
 
