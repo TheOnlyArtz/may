@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-global.r = require('rethinkdbdash')({servers : [{host: config.rethinkhost}]});
 const client = new Discord.Client({options: {disabledEvents: [
     'RESUMED',
     'GUILD_SYNC',
@@ -30,6 +29,7 @@ const client = new Discord.Client({options: {disabledEvents: [
     'RELATIONSHIP_REMOVE'
 ]}});
 const config = require('./config/config.json');
+global.r = require('rethinkdbdash')({servers : [{host: config.rethinkhost}]});
 const loggerClass = require('artzlogger');
 
 const fs = require('fs');
