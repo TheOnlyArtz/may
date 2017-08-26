@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const ms = require('ms');
+const update = require('../functions/modhistory.js');
 
 exports.run = async (client, msg, args) => {
     const toBanUsr = msg.mentions.users.last() === client.user ? msg.mentions.users.first() : msg.mentions.users.last();
@@ -33,7 +34,9 @@ exports.run = async (client, msg, args) => {
     mayLog ? mayLog.send({embed}) : msg.channel.send({embed});
 
     msg.guild.member(toBanUsr).addRole(role).catch(logger.error);
-    // TODO: Add the time for the mute to a database for time and add total mutes the user got to a database
+    // TODO: Add the time for the mute to a database for time
+
+    update('muteCount', msg.guild.id, toBanUsr.id)
 };
 
 exports.help = {
