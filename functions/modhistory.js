@@ -28,12 +28,12 @@ async function updateModHistory(column, guild, user) {
     * @returns {Error}
     */
     if (exists[0]) {
-      console.log('exists and fired!');
-      table.filter({guildID : guild, userID : user}).update({
-        [column] : exists[0][column] ? parseInt(exists[0][column]) + 1 : 1
-      })
-        .run()
-        .then(() => logger.info('updated new user into the database reason : ' + chalk.red('[Punishment]')))
+      table.filter({guildID : guild, userID : user})
+        .update({
+          [column] : exists[0][column] ? parseInt(exists[0][column]) + 1 : 1
+        })
+          .run()
+          .then(() => logger.info('updated new user into the database reason : ' + chalk.red('[Punishment]')))
     } else {
       table.insert({
         guildID : guild,
