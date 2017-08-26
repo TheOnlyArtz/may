@@ -9,7 +9,6 @@ let table = r.table('ModHistory');
 * @param {String} user - user would be the ID of the user
 */
 async function updateModHistory(column, guild, user) {
-
   try {
     /**
     * @param {String} guild - guild would be the ID of the guild
@@ -20,7 +19,7 @@ async function updateModHistory(column, guild, user) {
         guildID : guild,
         userID  : user,
       })
-      .run()[0];
+      .run();
 
     /**
     * Update the column for the specific Punishment
@@ -28,17 +27,20 @@ async function updateModHistory(column, guild, user) {
     * @returns {Promise}
     * @returns {Error}
     */
-    if (exists) {
-      exists.update({
-        [column] : exists[column] ? parseInt(exists[column]) + 1 : 1
+    if (exists[0]) {
+      console.log('exists and fired!');
+      table.filter({guildID : guild, userID : user}).update({
+        [column] : exists[0][column] ? parseInt(exists[0][column]) + 1 : 1
       })
+        .run()
         .then(() => logger.info('updated new user into the database reason : ' + chalk.red('[Punishment]')))
     } else {
       table.insert({
         guildID : guild,
         userID  : user,
         [column] : 1
-      })
+      }).run()
+        .then(() => logger.info('updated new user into the database reason : ' + chalk.red('[Punishment]')))
     }
 
   } catch (e) {
