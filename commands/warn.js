@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const update = require('../functions/modhistory.js');
 
 exports.run = async (client, msg, args) => {
     const toWarn = msg.mentions.users.last() === client.user ? msg.mentions.users.first() : msg.mentions.users.last();
@@ -20,6 +21,9 @@ exports.run = async (client, msg, args) => {
         .setAuthor(`Warned ${toWarn.tag}`)
         .setDescription(`**Warned User:** ${toWarn.tag} \`(${toWarn.id})\`\n**Warned By** ${msg.author.tag} \`(${msg.author.id})\`\n**Reason:** ${reason}`);
     mayLog ? mayLog.send({embed}) : msg.channel.send({embed});
+
+
+    update('warnCount', msg.guild.id, toBanUsr.id)
 };
 
 exports.help = {
