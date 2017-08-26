@@ -45,7 +45,6 @@ exports.run = async (client, msg, args) => {
     msg.guild.ban(toBanUsr, {
         days: 7
     }).catch(logger.error);
-    // TODO: Add the time for the ban to a database for time and add total bans the user got to a database
     const update = require('../functions/modhistory.js');
 
     update('banCount', msg.guild.id, toBanUsr.id)
