@@ -85,7 +85,8 @@ exports.run = async (client, guild) => {
         if (!as[0]) {
             r.table('livestreams').insert({
                 [guild.id]: {
-                    streams: false
+                    streams: false,
+                    channelID: null
                 }
             }).then(() => logger.info('Created document for ' + guild.name)).catch(console.error)
         } else {
