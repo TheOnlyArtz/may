@@ -3,7 +3,7 @@ permissionsObjectInstructions = {
     ADMINISTRATOR: 'Administrator',
     CREATE_INSTANT_INVITE: 'Create Instant Invite',
     KICK_MEMBERS: 'Kick members',
-    BAM_MEMBERS: 'Ban members',
+    BAN_MEMBERS: 'Ban members',
     MANAGE_GUILD: 'Manage guild',
     ADD_REACTIONS: 'Add reactions',
     VIEW_AUDIT_LOG: 'View audit logs',
