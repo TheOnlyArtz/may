@@ -57,6 +57,7 @@
     "node-json-db": "^0.7.3",
     "node-opus": "^0.2.6",
     "opusscript": "0.0.3",
+    "rethinkdb": "^2.3.3",
     "simple-youtube-api": "^3.0.0",
     "snekfetch": "^3.2.9",
     "spongeuscator": "^0.1.3",
