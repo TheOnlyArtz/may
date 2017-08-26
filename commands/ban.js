@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const ms = require('ms');
 const embedClass = require('../classes/embedMessage.js');
+const update = require('../functions/modhistory.js');
 
 exports.run = async (client, msg, args) => {
     let embedMessage = new embedClass(msg);
@@ -45,7 +46,6 @@ exports.run = async (client, msg, args) => {
     msg.guild.ban(toBanUsr, {
         days: 7
     }).catch(logger.error);
-    const update = require('../functions/modhistory.js');
 
     update('banCount', msg.guild.id, toBanUsr.id)
 
