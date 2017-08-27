@@ -24,7 +24,6 @@ exports.run = async (client, msg, args) => {
             return msg.reply('You already have a tag with this name.')
           }
         }
-        console.log();
         let appendToArray = (table, uArray, doc) => r.table(table)
         .filter({userID : msg.author.id})
         .update(object => ({ [uArray]: object(uArray)
