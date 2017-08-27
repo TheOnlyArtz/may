@@ -19,6 +19,12 @@ exports.run = async (client, msg, args) => {
         if (exists[0].tags.length >= 5) {
           return msg.reply('You cannot store more than 5 tags.')
         }
+        for (var i = 0; i < exists[0].tags.length; i++) {
+          if (exists[0].tags[i]['name'] === name) {
+            return msg.reply('You already have a tag with this name.')
+          }
+        }
+        console.log();
         let appendToArray = (table, uArray, doc) => r.table(table)
         .filter({userID : msg.author.id})
         .update(object => ({ [uArray]: object(uArray)
@@ -26,7 +32,7 @@ exports.run = async (client, msg, args) => {
         .run();
         appendToArray('tags', 'tags', {name : name, content : content})
       }
-   } else {
+   } else if (action !== 'register' && action !== 'list'){
      let tagName = action
      let tagValue = exists[0]['tags'].filter(o => o.name === tagName)[0]['content']
      msg.channel.send(tagValue)
