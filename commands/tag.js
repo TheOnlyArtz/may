@@ -61,6 +61,12 @@ exports.run = async (client, msg, args) => {
        textArray.push(`${i + 1}). ${exists[0].tags[i].name}`);
      }
      msg.channel.send(textArray.join('\n'), {code : 'asciidoc'})
+   } else if (action === 'delete') {
+     let toDelete = name;
+     if (exists[0].tags.length < 1 || !exists[0]) {
+       return msg.reply('You do not have any tags available')
+     }
+
    }
 
 };
