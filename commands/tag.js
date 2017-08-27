@@ -16,8 +16,14 @@ exports.run = async (client, msg, args) => {
           }]
         }).run()
       } else {
-        let appendToArray = (table, uArray, doc) => r.table(table).filter({userID : msg.author.id}).update(object => ({ [uArray]: object(uArray).default([]).append(doc) })).run();
-        // TODO: Find a way of adding object to the array and not deleting it
+        if (exists[0].tags.length >= 5) {
+          return msg.reply('You cannot store more than 5 tags.')
+        }
+        let appendToArray = (table, uArray, doc) => r.table(table)
+        .filter({userID : msg.author.id})
+        .update(object => ({ [uArray]: object(uArray)
+        .default([]).append(doc) }))
+        .run();
         appendToArray('tags', 'tags', {name : name, content : content})
       }
    } else {
@@ -30,7 +36,7 @@ exports.run = async (client, msg, args) => {
 
 exports.help = {
     category: 'fun',
-    usage: 'register [name][content] : -tag [name]',
+    usage: 'register [name][content] : -tag [name] : -tag list',
     description: 'register and use tags for saying things',
     detail: 'By using tag you will able to make custom tags that will say things',
     botPerm: ['SEND_MESSAGES'],
