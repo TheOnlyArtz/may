@@ -1,4 +1,5 @@
 exports.run = async (client, msg, args) => {
+  msg.delete();
     let messagecount = parseInt(args, 10);
     /*
   Check if msg is higher or lower then the limits
