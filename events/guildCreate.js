@@ -81,17 +81,18 @@ exports.run = async (client, guild) => {
       }
     });
 
-    r.table('livestreams').filter({guildID : guild.id}).run().then(async as => {
-        if (!as[0]) {
-            r.table('livestreams').insert({
-                [guild.id]: {
-                    streams: false,
-                    channelID: null
-                }
-            }).then(() => logger.info('Created document for ' + guild.name)).catch(console.error)
-        } else {
-            logger.info('Looks like the guild: ' + guild.name + ' Added me again :D')
-        }
-    })
+  let live = await r.table('livestreams').filter({guildID : guild.id}).run()[0];
+  if (!live) {
+    try {
+      await r.table('livestreams').insert({
+        guildID : guild.id,
+        livestreams : [{
 
+        }]
+      }).run();
+      logger.info('Inserted ' + guild.name + ' Into livestreams table.')
+    } catch (e) {
+      logger.error(e)
+    }
+  }
 };
