@@ -40,7 +40,7 @@ exports.run = async (client, msg, args) => {
         appendToArray('tags', 'tags', {name : name, content : content})
 
       }
-      msg.channel.send(`Added the tag = ${name} = , do -tag list, so you can view the list of your tags`, {code : "asciidoc"})
+      msg.channel.send(`Added the tag = ${name} =  do -tag list, so you can view the list of your tags`, {code : "asciidoc"})
    } else if (action !== 'register' && action !== 'list'){
 
      let tagName = action
