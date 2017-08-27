@@ -89,7 +89,7 @@ exports.run = async (bot, msg, args) => {
             try {
                 let cmd = require('./' + args[0]);
                 let help = cmd.help;
-                let usageCheck = help.usage === true ? help.usage : '';
+                let usageCheck = cmd.help.usage ? cmd.help.usage : '';
                 let usage = config.PREFIX + args[0] + ' ' + usageCheck;
                 let detail = help.detail;
                 let alias3 = help.alias.join(', ');
@@ -99,6 +99,7 @@ exports.run = async (bot, msg, args) => {
                     .addField('Usage', usage)
                     .addField('Alias', alias3 ? alias3 : 'None')
                     .setTimestamp()
+                    .setColor(0xb7c767)
                     .setFooter(bot.user.username);
                 if (help.example) {
                     embed.addField('Example', '`' + config.PREFIX + args[0] + ' ' + help.example + '`');
@@ -108,7 +109,7 @@ exports.run = async (bot, msg, args) => {
                 if (alias[args[0]]) {
                     let cmd = require('./' + alias[args[0]] + '.js');
                     let help = cmd.help;
-                    let usageCheck = help.usage === true ? help.usage : '';
+                    let usageCheck = cmd.help.usage ? cmd.help.usage : '';
                     let usage = config.PREFIX + args[0] + ' ' + usageCheck;
                     let detail = help.detail;
                     let alias2 = help.alias.join(', ');
@@ -116,6 +117,7 @@ exports.run = async (bot, msg, args) => {
                         .setTitle('Command Information | ' + alias[args[0]])
                         .setDescription(detail)
                         .addField('Usage', usage)
+                        .setColor(0xb7c767)
                         .addField('Alias', alias2 ? alias2 : 'None')
                         .setTimestamp()
                         .setFooter(bot.user.username);
