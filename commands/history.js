@@ -8,14 +8,13 @@ exports.run = async (client, msg, args) => {
 
   let textArray =  [
     `= History for ${msg.mentions.users.first().username} =`,
-    `Bans: ${exists[0]['banCount'] ? exists[0]['banCount'] : 0}`,
-    `Mutes: ${exists[0]['muteCount'] ? exists[0]['muteCount'] : 0}`,
-    `Kicks: ${exists[0]['kickCount'] ? exists[0]['kickCount'] : 0}`,
-    `Softbans: ${exists[0]['softbanCount'] ? exists[0]['softbanCount'] : 0}`,
-    `Warns: ${exists[0]['warnCount'] ? exists[0]['warnCount'] : 0}`,
-
-
+    `Bans: ${exists[0] && exists[0]['banCount'] ? exists[0]['banCount'] : 0}`,
+    `Mutes: ${exists[0] && exists[0]['muteCount'] ? exists[0]['muteCount'] : 0}`,
+    `Kicks: ${exists[0] && exists[0]['kickCount'] ? exists[0]['kickCount'] : 0}`,
+    `Softbans: ${exists[0] && exists[0]['softbanCount'] ? exists[0]['softbanCount'] : 0}`,
+    `Warns: ${exists[0] && exists[0]['warnCount'] ? exists[0]['warnCount'] : 0}`,
   ]
+
   msg.channel.send(textArray.join('\n'), {code : "asciidoc"})
 };
 
