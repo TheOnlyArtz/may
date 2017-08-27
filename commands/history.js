@@ -1,6 +1,10 @@
 
 exports.run = async (client, msg, args) => {
 
+  if (!msg.mentions.users.first()) {
+    return msg.reply('You must mention someone.');
+  }
+
   let exists = await r.table('ModHistory').filter({
     guildID : msg.guild.id,
     userID  : msg.mentions.users.first().id
