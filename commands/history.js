@@ -7,7 +7,7 @@ exports.run = async (client, msg, args) => {
   }).run()
 
   let textArray =  [
-    `= History for ${msg.mentions.users.first().username} =`,
+    `= 🔨History for ${msg.mentions.users.first().username} =🔨`,
     `Bans: ${exists[0] && exists[0]['banCount'] ? exists[0]['banCount'] : 0}`,
     `Mutes: ${exists[0] && exists[0]['muteCount'] ? exists[0]['muteCount'] : 0}`,
     `Kicks: ${exists[0] && exists[0]['kickCount'] ? exists[0]['kickCount'] : 0}`,
