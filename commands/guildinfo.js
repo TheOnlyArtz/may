@@ -18,9 +18,9 @@ exports.run = async (client, msg, args) => {
 
     const embed = new Discord.RichEmbed()
         .setTitle('Guild Information')
-        .addField('Channels', `Channel Count: **${channels}**\nAFK Channel: **${afk}**`, true)
-        .addField('Members', `Member Count: **${memberCount}**\nOwner: **${owner}**\nOwner ID: **${guild.owner.id}**`, true)
-        .addField('More', `Created at: **${createdAt}**\nLarge Guild?: **${large ? 'Yes' : 'No'}**\nRegion: **${region}**`)
+        .addField('Channels', `**Channel Count:** ${channels}\n**AFK Channel:** ${afk}`, true)
+        .addField('Members', `**Member Count:** ${memberCount}**\n**Owner:** ${owner}\n**Owner ID:** ${guild.owner.id}`, true)
+        .addField('More', `**Created at:** ${createdAt}\n**Large Guild?:** ${large ? 'Yes' : 'No'}\n**Region:** ${region}`)
         .setThumbnail(iconUrl)
         .setFooter('May')
         .setTimestamp();
