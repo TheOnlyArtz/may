@@ -84,10 +84,11 @@ exports.run = async (client, guild) => {
     r.table('livestreams').filter({guildID : guild.id}).run().then(async as => {
         if (!as[0]) {
             r.table('livestreams').insert({
-                [guild.id]: {
-                    streams: false,
-                    channelID: null
-                }
+                guildId: guild.id,
+                streams: false,
+                channelID: null,
+                livestreams: []
+
             }).then(() => logger.info('Created document for ' + guild.name)).catch(console.error)
         } else {
             logger.info('Looks like the guild: ' + guild.name + ' Added me again :D')

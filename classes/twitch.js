@@ -1,5 +1,5 @@
 
-const https = require('https');
+const sf = require('snekfetch');
 const config = require('../config/config.json');
 
 class Twitch {
@@ -113,36 +113,9 @@ class Twitch {
         });
     }
 
-    register(stream) {
-        let apiPath = '/kraken/channels/' + stream;
-        let opt = {
-            host: 'api.twitch.tv',
-            path: apiPath,
-            headers: {
-                'Client-ID': this.clientID,
-                Accept: 'application/vnd.twitchtv.v3+json'
-            }
-        };
-        https.get(opt, res => {
-            let body = '';
+    async register(stream) {
+        return await sf.get('https://api.twitch.tv/kraken/channels/' + stream).set({"Client-ID" : this.clientID, Accept: 'application/vnd.twitchtv.v3+json'});
 
-            res.on('data', chunk => {
-                body += chunk;
-            });
-
-            res.on('end', () => {
-                let json;
-                try {
-                    json = JSON.parse(body);
-                } catch (err) {
-                    logger.error(err);
-                    return false;
-                }
-                return json.status !== 404;
-            });
-        }).on('error', err => {
-            logger.error(err);
-        });
     }
 }
 
