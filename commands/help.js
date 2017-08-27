@@ -124,7 +124,7 @@ exports.run = async (bot, msg, args) => {
                     }
                     msg.channel.send({embed});
                 } else {
-                    msg.channel.send(`:x: ${config.PREFIX}${args[0]} is no command`);
+                    msg.channel.send(`:x: ${config.PREFIX}${args[0]} is not a command`);
                 }
             }
         }
