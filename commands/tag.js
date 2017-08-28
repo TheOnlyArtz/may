@@ -11,7 +11,10 @@ exports.run = async (client, msg, args) => {
   }
    if (action === 'register') {
      if (!name) return msg.reply('You must specify the name.');
-     if (!content) return msg.reply('You must specify tag\'s content.')
+     if (!content) return msg.reply('You must specify tag\'s content.');
+     if (content.includes('@everyone')) {
+       return msg.reply('Please dont include `@everyone` in your tag, thanks')
+     }
       if (!exists[0]) {
         await table.insert({
           userID  : msg.author.id,
