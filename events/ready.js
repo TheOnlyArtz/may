@@ -30,7 +30,7 @@ exports.run = async client => {
                             lang: data[key].lang,
                             name: data[key].name,
                             url: data[key].url,
-                            msgID: ,
+                            msgID: null,
                             online: true
                         } : {online: false, name: key};
 
