@@ -35,7 +35,7 @@ async function timer(time, table, user, punishment, guild) {
   /*
   * Get the data when the punish should end
   */
-  let unformattedUnix = moment().add(ms(time), 'ms').format('DD/MM/YYYY HH:mm:ss');
+  let unformattedUnix = moment().add(ms(time), 'ms')
 
   /*
   * Insert the time of the punishment to the database.
