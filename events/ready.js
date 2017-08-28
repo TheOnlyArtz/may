@@ -55,14 +55,12 @@ exports.run = async client => {
       let arr = await r.table('timers').filter({userID : "NONE"}).run();
       if (arr[0].inPunishQueue[0]) {
           for (var i = 0; i < arr[0].inPunishQueue.length; i++) {
-            console.log('loopy');
             let guildID = arr[0].inPunishQueue[i]['guildID'];
             let userID = arr[0].inPunishQueue[i]['userID'];
             let usersUnix = await r.table('timers').filter({
               guildID : guildID,
               userID  : userID
             }).run()
-            console.log(Date.now(), "CURRENT UNIX", usersUnix[0].mute, "MUTE UNIX", guildID , "GUILDID", userID, "USERID"); // false
             if (usersUnix[0].mute &&(usersUnix[0].mute < Date.now())) {
               logger.info('Removed new muted role [auto]')
               let muteRole = client.guilds.get(guildID).roles.find('name', 'may-muted');
