@@ -16,7 +16,8 @@ async function timer(time, table, user, punishment, guild) {
   * @param {String} guild - filter with the guildID
   */
   let exists = await r.table(table).filter({
-    guildID : guild, userID : user
+    guildID : guild,
+    userID : user
   }).run()[0];
 
   if (!exists) {
@@ -41,7 +42,7 @@ async function timer(time, table, user, punishment, guild) {
   * Insert the time of the punishment to the database.
   */
   await r.table(table).filter({guildID : guild, userID : user}).insert({
-    [punishment] : (new Date(unformattedUnix)).getTime(); //Inserts UNIX formatted timestamp
+    [punishment] : (new Date(unformattedUnix)).getTime() //Inserts UNIX formatted timestamp
   }).run();
 }
 
