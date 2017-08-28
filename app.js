@@ -1,8 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client({options: {disabledEvents: [
-    'RESUMED',
     'GUILD_SYNC',
-    'GUILD_MEMBERS_CHUNK',
     'GUILD_ROLE_CREATE',
     'GUILD_ROLE_DELETE',
     'GUILD_ROLE_UPDATE',

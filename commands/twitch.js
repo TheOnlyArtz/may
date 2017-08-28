@@ -108,7 +108,7 @@ exports.help = {
     description: 'Enabled and add Twitch streams',
     detail: 'Enable: Add the channel where you want to receive stream announcements | Register: Add a new channel to the announcements | Remove: Remove a channel from announcements | Disable: Disable the function (default)',
     botPerm: ['SEND_MESSAGES', 'EMBED_LINKS'],
-    authorPerm: [],
+    authorPerm: ["ADMINISTRATOR"],
     alias: [
         null
     ]
