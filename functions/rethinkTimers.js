@@ -40,7 +40,7 @@ async function timer(time, table, user, punishment, guild) {
   /*
   * Insert the time of the punishment to the database.
   */
-  await r.table(table).filter({userID : user}).insert({
+  await r.table(table).filter({guildID : guild, userID : user}).insert({
     [punishment] : (new Date(unformattedUnix)).getTime(); //Inserts UNIX formatted timestamp
   }).run();
 }
