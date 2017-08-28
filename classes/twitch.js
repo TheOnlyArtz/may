@@ -45,32 +45,32 @@ class Twitch {
                         return resolve([stream]);
                     }
                     /**
-                     * @param {{game:string}} The game the streamer is playing
+                     * @param {String} game The game the streamer is playing
                      */
                     let game = json.stream.game;
                     /**
-                     * @param {{viewers:number}} Number of viewers the streamer has
+                     * @param {String} viewers Number of viewers the streamer has
                      */
                     let views = json.stream.viewers;
                     /**
-                     * @param {{preview:object}} Object contains twitch preview pictures
-                     * @param {{large:string}} Link of large image
+                     * @param {Object} preview Object contains twitch preview pictures
+                     * @param {String} large Link of large image
                      */
                     let image = json.stream.preview.large;
                     /**
-                     * @param {{mature:boolean}} Marks if a stream is for a mature viewer base
+                     * @param {Boolean} mature Marks if a stream is for a mature viewer base
                      */
                     let mature = json.stream.channel.mature;
                     /**
-                     * @param {{broadcaster_language:string}} Language of the stream
+                     * @param {String} lang Language of the stream
                      */
                     let lang = json.stream.channel.broadcaster_language;
                     /**
-                     * @param {{display_name:string}} The displayed name of the Twitch Streamer
+                     * @param {String} name The displayed name of the Twitch Streamer
                      */
                     let name = json.stream.channel.display_name;
                     /**
-                     * @param {{url:string}} Link to stream
+                     * @param {String} URI Link to stream
                      */
                     let url = json.stream.channel.url;
                     return resolve([game, views, image, mature, lang, name, url]);
