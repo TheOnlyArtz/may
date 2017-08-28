@@ -37,7 +37,8 @@ exports.run = async (client, msg, args) => {
                     lang: null,
                     name: args[1],
                     url: null,
-                    online: false
+                    online: false,
+                    msgID: null
                 });
                 msg.channel.send(`I added ${args[1]} to the list`)
             } else {
