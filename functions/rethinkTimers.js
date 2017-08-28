@@ -18,9 +18,8 @@ async function timer(time, table, user, punishment, guild) {
   let exists = await r.table(table).filter({
     guildID : guild,
     userID : user
-  }).run()[0];
-
-  if (!exists) {
+  }).run();
+  if (exists[0] === undefined) {
     /**
     * @param {String} table - what table to look into
     * @param {String} user - insert the userID
@@ -32,18 +31,27 @@ async function timer(time, table, user, punishment, guild) {
     }).run();
   }
 
+  let appendToArray = async (table, uArray, doc) => await r.table(table)
+  .filter({userID : 'NONE'})
+  .update(object => ({ [uArray]: object(uArray)
+  .default([]).append(doc) }))
+  .run();
+  appendToArray('timers', 'inPunishQueue', user)
 
   /*
   * Get the data when the punish should end
   */
+
   let unformattedUnix = moment().add(ms(time), 'ms')
 
   /*
   * Insert the time of the punishment to the database.
   */
-  await r.table(table).filter({guildID : guild, userID : user}).insert({
-    [punishment] : (new Date(unformattedUnix)).getTime() //Inserts UNIX formatted timestamp
-  }).run();
+  if (exists) {
+    await r.table(table).filter({guildID : guild, userID : user}).update({
+      [punishment] : (new Date(unformattedUnix)).getTime() //Inserts UNIX formatted timestamp
+    }).run();
+  }
 }
 
 module.exports = timer;
