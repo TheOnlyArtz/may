@@ -1,3 +1,6 @@
+const twitchClass = require('../classes/twitch.js');
+const twitch = new twitchClass(config.CLIENTID);
+
 exports.run = async client => {
     logger.info('May is ready to use');
     logger.debug(`Logged in as ${client.user.tag}`);
