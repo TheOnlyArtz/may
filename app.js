@@ -26,7 +26,7 @@ const client = new Discord.Client({options: {disabledEvents: [
     'RELATIONSHIP_ADD',
     'RELATIONSHIP_REMOVE'
 ]}});
-const config = require('./config/config.json');
+global.config = require('./config/config.json');
 global.r = require('rethinkdbdash')({servers : [{host: config.rethinkhost}]})
 .db('May')
 const loggerClass = require('artzlogger');

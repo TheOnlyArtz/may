@@ -1,4 +1,5 @@
 
+const https = require('https');
 const sf = require('snekfetch');
 const config = require('../config/config.json');
 
