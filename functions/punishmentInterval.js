@@ -52,7 +52,7 @@ const moment = require('moment');
             }
             if (usersUnix[0].ban && (usersUnix[0].ban < Date.now())) {
               logger.info('Unbanned new user [auto]');
-              await client.guilds.get(guildID).unban(userID);
+              await client.guilds.get(guildID).unban(userID).catch(logger.error)
 
               let p = arr[0].inPunishQueue;
 
