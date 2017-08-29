@@ -19,20 +19,11 @@ const moment = require('moment');
               logger.info('Removed new muted role [auto]');
               let muteRole = client.guilds.get(guildID).roles.find('name', 'may-muted');
               await client.guilds.get(guildID).members.get(userID).removeRole(muteRole);
-              let p = arr[0].inPunishQueue;
-
-              function findInd(element) {
-                return element.userID === userID
-                && element.guildID === guildID
-                && element.punish === 'mute'
-              }
-
-              p.findIndex(findInd)
 
               let appendToArray = (table, uArray) => r.table(table)
              .filter({userID : "NONE"})
              .update(object => ({ [uArray]: object(uArray)
-             .default([]).deleteAt(p.findIndex(findInd)) }))
+             .default([]).deleteAt(i) }))
              .run();
 
              appendToArray('timers', 'inPunishQueue');
@@ -54,20 +45,10 @@ const moment = require('moment');
               logger.info('Unbanned new user [auto]');
               await client.guilds.get(guildID).unban(userID).catch(logger.error)
 
-              let p = arr[0].inPunishQueue;
-
-              function findInd(element) {
-                return element.userID === userID
-                && element.guildID === guildID
-                && element.punish === 'mute'
-              }
-
-              p.findIndex(findInd);
-
               let appendToArray = (table, uArray) => r.table(table)
              .filter({userID : "NONE"})
              .update(object => ({ [uArray]: object(uArray)
-             .default([]).deleteAt( p.findIndex(findInd)) }))
+             .default([]).deleteAt(i) }))
              .run();
              appendToArray('timers', 'inPunishQueue');
 
