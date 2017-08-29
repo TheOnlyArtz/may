@@ -1,6 +1,6 @@
 const ms = require('ms');
 const moment = require('moment');
-  function punishment() {
+  function punishment(client) {
     setInterval(async () => {
       let arr = await r.table('timers').filter({userID : "NONE"}).run();
       if (arr[0].inPunishQueue[0]) {
@@ -18,11 +18,13 @@ const moment = require('moment');
 
               logger.info('Removed new muted role [auto]');
               let muteRole = client.guilds.get(guildID).roles.find('name', 'may-muted');
-              client.guilds.get(guildID).members.get(userID).removeRole(muteRole);
+              await client.guilds.get(guildID).members.get(userID).removeRole(muteRole);
               let p = arr[0].inPunishQueue;
 
               function findInd(element) {
-                return element.userID === userID && element.guildID === guildID;
+                return element.userID === userID
+                && element.guildID === guildID
+                && element.punish === 'mute'
               }
 
               p.findIndex(findInd)
@@ -33,6 +35,7 @@ const moment = require('moment');
              .default([]).deleteAt(p.findIndex(findInd)) }))
              .run();
 
+             appendToArray('timers', 'inPunishQueue');
              if (usersUnix[0].ban) {
                await r.table("timers")
                .filter({guildID : msg.guild.id, userID : msg.author.id})
@@ -40,7 +43,6 @@ const moment = require('moment');
              } else {
 
                //Else, delete the document
-               appendToArray('timers', 'inPunishQueue');
                await r.table('timers').filter({
                  guildID : guildID,
                  userID  : userID
@@ -50,6 +52,37 @@ const moment = require('moment');
             }
             if (usersUnix[0].ban && (usersUnix[0].ban < Date.now())) {
               logger.info('Unbanned new user [auto]');
+              await client.guilds.get(guildID).unban(userID);
+
+              let p = arr[0].inPunishQueue;
+
+              function findInd(element) {
+                return element.userID === userID
+                && element.guildID === guildID
+                && element.punish === 'mute'
+              }
+
+              p.findIndex(findInd);
+
+              let appendToArray = (table, uArray) => r.table(table)
+             .filter({userID : "NONE"})
+             .update(object => ({ [uArray]: object(uArray)
+             .default([]).deleteAt( p.findIndex(findInd)) }))
+             .run();
+             appendToArray('timers', 'inPunishQueue');
+
+             if (usersUnix[0].mute) {
+               await r.table("timers")
+               .filter({guildID : msg.guild.id, userID : msg.author.id})
+               .update({ban : null}).run();
+             } else {
+               //Else, delete the document
+               await r.table('timers').filter({
+                 guildID : guildID,
+                 userID  : userID
+               }).delete().run();
+
+              }
             }
           }
         }
