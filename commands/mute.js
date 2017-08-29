@@ -37,7 +37,9 @@ exports.run = async (client, msg, args) => {
     // TODO: Add the time for the mute to a database for time
 
     update('muteCount', msg.guild.id, toBanUsr.id);
-    timer(ms(args[1]), 'timers', toBanUsr.id, 'mute', msg.guild.id);
+    if (args[1].match(/[0-9]/g)) {
+      timer(ms(args[1]), 'timers', toBanUsr.id, 'mute', msg.guild.id);
+    }
 };
 
 exports.help = {
