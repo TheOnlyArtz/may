@@ -1,6 +1,6 @@
 const ms = require('ms');
 const moment = require('moment');
-  function functionName() {
+  function punishment() {
     setInterval(async () => {
       let arr = await r.table('timers').filter({userID : "NONE"}).run();
       if (arr[0].inPunishQueue[0]) {
@@ -38,3 +38,5 @@ const moment = require('moment');
         }
       }, ms('10s'));
   }
+
+module.exports = punishment;
