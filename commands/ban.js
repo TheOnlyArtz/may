@@ -51,7 +51,7 @@ exports.run = async (client, msg, args) => {
 
     update('banCount', msg.guild.id, toBanUsr.id)
     if (args[1].match(/[0-9]/g)) {
-      timer(ms(args[1]), 'timers', toBanUsr.id, 'mute', msg.guild.id);
+      timer(ms(args[1]), 'timers', toBanUsr.id, 'ban', msg.guild.id);
     }
 };
 
