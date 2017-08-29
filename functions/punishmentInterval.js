@@ -16,9 +16,18 @@ const moment = require('moment');
 
             if (usersUnix[0].mute &&(usersUnix[0].mute < Date.now())) {
 
-              logger.info('Removed new muted role [auto]');
               let muteRole = client.guilds.get(guildID).roles.find('name', 'may-muted');
-              await client.guilds.get(guildID).members.get(userID).removeRole(muteRole);
+
+              try {
+                let userObject = await client.guilds.get(guildID).fetchMember(userID);
+                await userObject.removeRole(muteRole);
+                logger.info('Removed new muted role [auto]');
+              } catch (e) {
+                await r.table("timers")
+                .filter({guildID : guildID, userID : userID})
+                .update({mute : null}).run();
+                logger.error('Could not remove the role [error]');
+              }
 
               let appendToArray = (table, uArray) => r.table(table)
              .filter({userID : "NONE"})
@@ -29,7 +38,7 @@ const moment = require('moment');
              appendToArray('timers', 'inPunishQueue');
              if (usersUnix[0].ban) {
                await r.table("timers")
-               .filter({guildID : msg.guild.id, userID : msg.author.id})
+               .filter({guildID : guildID, userID : userID})
                .update({mute : null}).run();
              } else {
 
@@ -42,8 +51,13 @@ const moment = require('moment');
               }
             }
             if (usersUnix[0].ban && (usersUnix[0].ban < Date.now())) {
-              logger.info('Unbanned new user [auto]');
-              await client.guilds.get(guildID).unban(userID).catch(logger.error)
+              try {
+                let p = await client.guilds.get(guildID)
+                await p.unban(userID).catch(logger.error)
+                logger.info('Unbanned new user [auto]');
+              } catch (e) {
+                logger.error('Could not ban the user [error]');
+              }
 
               let appendToArray = (table, uArray) => r.table(table)
              .filter({userID : "NONE"})
@@ -54,7 +68,7 @@ const moment = require('moment');
 
              if (usersUnix[0].mute) {
                await r.table("timers")
-               .filter({guildID : msg.guild.id, userID : msg.author.id})
+               .filter({guildID : guildID, userID : userID})
                .update({ban : null}).run();
              } else {
                //Else, delete the document
