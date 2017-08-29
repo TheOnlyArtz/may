@@ -27,7 +27,9 @@ async function timer(time, table, user, punishment, guild) {
     */
     await r.table(table).insert({
       guildID : guild,
-      userID : user
+      userID : user,
+      ban    : null,
+      mute   : null
     }).run();
   }
 

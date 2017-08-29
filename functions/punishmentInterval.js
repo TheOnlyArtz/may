@@ -28,11 +28,12 @@ const moment = require('moment');
              .run();
 
 
-             appendToArray('timers', 'inPunishQueue');
-             await r.table('timers').filter({
-               guildID : guildID,
-               userID  : userID
-             }).delete().run();
+            await r.table("timers")
+            .filter({guildID : msg.guild.id, userID : msg.author.id})
+            .update({mute : null}).run();
+            }
+            if (usersUnix[0].ban && (usersUnix[0].ban < Date.now())) {
+              logger.info('Unbanned new user [auto]');
             }
           }
         }
