@@ -16,9 +16,8 @@ const moment = require('moment');
 
             if (usersUnix[0].mute &&(usersUnix[0].mute < Date.now())) {
 
-              let muteRole = client.guilds.get(guildID).roles.find('name', 'may-muted');
-
               try {
+                let muteRole = client.guilds.get(guildID).roles.find('name', 'may-muted');
                 let userObject = await client.guilds.get(guildID).fetchMember(userID);
                 await userObject.removeRole(muteRole);
                 logger.info('Removed new muted role [auto]');
