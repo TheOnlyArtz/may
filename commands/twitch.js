@@ -1,3 +1,4 @@
+/** @ignore */
 const https = require('https');
 const Discord = require('discord.js');
 const config = require('../config/config.json');
@@ -10,96 +11,156 @@ exports.run = async (client, msg, args) => {
     }
     let arg = args[0].toLowerCase();
     if (arg === 'register') {
-        if (!args[1]) {
-            return msg.channel.send('No valid arguments given');
-        }
-        try {
-            let stat = await twitch.register(args[1]);
-            if (stat.body.status !== 404) {
 
-                let row = await r.table('livestreams').filter({guildID: msg.guild.id}).run();
+      /**
+      * Checking for a channel in the message content (twitch)
+      */
+      if (!args[1]) return msg.reply('Please type a name of a twitch channel');
 
-                if (!row[0].streams) return msg.channel.send('You have stream announcements turned off. Turn them on to add streamers.');
-                let p =  row[0].livestreams;
-                let check = p.filter(o => o.name === args[1]);
-                if (check[0]) return msg.channel.send("That streamer is already added!");
+      try {
+        // Register a new channel (Get data)
+        let status = await twitch.register(args[1]);
 
-                let appendToArray = (table, uArray, doc) => r.table(table)
-                    .filter({guildID: msg.guild.id})
-                    .update(object => ({ [uArray]: object(uArray)
-                        .default([]).append(doc) }))
-                    .run();
-                appendToArray('livestreams', 'livestreams', {
-                        game: null,
-                        views: null,
-                        image: null,
-                        mature: null,
-                        lang: null,
-                        name: args[1],
-                        url: null,
-                        online: false,
-                        msgID: null
-                });
-                msg.channel.send(`I added ${args[1]} to the list`)
-            } else {
-                msg.channel.send('You tried to add a non valid twitch channel!')
-            }
-        } catch (err) {
-            msg.channel.send('You tried to add a non valid twitch channel!')
-        }
-    } else if (arg === 'enable') {
-        if (!args[1]) {
-            return msg.channel.send('No valid arguments given');
-        } else if (msg.mentions.channels.first()) {
-            let row = await r.table('livestreams').filter({guildID: msg.guild.id}).run();
-            if (row[0].streams) {
-                r.table('livestreams').filter({guildID: msg.guild.id}).update({channelID: msg.mentions.channels.first().id}).run();
-                msg.channel.send('You already enabled the stream announcements, I updated the channel for you :)')
-            } else {
-                r.table('livestreams').filter({guildID: msg.guild.id}).update({channelID: msg.mentions.channels.first().id, streams: true}).run();
-                msg.channel.send('I enabled stream announcements for you!')
-            }
+        /**
+        * Check if the response status aint 404
+        * Else, return invalid twitch channel
+        */
+        if (status.body.status !== 404) {
+          let ifRowExists = await r.table("livestreams").getAll(msg.guild.id, {index : "guildID"}).run()
+
+          //If a row does not exists create one.
+          if (!ifRowExists[0]) {
+            await r.table("livestreams").insert({
+              guildID: msg.guild.id,
+              streams: false,
+              channelID: null,
+              livestreams: []
+            }).run();
+
+            // Success message
+            return msg.channel.send('I\'ve inserted you to the database please do the command again.');
+          }
+
+
+          // check if the guild is already inside the DB
+          if (!ifRowExists[0] || !ifRowExists[0].streams) {
+            return msg.channel.send('You have stream announcements turned off. Turn them on to add streamers. use `-twitch enable #textChannel`');
+          }
+
+          let streams = ifRowExists[0].livestreams
+
+          // Check if the channel was already inserted
+          if (streams.filter(o => o.name === args[1])[0]) {
+            return msg.channel.send('This channel was already inserted!');
+          }
+
+          /**
+          * Push the new streamer right into the array.
+          * @param {String} table - The table name
+          * @param {String} uArray - The name of the array to update
+          * @param {Object} doc - The updated object to insert
+          */
+          let appendToArray = (table, uArray, doc) => r.table(table)
+          .getAll(msg.guild.id, {index: "guildID"})
+          .update(object => ({ [uArray]: object(uArray)
+          .default([]).append(doc) }))
+          .run();
+          appendToArray('livestreams', 'livestreams', {
+              game: null,
+              views: null,
+              image: null,
+              mature: null,
+              lang: null,
+              name: args[1],
+              url: null,
+              online: false,
+              msgID: null
+          });
+
+          // Success message.
+         msg.channel.send(`I've added the streamer **${args[1]}** to the list`);
+
         } else {
-            msg.channel.send('Please mention a channel in which you want the announcements.')
+
+          // Else send an error message.
+          return msg.reply('We could not find that channel when quering.');
+
         }
 
-    } else if (arg === 'remove') {
-        if (!args[1]) {
-            return msg.channel.send('No valid arguments given');
-        } else {
-            let row = await r.table('livestreams').filter({guildID: msg.guild.id}).run();
-            let p =  row[0].livestreams;
-            let check = p.filter(o => o.name === args[1]);
-            if (!check[0]) return msg.channel.send("That streamer is not added");
-            function findInd(element) {
-                return element.name === args[1];
-            }
-            let appendToArray = (table, uArray) => r.table(table)
-                .filter({guildID : msg.guild.id})
-                .update(object => ({ [uArray]: object(uArray)
-                    .default([]).deleteAt(p.findIndex(findInd)) }))
-                    .run();
-            appendToArray('livestreams', 'livestreams');
-            msg.channel.send(`Removed streamer \`${args[1]}\``)
+      } catch (e) {
+
+        // Catch any error.
+        logger.debug(e);
+        return msg.reply('We could not find that channel when quering.');
+
+      }
+    }
+
+    if (arg === 'enable') {
+
+      // Check if a text channel is being mentioned.
+      if (!args || !msg.mentions.channels.first()) {
+        return msg.reply('Please be sure to mention the text channel, `-twitch enable #channelOfChoice`');
+      }
+
+      // If any error's happening in the process handle it.
+      try {
+
+        // Filter the row
+        let checkIfExists = await r.table("livestreams").getAll(msg.guild.id, {index: "guildID"}).run();
+
+        // if does not exists create a document AKA row.
+        if (!checkIfExists[0]) {
+          await r.table("livestreams").insert({
+            guildID: msg.guild.id,
+            streams: false,
+            channelID: null,
+            livestreams: []
+          }).run();
+
+          // Success message
+          return msg.channel.send('I\'ve inserted you to the database please do the command again.');
         }
 
-    } else if (arg === 'disable') {
-        let row = await r.table('livestreams').filter({guildID: msg.guild.id}).run();
-        if (row[0].streams) {
-            r.table('livestreams').filter({guildID: msg.guild.id}).update({channelID: null, streams: false, livestreams : []}).run();
-            msg.channel.send('I disabled stream announcements (all streamers will be removed).')
+        // Check if a channel is already exists in the database and update if so.
+        if (checkIfExists[0].streams === true) {
+
+          // Update the databse to the new channel
+          await r.table('livestreams').getAll(msg.guild.id, {index: "guildID"}).update({channelID: msg.mentions.channels.first().id}).run();
+          await msg.channel.send('You already enabled the stream announcements, I\'ve updated the channel for you :)')
+
         } else {
-            msg.channel.send('Stream announcements are already disabled')
+
+          // Else, Insert rows into the database and in Queue.
+          await r.table('livestreams').getAll(msg.guild.id, {index: "guildID"})
+          .update({streams : true, channelID: msg.mentions.channels.first().id})
+          .run();
+
+          /**
+          * Push the new info right into the array which will be used to loop through.
+          * @param {String} table - The table name
+          * @param {String} uArray - The name of the array to update
+          * @param {Object} doc - The updated object to insert
+          */
+          
+          let appendToArray = (table, uArray, doc) => r.table(table)  // choose the table
+          .getAll("NONE", {index: "guildID"}) //Filter with your custom choice
+          .update(object => ({ [uArray]: object(uArray) // Get the array name
+          .default([]).append(doc) })) // append the array and update
+          .run();
+
+          // call the function
+          appendToArray('livestreams', 'inQueue', {guildID : msg.guild.id})
+
         }
-    } else if (arg === 'list') {
-        let row = await r.table('livestreams').filter({guildID: msg.guild.id}).run();
-        let arr = [];
-        for (let i = 0; i < row[0].livestreams.length; i++) {
-            arr.push(row[0].livestreams[i].name);
-        }
-        msg.channel.send('All streamers:\n' + arr.join('\n'), {code: true})
-    } else {
-        return msg.channel.send('No valid arguments given');
+
+      } catch (e) {
+        logger.error(e)
+      }
+    }
+
+    if (arg === 'disable') {
+
     }
 };
 
