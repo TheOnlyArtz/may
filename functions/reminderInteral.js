@@ -9,7 +9,7 @@ async function reminder(client) {
 
       //Check if the array is empty
       if (arr[0].inQueue[0]) {
-          for (var i = 0; i < arr[0].inQueue.length; i++) {
+          for (let i = 0; i < arr[0].inQueue.length; i++) {
             /**
             * @var {Array|Object|String} - Get the guildID from the object
             * @var {Array|Object|String} - Get the userID from the object
