@@ -1,6 +1,7 @@
 const twitchClass = require('../classes/twitch.js');
 const twitch = new twitchClass(config.CLIENTID);
 const punishmentChecker = require('../functions/punishmentInterval');
+const remindersChecker = require('../functions/reminderInteral');
 exports.run = async client => {
     logger.info('May is ready to use');
     logger.debug(`Logged in as ${client.user.tag}`);

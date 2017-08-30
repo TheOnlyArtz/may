@@ -13,7 +13,14 @@ exports.run = async (client, msg, args) => {
     if (!content) {
       return msg.reply('Please supply the content of the reminder too.');
     }
+
     const exists = await table.getAll(msg.guild.id, msg.author.id, {index: "guildID", index: "userID"}).run();
+    const arrayExists = await table.getAll("NONE", {index: "guildID"}).run();
+    let appendToArray = async (table, uArray, doc) => await r.table(table)
+    .filter({userID : 'NONE'})
+    .update(object => ({ [uArray]: object(uArray)
+    .default([]).append(doc) }))
+    .run();
     if (!exists[0]) {
       try {
         let unformattedUnix = moment().add(ms(ms(time)), 'ms');
@@ -22,7 +29,9 @@ exports.run = async (client, msg, args) => {
           guildID : msg.guild.id,
           content : content,
           time    : new Date(unformattedUnix).getTime(),
-        }).run()
+          channelID : msg.channel.id,
+        }).run();
+        appendToArray('remnders', 'inQueue', {userID : msg.author.id , guildID : msg.guild.id})
       } catch (e) {
         logger.error('Failed to insert reminder into the database', e);
       }
