@@ -84,7 +84,7 @@ exports.run = async (client, guild) => {
     r.table('livestreams').filter({guildID : guild.id}).run().then(async as => {
         if (!as[0]) {
             r.table('livestreams').insert({
-                guildId: guild.id,
+                guildID: guild.id,
                 streams: false,
                 channelID: null,
                 livestreams: []
