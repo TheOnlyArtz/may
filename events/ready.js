@@ -9,6 +9,7 @@ exports.run = async client => {
     client.user.setPresence({game: {name: 'tests', type: 0}}).catch(err => logger.error(err));
 
     punishmentChecker(client);
+    remindersChecker(client);
     // let rows = await r.table('livestreams').run();
     // for (let row of rows) {
     //     if (row.streams) {

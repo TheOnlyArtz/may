@@ -1,5 +1,5 @@
-function reminder(client) {
-    setInterval(() => {
+async function reminder(client) {
+    setInterval(async () => {
       /**
       * @param {String} reminders - the table
       * @param {String} NONE - the Index value
@@ -16,21 +16,33 @@ function reminder(client) {
             */
             const guildID = arr[0].inQueue[i]['guildID'];
             const userID = arr[0].inQueue[i]['userID'];
-            const usersUnix = await table.getAll(guildID, userID, {index: "guildID", index: "userID"}).run();
+            const usersUnix = await r.table('reminders').getAll(guildID, userID, {index: "guildID", index: "userID"}).run();
 
             // Check  for the time and where to trigger the reminder
             if (usersUnix[0].time &&(usersUnix[0].time < Date.now())) {
               try {
-                  let guild = client.users.guilds.get(guildID);
-                  let memeber = await guild.fetchMember(userID);
-                  client.channels.get(usersUnix[0].channelID).send(member)
+
+                  let guild = client.guilds.get(guildID);
+                  let member = await guild.fetchMember(userID);
+                  client.channels.get(usersUnix[0].channelID).send('**Your reminder:** ' + member + ' ' + usersUnix[0].content);
+
               } catch (e) {
-                  logger.error('Failed to trigger a reminder', e)
+                  logger.error(e)
               }
+              await r.table('reminders').getAll(guildID, userID, {index: "guildID", index: "userID"})
+              .delete()
+              .run()
+              let appendToArray = (table, uArray) => r.table(table)
+             .filter({guildID : "NONE"})
+             .update(object => ({ [uArray]: object(uArray)
+             .default([]).deleteAt(i) }))
+             .run();
+             appendToArray('reminders', 'inQueue')
           }
       }
 
-    }, 5 * 1000);
+    }
+  }, 5 * 1000);
 }
 
 module.exports = reminder;

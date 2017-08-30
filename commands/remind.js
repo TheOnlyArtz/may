@@ -14,16 +14,18 @@ exports.run = async (client, msg, args) => {
       return msg.reply('Please supply the content of the reminder too.');
     }
 
+    msg.channel.send(':clock: Reminder has been set for ' + moment().add(ms(time), 'ms').format('DD/MM/YYYY HH:mm:ss') + '\n**Content:** ' + content)
     const exists = await table.getAll(msg.guild.id, msg.author.id, {index: "guildID", index: "userID"}).run();
     const arrayExists = await table.getAll("NONE", {index: "guildID"}).run();
     let appendToArray = async (table, uArray, doc) => await r.table(table)
-    .filter({userID : 'NONE'})
+    .filter({guildID : 'NONE'})
     .update(object => ({ [uArray]: object(uArray)
     .default([]).append(doc) }))
     .run();
     if (!exists[0]) {
       try {
-        let unformattedUnix = moment().add(ms(ms(time)), 'ms');
+
+        let unformattedUnix = moment().add(ms(time), 'ms');
         await table.insert({
           userID : msg.author.id,
           guildID : msg.guild.id,
@@ -31,7 +33,7 @@ exports.run = async (client, msg, args) => {
           time    : new Date(unformattedUnix).getTime(),
           channelID : msg.channel.id,
         }).run();
-        appendToArray('remnders', 'inQueue', {userID : msg.author.id , guildID : msg.guild.id})
+        appendToArray('reminders', 'inQueue', {userID : msg.author.id , guildID : msg.guild.id})
       } catch (e) {
         logger.error('Failed to insert reminder into the database', e);
       }
