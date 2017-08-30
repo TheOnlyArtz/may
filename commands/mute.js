@@ -11,7 +11,7 @@ exports.run = async (client, msg, args) => {
     if (!args[1]) {
         duration = 'permanent';
         reason = 'None';
-    } else if (args[1].match(/\d{1,2}(hour|h|hours|second|sec|s|seconds|d|days|day)\b/)) {
+    } else if (args[1].match(/\d{1,2}(hour|h|hours|second|sec|s|seconds|d|days|day|m|minutes)\b/)) {
         duration = ms(ms(args[1]), {long: true});
         reason = args.slice(2).join(' ') ? args.slice(2).join(' ') : 'None';
     } else {
