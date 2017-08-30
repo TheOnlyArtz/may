@@ -77,7 +77,7 @@ exports.run = async (client, guild) => {
           ownerID : guild.owner.user.id,
         }).then(() => logger.info('Created document for ' + guild.name)).catch(console.error)
       } else {
-        logger.info('Looks like the guild: ' + guild.name + ' Added me again :D')
+        logger.info('Looks like the guild:', guild.name, 'is already inside [guilds]')
       }
     });
 
@@ -91,7 +91,7 @@ exports.run = async (client, guild) => {
 
             }).then(() => logger.info('Created document for ' + guild.name)).catch(console.error)
         } else {
-            logger.info('Looks like the guild: ' + guild.name + ' Added me again :D')
+            logger.info('Looks like the guild:', guild.name, 'is already inside [livestreams]')
         }
     })
 

@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const ms = require('ms');
 const update = require('../functions/modhistory.js');
-
+const timer = require('../functions/rethinkTimers.js')
 exports.run = async (client, msg, args) => {
     const toBanUsr = msg.mentions.users.last() === client.user ? msg.mentions.users.first() : msg.mentions.users.last();
     const role = msg.guild.roles.find('name', 'may-muted');
@@ -11,7 +11,7 @@ exports.run = async (client, msg, args) => {
     if (!args[1]) {
         duration = 'permanent';
         reason = 'None';
-    } else if (args[1].match(/\d{1,2}(hour|h|hours|second|sec|s|seconds|d|days|day)\b/)) {
+    } else if (args[1].match(/\d{1,2}(hour|h|hours|second|sec|s|seconds|d|days|day|m|minutes)\b/)) {
         duration = ms(ms(args[1]), {long: true});
         reason = args.slice(2).join(' ') ? args.slice(2).join(' ') : 'None';
     } else {
@@ -27,7 +27,7 @@ exports.run = async (client, msg, args) => {
 
     const embed = new Discord.RichEmbed()
         .setColor(0xC65E57)
-        .setAuthor('Banned ' + toBanUsr.tag, client.user.avatarURL)
+        .setAuthor('Muted ' + toBanUsr.tag, client.user.avatarURL)
         .setDescription(`Muted User: \`${toBanUsr.tag} (${toBanUsr.id})\`\nMuted by: \`${msg.author.tag} (${msg.author.id})\`\nDuration: \`${duration}\`\nReason: \`${reason}\``)
         .setTimestamp();
 
@@ -37,6 +37,9 @@ exports.run = async (client, msg, args) => {
     // TODO: Add the time for the mute to a database for time
 
     update('muteCount', msg.guild.id, toBanUsr.id);
+    if (args[1].match(/[0-9]/g)) {
+      timer(ms(args[1]), 'timers', toBanUsr.id, 'mute', msg.guild.id);
+    }
 };
 
 exports.help = {

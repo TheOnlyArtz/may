@@ -2,6 +2,8 @@ const Discord = require('discord.js');
 const ms = require('ms');
 const embedClass = require('../classes/embedMessage.js');
 const update = require('../functions/modhistory.js');
+const timer = require('../functions/rethinkTimers.js')
+
 
 exports.run = async (client, msg, args) => {
     let embedMessage = new embedClass(msg);
@@ -48,7 +50,9 @@ exports.run = async (client, msg, args) => {
     }).catch(logger.error);
 
     update('banCount', msg.guild.id, toBanUsr.id)
-
+    if (args[1].match(/[0-9]/g)) {
+      timer(ms(args[1]), 'timers', toBanUsr.id, 'ban', msg.guild.id);
+    }
 };
 
 exports.help = {
