@@ -1,10 +1,3 @@
-/*
-
-    Copyright (c) Charlie Tiehm
-    
-    Filename: twitch   | Created at: 30. Aug
-
-*/
 
 const twitchClass = require('../classes/twitch.js');
 const twitch = new twitchClass(config.CLIENTID);
