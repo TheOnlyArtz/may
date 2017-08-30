@@ -14,7 +14,6 @@ exports.run = async (client, msg, args) => {
       return msg.reply('Please supply the content of the reminder too.');
     }
 
-    msg.channel.send(':clock: Reminder has been set for ' + moment().add(ms(time), 'ms').format('DD/MM/YYYY HH:mm:ss') + '\n**Content:** ' + content)
     const exists = await table.getAll(msg.guild.id, msg.author.id, {index: "guildID", index: "userID"}).run();
     const arrayExists = await table.getAll("NONE", {index: "guildID"}).run();
     let appendToArray = async (table, uArray, doc) => await r.table(table)
@@ -23,6 +22,7 @@ exports.run = async (client, msg, args) => {
     .default([]).append(doc) }))
     .run();
     if (!exists[0]) {
+      msg.channel.send(':clock: Reminder has been set, You will be reminded in ' + ms(ms(time), {long: true}) +'\n**Content:** ' + content)
       try {
 
         let unformattedUnix = moment().add(ms(time), 'ms');
