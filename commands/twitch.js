@@ -142,7 +142,7 @@ exports.run = async (client, msg, args) => {
           * @param {String} uArray - The name of the array to update
           * @param {Object} doc - The updated object to insert
           */
-          
+
           let appendToArray = (table, uArray, doc) => r.table(table)  // choose the table
           .getAll("NONE", {index: "guildID"}) //Filter with your custom choice
           .update(object => ({ [uArray]: object(uArray) // Get the array name
@@ -160,6 +160,14 @@ exports.run = async (client, msg, args) => {
     }
 
     if (arg === 'disable') {
+
+      let exists = await r.table('livestreams').getAll(msg.guild.id, {index : "guildID"}).run();
+
+      // check if the guild has a document      
+      // Check if streams is already off.
+      if (exists[0].streams === 'false' || !exists[0]) {
+        return msg.reply('Streams already turned off!')
+      }
 
     }
 };
