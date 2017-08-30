@@ -213,9 +213,9 @@ exports.run = async (client, msg, args) => {
 
 exports.help = {
     category: 'util',
-    usage: '[register/enable/remove/disable] [stream:only needed with register & remove/channel:Used for enable]',
+    usage: '[register/enable/list/disable] [stream:only needed with register & remove/channel:Used for enable]',
     description: 'Enabled and add Twitch streams',
-    detail: 'Enable: Add the channel where you want to receive stream announcements | Register: Add a new channel to the announcements | Remove: Remove a channel from announcements | Disable: Disable the function (default)',
+    detail: 'Enable: Add the channel where you want to receive stream announcements | Register: Add a new channel to the announcements \n| Remove: Remove a channel from announcements | Disable: Disable the function (default)',
     botPerm: ['SEND_MESSAGES', 'EMBED_LINKS'],
     authorPerm: ["ADMINISTRATOR"],
     alias: [
