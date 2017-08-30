@@ -30,15 +30,17 @@ exports.run = async (client, msg, args) => {
                         .default([]).append(doc) }))
                     .run();
                 appendToArray('livestreams', 'livestreams', {
-                    game: null,
-                    views: null,
-                    image: null,
-                    mature: null,
-                    lang: null,
-                    name: args[1],
-                    url: null,
-                    online: false,
-                    msgID: null
+                    [args[1]]: {
+                        game: null,
+                        views: null,
+                        image: null,
+                        mature: null,
+                        lang: null,
+                        name: args[1],
+                        url: null,
+                        online: false,
+                        msgID: null
+                    }
                 });
                 msg.channel.send(`I added ${args[1]} to the list`)
             } else {
