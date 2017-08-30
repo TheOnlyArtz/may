@@ -142,15 +142,17 @@ exports.run = async (client, msg, args) => {
           * @param {String} uArray - The name of the array to update
           * @param {Object} doc - The updated object to insert
           */
+          let arr = await r.table("livestreams").getAll("NONE", {index : "guildID"}).run()
+          if (!arr.filter(o => o.guildID === msg.guild.id)[0]) {
+            let appendToArray = (table, uArray, doc) => r.table(table)  // choose the table
+            .getAll("NONE", {index: "guildID"}) //Filter with your custom choice
+            .update(object => ({ [uArray]: object(uArray) // Get the array name
+            .default([]).append(doc) })) // append the array and update
+            .run();
 
-          let appendToArray = (table, uArray, doc) => r.table(table)  // choose the table
-          .getAll("NONE", {index: "guildID"}) //Filter with your custom choice
-          .update(object => ({ [uArray]: object(uArray) // Get the array name
-          .default([]).append(doc) })) // append the array and update
-          .run();
-
-          // call the function
-          appendToArray('livestreams', 'inQueue', {guildID : msg.guild.id})
+            // call the function
+            appendToArray('livestreams', 'inQueue', {guildID : msg.guild.id})
+          }
 
         }
 
@@ -163,13 +165,50 @@ exports.run = async (client, msg, args) => {
 
       let exists = await r.table('livestreams').getAll(msg.guild.id, {index : "guildID"}).run();
 
-      // check if the guild has a document      
+      // check if the guild has a document
       // Check if streams is already off.
-      if (exists[0].streams === 'false' || !exists[0]) {
+      if (exists[0].streams === false || !exists[0]) {
         return msg.reply('Streams already turned off!')
       }
 
+      // Update the database.
+      await r.table('livestreams')
+      .getAll(msg.guild.id, {index : "guildID"})
+      .update({channelID: null, streams: false, livestreams : []})
+      .run();
+
     }
+
+    if (arg === 'list') {
+
+      // Get the guild object from the database
+      let list = await r.table("livestreams").getAll(msg.guild.id, {index : "guildID"}).run();
+
+      // Check if livestreams exists for this list.
+      if (!list[0] || !list[0].livestreams[0]) {
+        return msg.reply('This guild does not have any streamers hooked up.');
+      }
+
+      //Loop through all of the streamers
+      let c = 1;
+      let strms = [];
+      list[0].livestreams.forEach(oo => {
+        strms.push(`${c++}). ${oo.name}`);
+      });
+
+      let textarr = [
+        '```asciidoc',
+        `= Streamers List For ${msg.guild.name} = `,
+        `${strms.join('\n')}`,
+        '```'
+      ]
+      //handle any error
+      // Fetch the list
+      try{await msg.channel.send(textarr.join('\n'))} catch(e) {logger.error(e)}
+
+
+    }
+
 };
 
 exports.help = {
