@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const update = require('../functions/modhistory.js');
 
-exports.run = (client, msg, args) => {
+exports.run = async (client, msg, args) => {
     const toBanUsr = msg.mentions.users.last() === client.user ? msg.mentions.users.first() : msg.mentions.users.last();
     const role = msg.guild.roles.find('name', 'may-muted');
 
@@ -34,7 +34,7 @@ exports.run = (client, msg, args) => {
 
     mayLog ? mayLog.send({embed}) : msg.channel.send({embed});
 
-    msg.guild.member(toBanUsr).kick(reason + ` => Kicked by ${msg.author.tag}`).catch(e => logger.error(e));
+    await msg.guild.member(toBanUsr).kick(reason + ` => Kicked by ${msg.author.tag}`);
 
     // TODO: add total kicks the user got to a database
 
