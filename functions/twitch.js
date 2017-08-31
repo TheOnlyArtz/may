@@ -1,4 +1,4 @@
-
+// TODO: Remove command
 const twitchClass = require('../classes/twitch.js');
 const twitch = new twitchClass(config.CLIENTID);
 const Discord = require('discord.js');
