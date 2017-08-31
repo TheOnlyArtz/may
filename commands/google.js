@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const google = require('google');
 
-exports.run = (client, msg, args) => {
+exports.run = async (client, msg, args) => {
     const toSearch = args.join(' ');
     let links = [];
     if (!toSearch) {
@@ -14,8 +14,12 @@ exports.run = (client, msg, args) => {
                 links.push('<' + res.links[i].href + '>');
             }
         }
-        msg.react('✅').catch(logger.error);
-        msg.channel.send(`**I found:**\n${links.join('\n')}`);
+        try {
+          await msg.react('✅').
+          await msg.channel.send(`**I found:**\n${links.join('\n')}`);
+        } catch (e) {
+          logger.error(e)
+        }
     });
 };
 
