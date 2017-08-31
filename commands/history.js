@@ -2,13 +2,14 @@
 exports.run = async (client, msg, args) => {
 
   if (!msg.mentions.users.first()) {
-    return msg.reply('You must mention someone.');
+      await msg.reply('You must mention someone.');
+      return;
   }
 
   let exists = await r.table('ModHistory').filter({
     guildID : msg.guild.id,
     userID  : msg.mentions.users.first().id
-  }).run()
+  }).run();
 
   let textArray =  [
     `= 🔨History for ${msg.mentions.users.first().username} =🔨`,
@@ -17,9 +18,13 @@ exports.run = async (client, msg, args) => {
     `Kicks: ${exists[0] && exists[0]['kickCount'] ? exists[0]['kickCount'] : 0}`,
     `Softbans: ${exists[0] && exists[0]['softbanCount'] ? exists[0]['softbanCount'] : 0}`,
     `Warns: ${exists[0] && exists[0]['warnCount'] ? exists[0]['warnCount'] : 0}`,
-  ]
+  ];
 
-  msg.channel.send(textArray.join('\n'), {code : "asciidoc"})
+  try {
+    await msg.channel.send(textArray.join('\n'), {code : "asciidoc"});
+  } catch (e) {
+    logger.error(e);
+  }
 };
 
 exports.help = {
