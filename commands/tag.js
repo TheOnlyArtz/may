@@ -47,13 +47,13 @@ exports.run = async (client, msg, args) => {
         `Action : ADD`,
         `= Status : ✔ =`,
         `Tag name : ${name}`,
-      ]
+      ];
       msg.channel.send(ar.join('\n'), {code : "asciidoc"})
    } else if (action !== 'register' && action !== 'list' && action !== 'delete'){
 
-     let tagName = action
+     let tagName = action;
      try {
-       let tagValue = exists[0]['tags'].filter(o => o.name === tagName)[0]['content']
+       let tagValue = exists[0]['tags'].filter(o => o.name === tagName)[0]['content'];
        msg.channel.send(tagValue)
      } catch (e) {
        return msg.reply('This tag does not exists!')
@@ -78,11 +78,11 @@ exports.run = async (client, msg, args) => {
      if (!exists[0].tags.filter(o => o.name === toDelete)[0]) {
        return msg.reply('This tag does not exists!')
      }
-     let p = exists[0].tags
+     let p = exists[0].tags;
      function findInd(element) {
        return element.name === toDelete
      }
-     p.findIndex(findInd)
+     p.findIndex(findInd);
 
      let appendToArray = (table, uArray) => r.table(table)
     .filter({userID : msg.author.id})
@@ -90,13 +90,13 @@ exports.run = async (client, msg, args) => {
     .default([]).deleteAt(p.findIndex(findInd)) }))
     .run();
 
-    appendToArray('tags', 'tags')
+    appendToArray('tags', 'tags');
 
     let ar = [
       `Action : DELETE`,
       `= Status : ✔ =`,
       `Tag name : ${toDelete}`,
-    ]
+    ];
     msg.channel.send(ar.join('\n'), {code : "asciidoc"})
    }
 

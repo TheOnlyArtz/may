@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const ms = require('ms');
 const embedClass = require('../classes/embedMessage.js');
 const update = require('../functions/modhistory.js');
-const timer = require('../functions/rethinkTimers.js')
+const timer = require('../functions/rethinkTimers.js');
 
 
 exports.run = async (client, msg, args) => {

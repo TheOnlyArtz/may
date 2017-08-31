@@ -26,7 +26,7 @@ exports.run = async (client, msg, args) => {
         * Else, return invalid twitch channel
         */
         if (status.body.status !== 404) {
-          let ifRowExists = await r.table("livestreams").getAll(msg.guild.id, {index : "guildID"}).run()
+          let ifRowExists = await r.table("livestreams").getAll(msg.guild.id, {index : "guildID"}).run();
 
           //If a row does not exists create one.
           if (!ifRowExists[0]) {
@@ -48,7 +48,7 @@ exports.run = async (client, msg, args) => {
             return msg.channel.send('You have stream announcements turned off. Turn them on to add streamers. use `-twitch enable #textChannel`');
           }
 
-          let streams = ifRowExists[0].livestreams
+          let streams = ifRowExists[0].livestreams;
 
           // Check if the channel was already inserted
           if (streams.filter(o => o.name === args[1])[0]) {
@@ -144,7 +144,7 @@ exports.run = async (client, msg, args) => {
           * @param {String} uArray - The name of the array to update
           * @param {Object} doc - The updated object to insert
           */
-          let arr = await r.table("livestreams").getAll("NONE", {index : "guildID"}).run()
+          let arr = await r.table("livestreams").getAll("NONE", {index : "guildID"}).run();
           if (!arr.filter(o => o.guildID === msg.guild.id)[0]) {
             let appendToArray = (table, uArray, doc) => r.table(table)  // choose the table
             .getAll("NONE", {index: "guildID"}) //Filter with your custom choice
@@ -203,7 +203,7 @@ exports.run = async (client, msg, args) => {
         `= Streamers List For ${msg.guild.name} = `,
         `${strms.join('\n')}`,
         '```'
-      ]
+      ];
       //handle any error
       // Fetch the list
       try{await msg.channel.send(textarr.join('\n'))} catch(e) {logger.error(e)}

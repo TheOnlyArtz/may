@@ -14,7 +14,7 @@ exports.run = (client, msg, args) => {
                 links.push('<' + res.links[i].href + '>');
             }
         }
-        await msg.react('✅')
+        await msg.react('✅');
         await msg.channel.send(`**I found:**\n${links.join('\n')}`);
     });
 };

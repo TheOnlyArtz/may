@@ -12,7 +12,7 @@ const moment = require('moment');
             let usersUnix = await r.table('timers').filter({
               guildID : guildID,
               userID  : userID
-            }).run()
+            }).run();
 
             if (usersUnix[0].mute &&(usersUnix[0].mute < Date.now())) {
 

@@ -38,12 +38,12 @@ async function timer(time, table, user, punishment, guild) {
   .update(object => ({ [uArray]: object(uArray)
   .default([]).append(doc) }))
   .run();
-  appendToArray('timers', 'inPunishQueue', {userID : user, guildID : guild, punish: punishment})
+  appendToArray('timers', 'inPunishQueue', {userID : user, guildID : guild, punish: punishment});
 
   /*
   * Get the data when the punish should end
   */
-  let unformattedUnix = moment().add(ms(ms(time)), 'ms')
+  let unformattedUnix = moment().add(ms(ms(time)), 'ms');
   /*
   * Insert the time of the punishment to the database.
   */

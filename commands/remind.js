@@ -22,7 +22,7 @@ exports.run = async (client, msg, args) => {
     .default([]).append(doc) }))
     .run();
     if (!exists[0]) {
-      msg.channel.send(':clock: Reminder has been set, You will be reminded in ' + ms(ms(time), {long: true}) +'\n**Content:** ' + content)
+      msg.channel.send(':clock: Reminder has been set, You will be reminded in ' + ms(ms(time), {long: true}) +'\n**Content:** ' + content);
       try {
 
         let unformattedUnix = moment().add(ms(time), 'ms');

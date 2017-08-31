@@ -31,7 +31,7 @@ async function reminder(client) {
               }
               await r.table('reminders').getAll(guildID, userID, {index: "guildID", index: "userID"})
               .delete()
-              .run()
+              .run();
               let appendToArray = (table, uArray) => r.table(table)
              .filter({guildID : "NONE"})
              .update(object => ({ [uArray]: object(uArray)
