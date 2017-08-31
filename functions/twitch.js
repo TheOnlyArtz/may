@@ -3,9 +3,9 @@ const twitchClass = require('../classes/twitch.js');
 const twitch = new twitchClass(config.CLIENTID);
 
 let check = async (client) => {
-    setInterval(() => {
+    setInterval(async () => {
 
-        let queue = await r.table('livestreams').getAll('NONE', {index : 'guildID'}).run()[0]
+        let queue = await r.table('livestreams').getAll('NONE', {index : 'guildID'}).run()
 
         // If 0 guilds are using the twitch system return.
         if (!queue[0]) return;
@@ -20,7 +20,7 @@ let check = async (client) => {
           if (!channels[0]) return;
 
           //Loop through all the twitch streamers
-          channels[0].livestreams.forEach(O => {
+          channels[0].livestreams.forEach(async O => {
 
             try {
               const data = await twitch.check(O.name);
