@@ -1,30 +1,30 @@
 
 exports.run = async (client, msg, args) => {
 
-  if (!msg.mentions.users.first()) {
-      await msg.reply('You must mention someone.');
-      return;
-  }
+    if (!msg.mentions.users.first()) {
+        await msg.reply('You must mention someone.');
+        return;
+    }
 
-  let exists = await r.table('ModHistory').filter({
-    guildID : msg.guild.id,
-    userID  : msg.mentions.users.first().id
-  }).run();
+    let exists = await r.table('ModHistory').filter({
+        guildID : msg.guild.id,
+        userID  : msg.mentions.users.first().id
+    }).run();
 
-  let textArray =  [
-    `= 🔨History for ${msg.mentions.users.first().username} =🔨`,
-    `Bans: ${exists[0] && exists[0]['banCount'] ? exists[0]['banCount'] : 0}`,
-    `Mutes: ${exists[0] && exists[0]['muteCount'] ? exists[0]['muteCount'] : 0}`,
-    `Kicks: ${exists[0] && exists[0]['kickCount'] ? exists[0]['kickCount'] : 0}`,
-    `Softbans: ${exists[0] && exists[0]['softbanCount'] ? exists[0]['softbanCount'] : 0}`,
-    `Warns: ${exists[0] && exists[0]['warnCount'] ? exists[0]['warnCount'] : 0}`,
-  ];
+    let textArray =  [
+        `= 🔨History for ${msg.mentions.users.first().username} =🔨`,
+        `Bans: ${exists[0] && exists[0]['banCount'] ? exists[0]['banCount'] : 0}`,
+        `Mutes: ${exists[0] && exists[0]['muteCount'] ? exists[0]['muteCount'] : 0}`,
+        `Kicks: ${exists[0] && exists[0]['kickCount'] ? exists[0]['kickCount'] : 0}`,
+        `Softbans: ${exists[0] && exists[0]['softbanCount'] ? exists[0]['softbanCount'] : 0}`,
+        `Warns: ${exists[0] && exists[0]['warnCount'] ? exists[0]['warnCount'] : 0}`,
+    ];
 
-  try {
-    await msg.channel.send(textArray.join('\n'), {code : "asciidoc"});
-  } catch (e) {
-    logger.error(e);
-  }
+    try {
+        await msg.channel.send(textArray.join('\n'), {code : "asciidoc"});
+    } catch (e) {
+        logger.error(e);
+    }
 };
 
 exports.help = {
