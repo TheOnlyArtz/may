@@ -45,11 +45,10 @@ exports.run = async (client, msg, args) => {
 
     mayLog ? mayLog.send({embed}) : msg.channel.send({embed});
 
-    msg.guild.ban(toBanUsr, {
-        days: 7
-    }).catch(logger.error);
+    try{await msg.guild.ban(toBanUsr, {days: 7})} catch (e) {logger.error(e)}
 
-    update('banCount', msg.guild.id, toBanUsr.id)
+    update('banCount', msg.guild.id, toBanUsr.id);
+    
     if (args[1].match(/[0-9]/g)) {
       timer(ms(args[1]), 'timers', toBanUsr.id, 'ban', msg.guild.id);
     }
