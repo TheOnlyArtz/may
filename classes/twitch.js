@@ -74,7 +74,4 @@ class Twitch {
     }
 }
 
-const using = new Twitch(config.CLIENTID);
-using.check('IamThanh').then(r => console.log(r));
-
 module.exports = Twitch;

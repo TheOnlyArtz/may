@@ -1,20 +1,19 @@
 
 const twitchClass = require('../classes/twitch.js');
 const twitch = new twitchClass(config.CLIENTID);
-
+const Discord = require('discord.js');
 let check = async (client) => {
     setInterval(async () => {
-
         let queue = await r.table('livestreams').getAll('NONE', {index : 'guildID'}).run()
 
         // If 0 guilds are using the twitch system return.
-        if (!queue[0]) return;
+        if (!queue[0].inQueue) return;
 
         // Loop  through all the streams and check for status
-        for (var i = 0; i < queue.length; i++) {
+        for (var i = 0; i < queue[0].inQueue.length; i++) {
 
           //GuildID to look for.
-          const guildID = queue[i].guildID;
+          const guildID = queue[0].inQueue[i].guildID;
           const channels = await r.table('livestreams').getAll(guildID, {index : 'guildID'}).run() //all the channels
 
           if (!channels[0]) return;
@@ -30,7 +29,7 @@ let check = async (client) => {
                 return element.name === O.name
               }
 
-             let toInsert = data.online ? {
+             let toInsert1 = data.online ? {
              game: data.game,
              views: data.views,
              image: data.image,
@@ -38,27 +37,40 @@ let check = async (client) => {
              lang: data.lang,
              name: data.name,
              url: data.url,
-             msgID: null,
              online: true
              } : {online: false, name: data.name};
 
-            let appendToArray = (table, uArray, doc) => r.table(table)
+             let toInsert2 = data.online ? {
+             game: data.game,
+             views: data.views,
+             image: data.image,
+             mature: data.mature,
+             lang: data.lang,
+             name: data.name,
+             msgID : 'Inserted',
+             url: data.url,
+             online: true
+             } : {online: false, name: data.name};
+            let appendToArray = (table, uArray, toinsert) => r.table(table)
             .getAll(guildID, {index: "guildID"})
             .update(object => ({ [uArray]: object(uArray)
-            .default([]).changeAt(p.findIndex(findInd), toInsert) }))
+            .default([toInsert2]).changeAt(channels[0].livestreams.findIndex(findInd), toinsert) }))
             .run();
-            appendToArray('livestreams', 'livestreams')
+            appendToArray('livestreams', 'livestreams', toInsert1)
 
 
-            if (O.online === true && msgID === null) {
+            if (O.online === true && !O.msgID) {
               const embed = new Discord.RichEmbed()
               .setTitle(`${O.name} is on live!`)
               .addField('Game', O.game, true)
               .addField('Language', O.lang)
-              .addField('Stream Link', `(${O.name})[${O.url}]`)
+              .addField('Stream Link', `[${O.name}](${O.url})`)
+              .setImage(O.image)
               .setThumbnail(O.image);
               client.channels.get(channels[0].channelID).send({embed});
 
+              appendToArray('livestreams', 'livestreams', toInsert2)
+              // RIGHT HERE, I want to update so msgID will not be null but every new update that comes it gets updated to null
 
             }
 
@@ -69,7 +81,7 @@ let check = async (client) => {
           });
         }
 
-    }, 7 * 60000);
+    }, 10000);
 };
 
 module.exports = check;
