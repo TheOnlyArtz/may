@@ -3,7 +3,8 @@ const moment = require('moment');
 
 exports.run = async (client, msg, args) => {
     if (!msg.guild.available) {
-        return msg.channel.send('Discord API Error');
+        try{await msg.channel.send('Discord API Error');}catch(e) {logger.error(e)}
+        return;
     }
     let guild = msg.guild;
     let name = guild.name;
@@ -19,13 +20,13 @@ exports.run = async (client, msg, args) => {
     const embed = new Discord.RichEmbed()
         .setTitle('Guild Information')
         .addField('Channels', `**Channel Count:** ${channels}\n**AFK Channel:** ${afk}`, true)
-        .addField('Members', `**Member Count:** ${memberCount}**\n**Owner:** ${owner}\n**Owner ID:** ${guild.owner.id}`, true)
+        .addField('Members', `**Member Count:** ${memberCount}\n**Owner:** ${owner}\n**Owner ID:** ${guild.owner.id}`, true)
         .addField('More', `**Created at:** ${createdAt}\n**Large Guild?:** ${large ? 'Yes' : 'No'}\n**Region:** ${region}`)
         .setThumbnail(iconUrl)
         .setFooter('May')
         .setTimestamp();
 
-    msg.channel.send({embed});
+    try{await msg.channel.send({embed});}catch(e){logger.error(e)}
 };
 
 exports.help = {
