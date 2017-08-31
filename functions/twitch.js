@@ -86,11 +86,7 @@ let check = async (client) => {
             });
         }
 
-<<<<<<< HEAD
     }, 7 * 60000);
-=======
-    }, 60000);
->>>>>>> 67ca88f7786b337f0c5bd4081accfec6a1041639
 };
 
 module.exports = check;
