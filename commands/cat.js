@@ -4,11 +4,10 @@
 const sf = require('snekfetch');
 const cooldown = require('../functions/cooldown.js');
 
-exports.run = (client, msg, args) => {
+exports.run = async (client, msg, args) => {
     if (cooldown(msg, 'cat', 300, 'This command has a cooldown of **5 Minutes**!')) {
-        sf.get('http://random.cat/meow').then(r => {
-            msg.channel.send(r.body);
-        });
+        let promise = await sf.get('http://random.cat/meow');
+            msg.channel.send(promise.body);
     }
 };
 
