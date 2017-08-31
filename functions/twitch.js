@@ -40,39 +40,29 @@ let check = async (client) => {
              online: true
              } : {online: false, name: data.name};
 
-             let toInsert2 = data.online ? {
-             game: data.game,
-             views: data.views,
-             image: data.image,
-             mature: data.mature,
-             lang: data.lang,
-             name: data.name,
-             msgID : 'Inserted',
-             url: data.url,
-             online: true
-             } : {online: false, name: data.name};
             let appendToArray = (table, uArray, toinsert) => r.table(table)
             .getAll(guildID, {index: "guildID"})
             .update(object => ({ [uArray]: object(uArray)
-            .default([toInsert2]).changeAt(channels[0].livestreams.findIndex(findInd), toinsert) }))
+            .default([]).update(channels[0].livestreams.findIndex(findInd), toinsert) }))
             .run();
             appendToArray('livestreams', 'livestreams', toInsert1)
 
+            setTimeout(() => {
+              if (O.online === true && !O.msgID) {
+                const embed = new Discord.RichEmbed()
+                .setTitle(`${O.name} is on live!`)
+                .addField('Game', O.game, true)
+                .addField('Language', O.lang)
+                .addField('Stream Link', `[${O.name}](${O.url})`)
+                .setImage(O.image)
+                .setThumbnail(O.image);
+                client.channels.get(channels[0].channelID).send({embed});
 
-            if (O.online === true && !O.msgID) {
-              const embed = new Discord.RichEmbed()
-              .setTitle(`${O.name} is on live!`)
-              .addField('Game', O.game, true)
-              .addField('Language', O.lang)
-              .addField('Stream Link', `[${O.name}](${O.url})`)
-              .setImage(O.image)
-              .setThumbnail(O.image);
-              client.channels.get(channels[0].channelID).send({embed});
+                appendToArray('livestreams', 'livestreams', toInsert2)
+                // RIGHT HERE, I want to update so msgID will not be null but every new update that comes it gets updated to null
 
-              appendToArray('livestreams', 'livestreams', toInsert2)
-              // RIGHT HERE, I want to update so msgID will not be null but every new update that comes it gets updated to null
-
-            }
+              }
+            }, 6000)
 
             } catch (e) {
               logger.error(e)
