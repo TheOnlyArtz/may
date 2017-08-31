@@ -33,8 +33,7 @@ exports.run = async (client, msg, args) => {
 
     mayLog ? mayLog.send({embed}) : msg.channel.send({embed});
 
-    msg.guild.member(toBanUsr).addRole(role).catch(logger.error);
-    // TODO: Add the time for the mute to a database for time
+    await msg.guild.member(toBanUsr).addRole(role)
 
     update('muteCount', msg.guild.id, toBanUsr.id);
     if (args[1].match(/[0-9]/g)) {
