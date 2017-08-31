@@ -22,7 +22,7 @@ function checkForPermissions(botPermissions, authorPermissions, cmd, msg, client
     if (botPermsMissing[0]) {
         if (!msg.guild.member(client.user).hasPermission(botPermsMissing)) {
             msg.channel.send(`= ❌Missing permissions❌ =\nMissing List: ${botPermsMissing.join(', ')}\n= Please turn on these permissions for may = \n${botInstructions.join('\n')}`, {code: 'asciidoc'})
-        .catch(logger.error);
+                .catch(logger.error);
             msg.channel.send('Please read that if you do not have knowledge about roles <https://support.discordapp.com/hc/en-us/articles/214836687-Role-Management-101>');
             return true;
         }
