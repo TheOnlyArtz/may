@@ -31,7 +31,7 @@ let check = async (client) => {
                         return element.name === O.name
                     }
 
-                    let toInsert1 = data.online ? {
+                    let toInsert1 = data.online === true ? {
                         game: data.game,
                         views: data.views,
                         image: data.image,
@@ -42,23 +42,32 @@ let check = async (client) => {
                         online: true
                     } : {online: false, name: data.name};
 
-                    await r.table('livestreams')
-                        .get(`${guildID}${channelID}`)
-                        .update({
-                            livestreams: r.row('livestreams').map((f) => {
-                                return r.branch(
-                                    f("name").eq(O.name),
-                                    f.merge(toInsert1),
-                                    f
-                                )
-                            })
-                        }).run();
-                    if (O.online === true && !O.msgID) {
+                    if (toInsert1['game']) {
+                      await r.table('livestreams')
+                          .get(`${guildID}${channelID}`)
+                          .update({
+                              livestreams: r.row('livestreams').map((f) => {
+                                  return r.branch(
+                                      f("name").eq(O.name),
+                                      f.merge(toInsert1),
+                                      f
+                                  )
+                              })
+                          }).run();
+                    } else {
+                      let appendToArray = (table, uArray, doc) => r.table(table)
+                          .get(guildID + channelID)
+                          .update(object => ({ [uArray]: object(uArray)
+                          .default([]).changeAt(channels.livestreams.findIndex(findInd), doc) }))
+                          .run();
+                          appendToArray('livestreams', 'livestreams', toInsert1)
+                    }
+
+                    if (O.online === true && !O.msgStatus) {
                         const embed = new Discord.RichEmbed()
                             .setTitle(`${O.name} is live!`)
                             .addField('Game', O.game, true)
                             .addField('Language', O.lang, true)
-                            .addField('Viewers', O.views, true)
                             .addField('Stream Link', `[${O.name}](${O.url})`)
                             .setImage(O.image)
                             .setColor('#56b91f')
@@ -72,7 +81,7 @@ let check = async (client) => {
                                 livestreams: r.row('livestreams').map((f) => {
                                     return r.branch(
                                         f("name").eq(O.name),
-                                        f.merge({msgID: 'inserted'}),
+                                        f.merge({msgStatus: 'inserted'}),
                                         f
                                     )
                                 })
@@ -86,7 +95,7 @@ let check = async (client) => {
             });
         }
 
-    }, 7 * 60000);
+    }, 7*60000);
 };
 
 module.exports = check;
