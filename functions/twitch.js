@@ -84,7 +84,7 @@ let check = async (client) => {
           });
         }
 
-    }, 1 * 60000);
+    }, 7 * 60000);
 };
 
 module.exports = check;
