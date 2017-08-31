@@ -75,7 +75,6 @@ exports.run = async (client, msg, args) => {
                     name: args[1],
                     url: null,
                     online: false,
-                    msgID: null
                 });
 
                 // Success message.
