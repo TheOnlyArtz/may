@@ -14,12 +14,14 @@ let check = async (client) => {
 
           //GuildID to look for.
           const guildID = queue[0].inQueue[i].guildID;
-          const channels = await r.table('livestreams').getAll(guildID, {index : 'guildID'}).run() //all the channels
+          const channelID = queue[0].inQueue[i].channelID;
 
-          if (!channels[0]) return;
+          const channels = await r.table('livestreams').get(queue[0].inQueue[i].guildID + queue[0].inQueue[i].channelID).run() //all the channels
+
+          if (!channels) return;
 
           //Loop through all the twitch streamers
-          channels[0].livestreams.forEach(async O => {
+          channels.livestreams.forEach(async O => {
 
             try {
               const data = await twitch.check(O.name);
@@ -40,14 +42,17 @@ let check = async (client) => {
              online: true
              } : {online: false, name: data.name};
 
-            let appendToArray = (table, uArray, toinsert) => r.table(table)
-            .getAll(guildID, {index: "guildID"})
-            .update(object => ({ [uArray]: object(uArray)
-            .default([]).update(channels[0].livestreams.findIndex(findInd), toinsert) }))
-            .run();
-            appendToArray('livestreams', 'livestreams', toInsert1)
-
-            setTimeout(() => {
+             await r.table('livestreams')
+               .get(`${guildID}${channelID}`)
+                .update({
+                  livestreams: r.row('livestreams').map((f) => {
+                    return r.branch(
+                     f("name").eq(O.name),
+                    f.merge(toInsert1),
+                      f
+                        )
+                      })
+                  }).run()
               if (O.online === true && !O.msgID) {
                 const embed = new Discord.RichEmbed()
                 .setTitle(`${O.name} is on live!`)
@@ -56,13 +61,21 @@ let check = async (client) => {
                 .addField('Stream Link', `[${O.name}](${O.url})`)
                 .setImage(O.image)
                 .setThumbnail(O.image);
-                client.channels.get(channels[0].channelID).send({embed});
+                client.channels.get(channels.channelID).send({embed});
 
-                appendToArray('livestreams', 'livestreams', toInsert2)
-                // RIGHT HERE, I want to update so msgID will not be null but every new update that comes it gets updated to null
-
+                // appendToArray('livestreams', 'livestreams', toInsert2)
+                await r.table('livestreams')
+                  .get(`${guildID}${channelID}`)
+                   .update({
+                     livestreams: r.row('livestreams').map((f) => {
+                       return r.branch(
+                        f("name").eq(O.name),
+                       f.merge({msgID: 'inserted'}),
+                         f
+                           )
+                         })
+                     }).run()
               }
-            }, 6000)
 
             } catch (e) {
               logger.error(e)
@@ -71,7 +84,7 @@ let check = async (client) => {
           });
         }
 
-    }, 10000);
+    }, 1 * 60000);
 };
 
 module.exports = check;

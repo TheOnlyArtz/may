@@ -27,9 +27,23 @@ const client = new Discord.Client({options: {disabledEvents: [
     'RELATIONSHIP_REMOVE'
 ]}});
 global.config = require('./config/config.json');
-global.r = require('rethinkdbdash')({servers : [{host: config.rethinkhost}]})
-.db('May')
-const loggerClass = require('artzlogger');
+global.r = require('rethinkdbdash')({
+  db: 'May',
+  discovery: false,
+  pool: true,
+  buffer: 100,
+  max: 4000,
+  timeout: 60,
+  pingInterval: -1,
+  timeoutError: 1000,
+  timeoutGb: 60 * 60 * 1000,
+  maxExponent: 6,
+  silent: false,
+  servers: [
+    { host: config.rethinkhost, port: 28015 },
+  ],
+  optionalRun: true,
+});const loggerClass = require('artzlogger');
 
 const fs = require('fs');
 const moment = require('moment');

@@ -87,7 +87,8 @@ exports.run = async (client, guild) => {
                 guildID: guild.id,
                 streams: false,
                 channelID: null,
-                livestreams: []
+                livestreams: [],
+                id : msg.guild.id + msg.channel.id
 
             }).then(() => logger.info('Created document for ' + guild.name)).catch(console.error)
         } else {

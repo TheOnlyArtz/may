@@ -34,7 +34,8 @@ exports.run = async (client, msg, args) => {
               guildID: msg.guild.id,
               streams: false,
               channelID: null,
-              livestreams: []
+              livestreams: [],
+              id : msg.guild.id + msg.channel.id
             }).run();
 
             // Success message
@@ -115,7 +116,8 @@ exports.run = async (client, msg, args) => {
             guildID: msg.guild.id,
             streams: false,
             channelID: null,
-            livestreams: []
+            livestreams: [],
+            id : msg.guild.id + msg.channel.id
           }).run();
 
           // Success message
@@ -151,7 +153,7 @@ exports.run = async (client, msg, args) => {
             .run();
 
             // call the function
-            appendToArray('livestreams', 'inQueue', {guildID : msg.guild.id})
+            appendToArray('livestreams', 'inQueue', {guildID : msg.guild.id, channelID: msg.channel.id})
           }
 
         }
