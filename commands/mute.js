@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const ms = require('ms');
 const update = require('../functions/modhistory.js');
-const timer = require('../functions/rethinkTimers.js')
+const timer = require('../functions/rethinkTimers.js');
 exports.run = async (client, msg, args) => {
     const toBanUsr = msg.mentions.users.last() === client.user ? msg.mentions.users.first() : msg.mentions.users.last();
     const role = msg.guild.roles.find('name', 'may-muted');
@@ -33,7 +33,7 @@ exports.run = async (client, msg, args) => {
 
     mayLog ? mayLog.send({embed}) : msg.channel.send({embed});
 
-    await msg.guild.member(toBanUsr).addRole(role)
+    await msg.guild.member(toBanUsr).addRole(role);
 
     update('muteCount', msg.guild.id, toBanUsr.id);
     if (args[1].match(/[0-9]/g)) {

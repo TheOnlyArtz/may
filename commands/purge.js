@@ -1,9 +1,9 @@
 exports.run = async (client, msg, args) => {
-  msg.delete();
+    msg.delete();
     let messagecount = parseInt(args, 10);
     /*
-  Check if msg is higher or lower then the limits
- */
+    Check if msg is higher or lower then the limits
+    */
     if (!messagecount) {
         return msg.reply('How many messages?');
     }
