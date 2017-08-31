@@ -11,15 +11,15 @@ exports.run = async (client, msg, args) => {
     let DiscordMoji = client.guilds.get('345948633184862218').emojis.find('name', 'discord');
     let SocialMoji = client.guilds.get('345948633184862218').emojis.find('name', 'social');
 
-  /**
-  * @param {Object} author
-  * @param {Array} {Object}
-  * @param {String} color
-  * @param {String} thumbnail
-  * @param {String} footer
-  * @return {Error}
-  * @return {Promise}
-  */
+    /**
+     * @param {Object} author
+     * @param {Array} {Object}
+     * @param {String} color
+     * @param {String} thumbnail
+     * @param {String} footer
+     * @return {Error}
+     * @return {Promise}
+     */
     embedMessage.advanced({
         author: {
             name: `Take a look at my info`,
@@ -31,20 +31,20 @@ exports.run = async (client, msg, args) => {
 **Descriminator:** ${client.user.tag}\n\
 **ID:** ${client.user.id}`
         },
-        {
-            title: `💻Process:`,
-            content: `**Online since:** ${ms(client.uptime, {long: true})}\n\
+            {
+                title: `💻Process:`,
+                content: `**Online since:** ${ms(client.uptime, {long: true})}\n\
 **Memory Usage:** ${usage} MB\n\
 **Operation System:** ${require('os').platform()}`,
-            inline: true
-        },
-        {
-            title: `${SocialMoji}Social`,
-            content: `**Total Guilds:** ${client.guilds.size}\n\
+                inline: true
+            },
+            {
+                title: `${SocialMoji}Social`,
+                content: `**Total Guilds:** ${client.guilds.size}\n\
 **Total Users:** ${client.users.filter(i => !i.bot).size}\n\
 **Total Bots:** ${client.users.filter(i => i.bot).size}`,
-            inline: true
-        }
+                inline: true
+            }
         ],
         color: 0x17B8B3,
         thumbnail: client.user.displayAvatarURL,
