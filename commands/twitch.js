@@ -138,8 +138,6 @@ exports.run = async (client, msg, args) => {
                     .run();
 
 
-                // Success message.
-                await msg.channel.send(`I've enabled twitch notifications for ${msg.mentions.channels.first()}`)
 
                 /**
                  * Push the new info right into the array which will be used to loop through.
@@ -157,6 +155,9 @@ exports.run = async (client, msg, args) => {
 
                     // call the function
                     appendToArray('livestreams', 'inQueue', {guildID : msg.guild.id, channelID: msg.channel.id})
+
+                    // Success message.
+                    await msg.channel.send(`I've enabled twitch notifications for ${msg.mentions.channels.first()}`)
                 }
 
             }
