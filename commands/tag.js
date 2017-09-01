@@ -149,7 +149,7 @@ exports.run = async (client, msg, args) => {
 
 exports.help = {
     category: 'fun',
-    usage: 'register [name][content] : -tag [name] : -tag list',
+    usage: 'register [name][content] : -tag [name] : -tag list : -tag edit [name] [new content]',
     description: 'register and use tags for saying things',
     detail: 'By using tag you will able to make custom tags that will say things',
     botPerm: ['SEND_MESSAGES'],
