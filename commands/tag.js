@@ -49,7 +49,7 @@ exports.run = async (client, msg, args) => {
             `Tag name : ${name}`,
         ];
         msg.channel.send(ar.join('\n'), {code : "asciidoc"})
-    } else if (action !== 'register' && action !== 'list' && action !== 'delete'){
+    } else if (action !== 'register' && action !== 'list' && action !== 'delete' && action !== 'edit'){
 
         let tagName = action;
         try {
@@ -87,7 +87,7 @@ exports.run = async (client, msg, args) => {
         let appendToArray = (table, uArray) => r.table(table)
             .filter({userID : msg.author.id})
             .update(object => ({ [uArray]: object(uArray)
-                .default([]).deleteAt(p.findIndex(findInd)) }))
+            .default([]).deleteAt(p.findIndex(findInd)) }))
             .run();
 
         appendToArray('tags', 'tags');
@@ -98,6 +98,51 @@ exports.run = async (client, msg, args) => {
             `Tag name : ${toDelete}`,
         ];
         msg.channel.send(ar.join('\n'), {code : "asciidoc"})
+    } else if (action === 'edit') {
+
+      let toChange   = name;
+      let newContent = content;
+
+      if (exists[0].tags.length < 1 || !exists[0]) {
+          return msg.reply('You do not have any tags available')
+      }
+
+      if (!toChange) {
+        return msg.reply('Please type the name of the tag you want to edit.');
+      }
+
+      if (!newContent) {
+        return msg.reply('Please type the new message content.');
+      }
+
+      if (!exists[0].tags.filter(o => o.name === toChange)[0]) {
+          return msg.reply('This tag does not exists!')
+      }
+
+      let p = exists[0].tags;
+
+      function findInd(element) {
+          return element.name === toChange;
+      }
+
+      p.findIndex(findInd);
+
+      let appendToArray = (table, uArray) => r.table(table)
+          .filter({userID : msg.author.id})
+          .update(object => ({ [uArray]: object(uArray)
+          .default([]).changeAt(p.findIndex(findInd), {content : newContent, name : toChange}) }))
+          .run();
+
+      appendToArray('tags', 'tags');
+
+      let ar = [
+          `Action : EDIT`,
+          `= Status : ✔ =`,
+          `Tag name : ${toChange}`,
+      ];
+      await msg.channel.send(ar.join('\n'), {code : "asciidoc"});
+
+
     }
 
 };
