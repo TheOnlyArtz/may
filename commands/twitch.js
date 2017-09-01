@@ -137,6 +137,10 @@ exports.run = async (client, msg, args) => {
                     .update({streams : true, channelID: msg.mentions.channels.first().id})
                     .run();
 
+
+                // Success message.
+                await msg.channel.send(`I've enabled twitch notifications for ${msg.mentions.channels.first()}`)
+
                 /**
                  * Push the new info right into the array which will be used to loop through.
                  * @param {String} table - The table name
