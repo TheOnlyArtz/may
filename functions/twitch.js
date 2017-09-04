@@ -95,7 +95,7 @@ let check = async (client) => {
             });
         }
 
-    }, ms('7m'));
+    }, ms('4m'));
 };
 
 module.exports = check;
