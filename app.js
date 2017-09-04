@@ -40,7 +40,7 @@ global.r = require('rethinkdbdash')({
   maxExponent: 6,
   silent: false,
   servers: [
-    { host: config.rethinkhost, port: 28015 },
+    { host: config.rethinkhost, password : config.rethinkpass, port: 28015 },
   ],
   optionalRun: true,
 });const loggerClass = require('artzlogger');
