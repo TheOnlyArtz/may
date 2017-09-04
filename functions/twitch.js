@@ -1,9 +1,10 @@
 // TODO: Remove command
 const twitchClass = require('../classes/twitch.js');
 const twitch = new twitchClass(config.CLIENTID);
+const ms = require('ms')
 const Discord = require('discord.js');
 let check = async (client) => {
-    // setInterval(async () => {
+    setInterval(async () => {
         let queue = await r.table('livestreams').getAll('NONE', {index : 'guildID'}).run();
 
         // If 0 guilds are using the twitch system return.
@@ -95,7 +96,7 @@ let check = async (client) => {
             });
         }
 
-    // }, 5000);
+    }, ms('7min'));
 };
 
 module.exports = check;
