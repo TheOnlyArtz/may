@@ -5,6 +5,7 @@ const ms = require('ms')
 const Discord = require('discord.js');
 let check = async (client) => {
     setInterval(async () => {
+      console.log('Started');
         let queue = await r.table('livestreams').getAll('NONE', {index : 'guildID'}).run();
 
         // If 0 guilds are using the twitch system return.
@@ -18,12 +19,12 @@ let check = async (client) => {
             const channelID = queue[0].inQueue[i].channelID;
 
             const channels = await r.table('livestreams').get(queue[0].inQueue[i].guildID + queue[0].inQueue[i].channelID).run(); //all the channels
-
+            console.log('1');
             if (!channels) return;
 
             //Loop through all the twitch streamers
             channels.livestreams.forEach(async O => {
-
+              console.log('2');
                 try {
                     const data = await twitch.check(O.name);
 
@@ -55,6 +56,7 @@ let check = async (client) => {
                                   )
                               })
                           }).run();
+                          console.log('3');
                     } else {
                       let appendToArray = (table, uArray, doc) => r.table(table)
                           .get(guildID + channelID)
@@ -62,9 +64,11 @@ let check = async (client) => {
                           .default([]).changeAt(channels.livestreams.findIndex(findInd), doc) }))
                           .run();
                           appendToArray('livestreams', 'livestreams', toInsert1)
+                      console.log('4');
                     }
 
                     if (O.online === true && !O.msgStatus) {
+                      console.log('SENT');
                         const embed = new Discord.RichEmbed()
                             .setTitle(`${O.name} is live!`)
                             .addField('Game', O.game, true)
