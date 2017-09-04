@@ -18,7 +18,7 @@ let check = async (client) => {
             const guildID = queue[0].inQueue[i].guildID;
             const channelID = queue[0].inQueue[i].channelID;
 
-            const channels = await r.table('livestreams').get(queue[0].inQueue[i].guildID + queue[0].inQueue[i].channelID).run(); //all the channels
+            const channels = await r.table('livestreams').get(guildID + channelID).run(); //all the channels
             console.log('1');
             if (!channels) return;
 
