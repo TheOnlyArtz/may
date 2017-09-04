@@ -20,7 +20,7 @@ let check = async (client) => {
 
             const channels = await r.table('livestreams').get(guildID + channelID).run(); //all the channels
             console.log('1');
-            if (!channels) return;
+            if (channels !== null) return;
 
             //Loop through all the twitch streamers
             channels.livestreams.forEach(async O => {
