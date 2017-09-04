@@ -95,7 +95,7 @@ let check = async (client) => {
             });
         }
 
-    }, 7*60000);
+    }, 5000);
 };
 
 module.exports = check;

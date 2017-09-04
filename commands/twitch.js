@@ -55,6 +55,8 @@ exports.run = async (client, msg, args) => {
                     return msg.channel.send('This channel was already inserted!');
                 }
 
+                await r.table('livestreams').getAll(msg.guild.id, {index : "guildID"}).update({id : msg.guild.id + msg.channel.id}).run()
+
                 /**
                  * Push the new streamer right into the array.
                  * @param {String} table - The table name
