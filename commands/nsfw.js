@@ -1,13 +1,31 @@
 const table = r.table('guilds');
 exports.run = async (client, msg, args) => {
+  const action = args[0];
+
   let enabled = await table.getAll(msg.guild.id , {index : 'guildID'}).run();
-  if (enabled.nsfw === true) {
-    return msg.reply('NSFW is already enabled on ' + msg.guild.name);
+  if (args[0] === 'enable') {
+    if (enabled[0].nsfw === true) {
+      return msg.reply('NSFW is already enabled off for ' + msg.guild.name);
+    }
+
+    await table.update({
+      nsfw : true,
+    }).run()
+
+    msg.reply('I\'ve just turned on NSFW commands, Enjoy some noodz')
   }
 
-  await table.update({
-    nsfw : true,
-  }).run()
+  if (args[0] === 'disable') {
+    if (enabled[0].nsfw === false) {
+      return msg.reply('NSFW is already enabled off for ' + msg.guild.name);
+    }
+
+    await table.update({
+      nsfw : false,
+    }).run()
+
+    msg.reply('I\'ve just turned off NSFW commands, #NoNoodzForYou!')
+  }
 
 };
 
