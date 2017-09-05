@@ -28,7 +28,6 @@ exports.run = async (client, msg, args) => {
         });
     }
 };
-// TODO: Add real stuff to the help I am too lazy rn
 exports.help = {
     category: 'nsfw',
     usage: false,
