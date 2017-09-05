@@ -31,8 +31,8 @@ exports.run = async (client, msg, args) => {
 exports.help = {
     category: 'nsfw',
     usage: false,
-    description: 'I will reply with pong fast as possible',
-    detail: 'When using ping the bot will display you the response time in ms',
+    description: 'I will send some rule34',
+    detail: 'Rule34 AKA anime NSFW pictures.',
     botPerm: ['SEND_MESSAGES'],
     authorPerm: [],
     example: 'Blond anime',
