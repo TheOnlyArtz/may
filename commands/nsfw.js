@@ -8,8 +8,8 @@ exports.run = async (client, msg, args) => {
   if (!enabled[0]) {
 
     await r.table('guilds').insert({
-      guildID : guild.id,
-      ownerID : guild.owner.user.id,
+      guildID : msg.guild.id,
+      ownerID : msg.guild.owner.user.id,
     })
 
     return msg.reply('I got you into the database, Please do the command again')
