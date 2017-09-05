@@ -78,7 +78,7 @@ let check = async (client) => {
                             .get(`${guildID}${channelID}`)
                             .update({
                                 livestreams: r.row('livestreams').map((f) => {
-                                        f("name").eq(O.name),
+                                        return f("name").eq(O.name),
                                         f.merge({msgStatus: 'inserted'}),
                                         f
                                     )
