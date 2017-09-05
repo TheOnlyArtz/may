@@ -5,7 +5,7 @@ const table = r.table('guilds');
 
 exports.run = async (client, msg, args) => {
         let enabled = await table.getAll(msg.guild.id, {index : "guildID"}).run();
-        if (enabled[0].NSFW !== true) {
+        if (!enabled[0] || enabled[0].nsfw !== true) {
           return msg.channel.send('NSFW commands are not enabled on this server to enable it call an admin that will do `-nsfw enable`');
         }
         if (!args[0]) {
