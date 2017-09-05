@@ -1,13 +1,17 @@
 const cooldown = require('../functions/cooldown.js');
 const snekfetch = require('snekfetch');
 const xml2js = require('xml2js');
-// TODO: Beautify a bit
-// TODO: Add database check if channel is nsfw also make a make channel nsfw command
+const table = r.table('guilds');
+
 exports.run = async (client, msg, args) => {
-    if (cooldown(msg, 'rule34', 60, 'This command has a cooldown of **1 Minute**!')) {
+        let enabled = await table.getAll(msg.guild.id, {index : "guildID"}).run();
+        if (enabled[0].NSFW !== true) {
+          return msg.channel.send('NSFW commands are not enabled on this server to enable it call an admin that will do `-nsfw enable`');
+        }
         if (!args[0]) {
             return msg.channel.send('Please give a search terms!');
         }
+        if (cooldown(msg, 'rule34', 60, 'This command has a cooldown of **1 Minute**!')) {
         snekfetch.get('http://rule34.xxx/index.php?page=dapi&s=post&q=index&tags=' + encodeURIComponent(args.join(' '))).then(r => {
             if (r.body.length < 75) {
                 return msg.channel.send(':x: Nothing found!');
