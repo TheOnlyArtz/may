@@ -1,4 +1,3 @@
-// TODO: Remove command
 const twitchClass = require('../classes/twitch.js');
 const twitch = new twitchClass(config.CLIENTID);
 const ms = require('ms')
@@ -46,7 +45,7 @@ let check = async (client) => {
                           .get(`${guildID}${channelID}`)
                           .update({
                               livestreams: r.row('livestreams').map((f) => {
-                                  return r.branch(
+                                  r.branch(
                                       f("name").eq(O.name),
                                       f.merge(toInsert1),
                                       f
@@ -79,7 +78,6 @@ let check = async (client) => {
                             .get(`${guildID}${channelID}`)
                             .update({
                                 livestreams: r.row('livestreams').map((f) => {
-                                    return r.branch(
                                         f("name").eq(O.name),
                                         f.merge({msgStatus: 'inserted'}),
                                         f
