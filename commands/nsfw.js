@@ -2,8 +2,13 @@ const table = r.table('guilds');
 exports.run = async (client, msg, args) => {
   let enabled = await table.getAll(msg.guild.id , {index : 'guildID'}).run();
   if (enabled.nsfw === true) {
-    return msg.reply('NSFW is already enabled on ' + msg.guild.name)
+    return msg.reply('NSFW is already enabled on ' + msg.guild.name);
   }
+
+  await table.update({
+    nsfw : true,
+  }).run()
+
 };
 
 exports.help = {
